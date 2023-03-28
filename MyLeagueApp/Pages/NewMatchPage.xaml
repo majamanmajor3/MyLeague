@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.NewMatchPage"
+             Title="Add New Match"
+             BackgroundColor="Gray"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             x:DataType="viewmodel:NewMatchViewModel">
+    <VerticalStackLayout>
+        <Grid Grid.Row="0" HorizontalOptions="Center" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Text="Home Team"/>
+            <Picker Grid.Row="0" Grid.Column="1" x:Name="home_picker" ItemsSource="{Binding Teams}" SelectedItem="{Binding Selected_home, Mode=TwoWay}">
+            </Picker>
+
+            <Label Grid.Row="1" Grid.Column="0" Text="Away Team" />
+            <Picker Grid.Row="1" Grid.Column="1" x:Name="away_picker" ItemsSource="{Binding Teams}" SelectedItem="{Binding Selected_away, Mode=TwoWay}">
+            </Picker>
+
+            <Label Grid.Row="2" Grid.Column="0" Text="Match Date"/>
+            <DatePicker Grid.Row="2" Grid.Column="1" x:Name="game_date" MinimumDate="01/01/2022"
+                        MaximumDate="01/01/2032" Date="{Binding Selected_away, Mode=TwoWay}"/>
+            
+        </Grid>
+        <Button Text="Add Match" Height="23" Width="141" Margin="3" Command="{Binding AddMatchClickedCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

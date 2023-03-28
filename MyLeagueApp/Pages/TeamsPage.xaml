@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.TeamsPage"
+             Title="Teams"
+             BackgroundColor="Gray"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             x:DataType="viewmodel:TeamsViewModel">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="20"
+            Padding="0"
+            VerticalOptions="Start">
+        <ListView ItemsSource="{Binding Teams}" x:Name="cv" ItemSelected="OnItemSelected" SeparatorColor="Black" SeparatorVisibility="Default">
+            <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Team">
+                        <ViewCell Tapped="ViewCell_Tapped">
+                        <Grid Padding="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="2"
+                               Source="{Binding Logo}"
+                               Aspect="AspectFit"
+                               HeightRequest="30"
+                               WidthRequest="30"/>
+                            <Label Grid.Column="1"
+                               Text="{Binding City}"
+                               FontAttributes="Bold"
+                               TextColor="Black"/>
+                            <Label Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding Name}"
+                               FontAttributes="Italic"
+                               VerticalOptions="End"
+                               TextColor="Black"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button
+            Text="NEW TEAM"
+            x:Name="button"
+            TextColor="Black"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="32"
+            VerticalOptions="CenterAndExpand"
+            Command="{Binding AddTeamCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+
+<!--Clicked="NewTeamClicked"-->
+<!--<DataTemplate x:DataType="{x:Type x:Team}">-->

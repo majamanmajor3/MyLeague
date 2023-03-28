@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.LeaguesPage"
+             Title="Leagues"
+             BackgroundColor="Gray"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             x:DataType="viewmodel:LeaguesViewModel">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="200"
+            Padding="30,0"
+            VerticalOptions="Start">
+
+            <Label
+                Text="There are no available leagues. &#10; Please create a new one!"
+                x:Name="label"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                HorizontalOptions="Center"
+                HeightRequest="200"
+                IsVisible="false"/>
+            
+            <ListView ItemsSource="{Binding Leagues}" x:Name="cv" ItemSelected="OnItemSelected" SeparatorColor="Black" SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:League">
+                        <ViewCell Tapped="ViewCell_Tapped">
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                   x:Name="name"
+                                   Text="{Binding Name}"
+                                   FontAttributes="Bold"
+                                   TextColor="Black"/>
+                                <Label Grid.Row="0"
+                                   Grid.Column="2"
+                                   Text="{Binding CreatedTime}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button
+            Text="NEW LEAGUE"
+            x:Name="button"
+            TextColor="Black"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="32"
+            VerticalOptions="CenterAndExpand"
+            Command="{Binding NewLeagueCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

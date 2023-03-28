@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.MainPage"
+             BackgroundColor="AliceBlue"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             x:DataType="viewmodel:MainViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="200"
+            Padding="30,0"
+            VerticalOptions="Start">
+
+            <Label
+                Text="MY LEAGUE"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                HorizontalOptions="Center" />
+
+            <!--<Label
+                Text="valami"
+                x:Name="team"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                HorizontalOptions="Center" />-->
+
+            <HorizontalStackLayout
+                Spacing="200"
+                Padding="100,0"
+                HorizontalOptions="CenterAndExpand">
+
+                <Button
+                    Text="LEAGUES"
+                    x:Name="leagues"
+                    TextColor="Black"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="32"
+                    VerticalOptions="CenterAndExpand"
+                    Command="{Binding OpenLeaguesCommand}"/>
+
+                <Button
+                    Text="TEAMS"
+                    x:Name="teams"
+                    TextColor="Black"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="32"
+                    VerticalOptions="CenterAndExpand"
+                    Command="{Binding OpenTeamsCommand}"/>
+
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+
+<!--Clicked="LeaguesClicked"-->

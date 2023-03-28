@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.Statistics"
+             Title="Statistics"
+             BackgroundColor="Gray"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             x:DataType="viewmodel:StatisticsViewModel">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="20"
+            Padding="0"
+            VerticalOptions="Start">
+            <Label
+                    Text="Statistics"
+                    TextColor="Black"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="20"
+                    HeightRequest="200"
+                    IsVisible="false"/>
+
+            <!--<Grid Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0"
+                       Grid.ColumnSpan="20"
+                                   Text="Number"
+                                   FontAttributes="Bold"
+                                 TextColor="Black"/>
+                <Label Grid.Column="1"
+                       Grid.ColumnSpan="20"
+                                   Text="Logo"
+                                   FontAttributes="Bold"
+                                 TextColor="Black"/>
+                <Label Grid.Column="2"
+                       Grid.ColumnSpan="20"
+                                   Text="Team"
+                                   FontAttributes="Bold"
+                                 TextColor="Black"/>
+                <Label Grid.Column="3"
+                       Grid.ColumnSpan="20"
+                                   Text="Wins"
+                                   FontAttributes="Bold"
+                                 TextColor="Black"/>
+                <Label Grid.Column="4"
+                       Grid.ColumnSpan="20"
+                                   Text="Losses"
+                                   FontAttributes="Bold"
+                                 TextColor="Black"/>
+                <Label Grid.Column="5"
+                       Grid.ColumnSpan="20"
+                                   Text="PPG"
+                                   FontAttributes="Bold"
+                                 TextColor="Black"/>
+                <Label Grid.Column="6"
+                       Grid.ColumnSpan="20"
+                                   Text="APPG"
+                                   FontAttributes="Bold"
+                                 TextColor="Black"/>
+            </Grid>-->
+
+            <ListView ItemsSource="{Binding Teams}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Team">
+                        <ViewCell>
+                            <Grid Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.RowSpan="2"
+                                   Grid.Row="1"
+                                   Grid.Column="1"
+                                   Source="{Binding Logo}"
+                                   Aspect="AspectFit"
+                                   HeightRequest="30"
+                                   WidthRequest="30"/>
+                                <Label Grid.Column="2"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding City}"
+                                   FontAttributes="Bold"
+                                   TextColor="Black"/>
+                                <Label Grid.Row="2"
+                                   Grid.Column="2"
+                                   Text="{Binding Name}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="3"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="0 wins"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="4"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="0 losses"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="5"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="0 PPG"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="6"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="0 APPG"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.NewLeaguePage"
+             Title="Add New League"
+             BackgroundColor="Gray"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             x:DataType="viewmodel:NewLeagueViewModel">
+    <VerticalStackLayout>
+        <Grid Grid.Row="0" HorizontalOptions="Center" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Text="Name"/>
+            <Entry Grid.Row="0" Grid.Column="1" Height="23" Width="200" x:Name="name"
+                     Text="{Binding Name}"/>
+
+        </Grid>
+        <Button Text="Create League" Height="23" Width="141" Margin="3" Command="{Binding CreateLeagueCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>
