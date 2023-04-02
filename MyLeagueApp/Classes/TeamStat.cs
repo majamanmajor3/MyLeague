@@ -16,8 +16,9 @@ namespace MyLeagueApp.Classes
         public int Losses { get; set; }
         public int PPG { get; set; }
         public int APPG { get; set; }
+        public double GD { get; set; }
 
-        public TeamStat(int Id, string Name, string City, string Logo, int Wins, int Losses, int PPG, int APPG)
+        public TeamStat(int Id, string Name, string City, string Logo, int Wins, int Losses, int PPG, int APPG, double GD)
         {
             this.Id = Id;
             this.Name = Name;
@@ -27,6 +28,7 @@ namespace MyLeagueApp.Classes
             this.Losses = Losses;
             this.PPG = PPG;
             this.APPG = APPG;
+            this.GD = GD;
         }
 
         public override string ToString()

@@ -23,6 +23,8 @@ namespace MyLeagueApp.ViewModels
         MySqlDataReader sqlRdC2;
         MySqlDataReader sqlRdC3;
         MySqlDataReader sqlRdC4;
+        MySqlDataReader sqlRdC5;
+        MySqlDataReader sqlRdC6;
         MySqlDataReader sqlRd2;
         MySqlDataReader sqlRd3;
         MySqlDataReader sqlRdDF;
@@ -40,12 +42,54 @@ namespace MyLeagueApp.ViewModels
         [ObservableProperty]
         ObservableCollection<Team> teams;
 
+        [ObservableProperty]
+        ObservableCollection<TeamStat> teamstats;
+
         public StatisticsViewModel(string league_name)
         {
             Teams = new ObservableCollection<Team>();
+            Teamstats = new ObservableCollection<TeamStat>();
             current_league_name = league_name;
             loadTeams();
             loadStats();
+
+            List<TeamStat> list = Teamstats.ToList();
+            list.Sort(CompareTeams);
+            Teamstats = new ObservableCollection<TeamStat>(list);
+        }
+
+        private static int CompareTeams(TeamStat b, TeamStat a)
+        {
+            if (a.GD > b.GD) return 1;
+            else
+            {
+                if(a.GD < b.GD) return -1;
+                else
+                {
+                    if (a.GD == b.GD)
+                    {
+                        if (a.Wins > b.Wins) return 1;
+                        else
+                        {
+                            if (a.Wins < b.Wins) return -1;
+                            else
+                            {
+                                if (a.Wins == b.Wins)
+                                {
+                                    if (a.PPG > b.PPG) return 1;
+                                    else
+                                    {
+                                        if (a.PPG < b.PPG) return -1;
+                                        else return 0;
+                                    }
+                                }
+                                else return 0;
+                            }
+                        }
+                    }
+                    else return 0;
+                }
+            }
         }
 
         private void loadTeams()
@@ -205,12 +249,15 @@ namespace MyLeagueApp.ViewModels
             {
 
                 int team_id;
+                int current_match_id;
                 string team_name;
                 string team_logo;
                 string team_city;
                 int wins;
                 int losses;
                 int ppg;
+                int home_id;
+                int away_id;
                 int appg;
                 int homescore;
                 int awayscore;
@@ -218,11 +265,12 @@ namespace MyLeagueApp.ViewModels
                 int cr = 0;
                 int match_count;
 
-                sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
-                                            ";password=" + password +
-                                            ";database=" + database +
-                                            ";convert zero datetime=True";
+                //sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
+                //                            ";password=" + password +
+                //                            ";database=" + database +
+                //                            ";convert zero datetime=True";
 
+                sqlConn.Close();
                 sqlConn.Open();
 
                 for (int i = 0; i < teams.Count(); i++)
@@ -233,7 +281,12 @@ namespace MyLeagueApp.ViewModels
                     team_city = teams[i].City;
                     team_logo = teams[i].Logo;
 
-                    String sql = "SELECT COUNT(*) FROM `" + current_league_name + " WHERE `home_team` = " + team_id + " OR `away_team` = " + team_id + "; ";
+                    wins = 0;
+                    losses = 0;
+                    ppg = 0;
+                    appg = 0;
+
+                    String sql = "SELECT COUNT(*) FROM `" + current_league_name + "` WHERE `home_team` = " + team_id + " OR `away_team` = " + team_id + "; ";
 
                     sqlCmd = new MySqlCommand(sql, sqlConn);
                     sqlRdC1 = sqlCmd.ExecuteReader();
@@ -246,16 +299,16 @@ namespace MyLeagueApp.ViewModels
                     match_count = Int32.Parse(sqlRdC1[0].ToString());
                     sqlRdC1.Close();
 
-                    sqlConn.Close();
+                    //sqlConn.Close();
 
-                    sqlConn.Open();
+                    //sqlConn.Open();
 
                     for (int j = 0; j < match_count; j++)
                     {
 
-                        String sql_homescore = "SELECT home_score FROM `" + current_league_name + " WHERE `home_team` = " + team_id + " OR `away_team` = " + team_id + " LIMIT " + j + ",1; ";
+                        String sql_match = "SELECT m_id FROM `" + current_league_name + "` WHERE `home_team` = " + team_id + " OR `away_team` = " + team_id + " LIMIT " + j + ",1; ";
 
-                        sqlCmd = new MySqlCommand(sql_homescore, sqlConn);
+                        sqlCmd = new MySqlCommand(sql_match, sqlConn);
                         sqlRdC2 = sqlCmd.ExecuteReader();
 
                         while (sqlRdC2.Read())
@@ -263,12 +316,12 @@ namespace MyLeagueApp.ViewModels
 
                         }
 
-                        homescore = Int32.Parse(sqlRdC2[0].ToString());
+                        current_match_id = Int32.Parse(sqlRdC2[0].ToString());
                         sqlRdC2.Close();
 
-                        String sql_awayscore = "SELECT away_score FROM `" + current_league_name + " WHERE `home_team` = " + team_id + " OR `away_team` = " + team_id + " LIMIT " + j + ",1; ";
+                        String sql_current = "SELECT home_team FROM `" + current_league_name + "` WHERE `m_id` = " + current_match_id + ";";
 
-                        sqlCmd = new MySqlCommand(sql_awayscore, sqlConn);
+                        sqlCmd = new MySqlCommand(sql_current, sqlConn);
                         sqlRdC3 = sqlCmd.ExecuteReader();
 
                         while (sqlRdC3.Read())
@@ -276,17 +329,127 @@ namespace MyLeagueApp.ViewModels
 
                         }
 
-                        awayscore = Int32.Parse(sqlRdC3[0].ToString());
+                        home_id = Int32.Parse(sqlRdC3[0].ToString());
                         sqlRdC3.Close();
+
+                        String sql_currentopp = "SELECT away_team FROM `" + current_league_name + "` WHERE `m_id` = " + current_match_id + ";";
+
+                        sqlCmd = new MySqlCommand(sql_currentopp, sqlConn);
+                        sqlRdC4 = sqlCmd.ExecuteReader();
+
+                        while (sqlRdC4.Read())
+                        {
+
+                        }
+
+                        away_id = Int32.Parse(sqlRdC4[0].ToString());
+                        sqlRdC4.Close();
+
+
+                        if (team_id == home_id)
+                        {
+                            String sql_homes = "SELECT home_score FROM `" + current_league_name + "` WHERE `m_id` = " + current_match_id + ";";
+
+                            sqlCmd = new MySqlCommand(sql_homes, sqlConn);
+                            sqlRdC5 = sqlCmd.ExecuteReader();
+
+                            while (sqlRdC5.Read())
+                            {
+
+                            }
+
+                            homescore = Int32.Parse(sqlRdC5[0].ToString());
+                            sqlRdC5.Close();
+
+                            if (homescore == 0) continue;
+
+                            String sql_aways = "SELECT away_score FROM `" + current_league_name + "` WHERE `m_id` = " + current_match_id + ";";
+
+                            sqlCmd = new MySqlCommand(sql_aways, sqlConn);
+                            sqlRdC6 = sqlCmd.ExecuteReader();
+
+                            while (sqlRdC6.Read())
+                            {
+
+                            }
+
+                            awayscore = Int32.Parse(sqlRdC6[0].ToString());
+                            sqlRdC6.Close();
+
+                            if (homescore > awayscore)
+                            {
+                                wins += 1;
+                                ppg += homescore;
+                                appg += awayscore;
+                            }
+                            else
+                            {
+                                losses += 1;
+                                ppg += homescore;
+                                appg += awayscore;
+                            }
+                        }
+
+                        if (team_id == away_id)
+                        {
+                            String sql_homes = "SELECT home_score FROM `" + current_league_name + "` WHERE `m_id` = " + current_match_id + ";";
+
+                            sqlCmd = new MySqlCommand(sql_homes, sqlConn);
+                            sqlRdC5 = sqlCmd.ExecuteReader();
+
+                            while (sqlRdC5.Read())
+                            {
+
+                            }
+
+                            homescore = Int32.Parse(sqlRdC5[0].ToString());
+                            sqlRdC5.Close();
+
+                            if (homescore == 0) continue;
+
+                            String sql_aways = "SELECT away_score FROM `" + current_league_name + "` WHERE `m_id` = " + current_match_id + ";";
+
+                            sqlCmd = new MySqlCommand(sql_aways, sqlConn);
+                            sqlRdC6 = sqlCmd.ExecuteReader();
+
+                            while (sqlRdC6.Read())
+                            {
+
+                            }
+
+                            awayscore = Int32.Parse(sqlRdC6[0].ToString());
+                            sqlRdC6.Close();
+
+                            if (homescore > awayscore)
+                            {
+                                losses += 1;
+                                ppg += awayscore;
+                                appg += homescore;
+                            }
+                            else
+                            {
+                                wins += 1;
+                                ppg += awayscore;
+                                appg += homescore;
+                            }
+                        }
 
                     }
 
+                    //sqlConn.Close();
+
+                    double gamediff = 0.5 * wins + (-0.5) * losses;
+
+                    teamstats.Add(new TeamStat(team_id, team_name, team_city, team_logo, wins, losses, ppg, appg, gamediff));
+
                 }
+
+                sqlConn.Close();
 
             }
             catch (Exception ex)
             {
-                //DisplayAlert("", ex.Message, "OK");
+                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
             }
 
         }

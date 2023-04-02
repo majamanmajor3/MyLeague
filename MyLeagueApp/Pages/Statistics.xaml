@@ -20,61 +20,56 @@
                     HeightRequest="200"
                     IsVisible="false"/>
 
-            <!--<Grid Padding="5">
+            <Grid Padding="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="143" />
+                    <ColumnDefinition Width="168" />
+                    <ColumnDefinition Width="147" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="0"
                        Grid.ColumnSpan="20"
-                                   Text="Number"
-                                   FontAttributes="Bold"
+                                   Text=""
+                                   FontAttributes="Italic"
                                  TextColor="Black"/>
                 <Label Grid.Column="1"
                        Grid.ColumnSpan="20"
-                                   Text="Logo"
-                                   FontAttributes="Bold"
+                                   Text="Team"
+                                   FontAttributes="Italic"
                                  TextColor="Black"/>
                 <Label Grid.Column="2"
                        Grid.ColumnSpan="20"
-                                   Text="Team"
-                                   FontAttributes="Bold"
+                                   Text="Wins"
+                                   FontAttributes="Italic"
                                  TextColor="Black"/>
                 <Label Grid.Column="3"
                        Grid.ColumnSpan="20"
-                                   Text="Wins"
-                                   FontAttributes="Bold"
+                                   Text="Losses"
+                                   FontAttributes="Italic"
                                  TextColor="Black"/>
                 <Label Grid.Column="4"
                        Grid.ColumnSpan="20"
-                                   Text="Losses"
-                                   FontAttributes="Bold"
+                                   Text="PPG"
+                                   FontAttributes="Italic"
                                  TextColor="Black"/>
                 <Label Grid.Column="5"
                        Grid.ColumnSpan="20"
-                                   Text="PPG"
-                                   FontAttributes="Bold"
-                                 TextColor="Black"/>
-                <Label Grid.Column="6"
-                       Grid.ColumnSpan="20"
                                    Text="APPG"
-                                   FontAttributes="Bold"
+                                   FontAttributes="Italic"
                                  TextColor="Black"/>
-            </Grid>-->
+            </Grid>
 
-            <ListView ItemsSource="{Binding Teams}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
+            <ListView ItemsSource="{Binding Teamstats}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Team">
+                    <DataTemplate x:DataType="model:TeamStat">
                         <ViewCell>
                             <Grid Padding="5">
                                 <Grid.RowDefinitions>
@@ -117,28 +112,28 @@
                                 <Label Grid.Column="3"
                                    Grid.Row="1"
                                    WidthRequest="150"
-                                   Text="0 wins"
+                                   Text="{Binding Wins}"
                                    FontAttributes="Italic"
                                    VerticalOptions="End"
                                    TextColor="Black"/>
                                 <Label Grid.Column="4"
                                    Grid.Row="1"
                                    WidthRequest="150"
-                                   Text="0 losses"
+                                   Text="{Binding Losses}"
                                    FontAttributes="Italic"
                                    VerticalOptions="End"
                                    TextColor="Black"/>
                                 <Label Grid.Column="5"
                                    Grid.Row="1"
                                    WidthRequest="150"
-                                   Text="0 PPG"
+                                   Text="{Binding PPG}"
                                    FontAttributes="Italic"
                                    VerticalOptions="End"
                                    TextColor="Black"/>
                                 <Label Grid.Column="6"
                                    Grid.Row="1"
                                    WidthRequest="150"
-                                   Text="0 APPG"
+                                   Text="{Binding APPG}"
                                    FontAttributes="Italic"
                                    VerticalOptions="End"
                                    TextColor="Black"/>
