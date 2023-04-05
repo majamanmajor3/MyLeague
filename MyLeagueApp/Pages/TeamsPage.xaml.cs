@@ -1,6 +1,7 @@
 using System.Data;
 using MyLeagueApp.Classes;
 using MyLeagueApp.Converters;
+using MyLeagueApp.Pages;
 using MyLeagueApp.ViewModels;
 using MySql.Data.MySqlClient;
 
@@ -146,11 +147,6 @@ public partial class TeamsPage : ContentPage
 
     }
 
-    void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-    {
-        Team item = args.SelectedItem as Team;
-    }
-
     private void ViewCell_Tapped(object sender, System.EventArgs e)
     {
         var viewCell = (ViewCell)sender;
@@ -160,6 +156,15 @@ public partial class TeamsPage : ContentPage
     private void NewTeamClicked(object sender, EventArgs e)
     {
         NewTeamPage page = new NewTeamPage();
+        Navigation.PushAsync(page);
+    }
+
+    void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+    {
+        Team item = args.SelectedItem as Team;
+        int id = item.Id;
+        //DisplayAlert("", name, "OK");
+        TeamOverviewPage page = new TeamOverviewPage(item.Id);
         Navigation.PushAsync(page);
     }
 

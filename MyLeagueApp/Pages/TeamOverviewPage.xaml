@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.Pages.TeamOverviewPage"
+             Title="{Binding TeamFullName}"
+             BackgroundColor="Gray"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
+             x:DataType="viewmodel:TeamOverviewViewModel">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="10"
+            Padding="30,0"
+            VerticalOptions="Start">
+
+            <Label
+                Text="{Binding TeamCity}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                HorizontalOptions="Center"/>
+
+            <Label
+                Text="{Binding TeamName}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                HorizontalOptions="Center"/>
+
+            <Image 
+                Source="{Binding TeamLogo}"
+                Aspect="AspectFit"
+                HeightRequest="200"
+                WidthRequest="200"/>
+
+            <!--<maps:Map x:Name="map" MapType="Satellite"/>-->
+
+            <Label 
+                Text="Players:"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"/>
+
+            <ListView ItemsSource="{Binding Players}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Player">
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.RowSpan="2"
+                               Source="{Binding Photo}"
+                               Aspect="AspectFit"
+                               HeightRequest="60"
+                               WidthRequest="60"/>
+                                <Label Grid.Column="1"
+                               Text="{Binding FullName}"
+                               FontAttributes="Bold"
+                               TextColor="Black"
+                               WidthRequest="250"/>
+                                <Label Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding PositionName}"
+                               FontAttributes="Italic"
+                               TextColor="Black"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <Button
+            Text="NEW PLAYER"
+            x:Name="button"
+            TextColor="Black"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="32"
+            VerticalOptions="CenterAndExpand"
+            Clicked="NewPlayerClicked"/>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

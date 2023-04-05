@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MyLeagueApp.Classes;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
@@ -261,5 +262,6 @@ namespace MyLeagueApp.ViewModels
                 Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
             }
         }
+
     }
 }
