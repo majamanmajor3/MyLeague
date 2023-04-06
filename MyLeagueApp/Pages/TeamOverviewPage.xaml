@@ -35,7 +35,33 @@
                 HeightRequest="200"
                 WidthRequest="200"/>
 
-            <!--<maps:Map x:Name="map" MapType="Satellite"/>-->
+            <Label
+                Text="{Binding TeamArena.Name}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                HorizontalOptions="Center"/>
+
+            <Label
+                Text="{Binding TeamArena.City}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                HorizontalOptions="Center"/>
+
+            <Label
+                Text="{Binding TeamArena.State}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                HorizontalOptions="Center"/>
+
+            <Button Text="Show on Map"
+                        Command="{Binding OpenMapCommand}"
+                        HorizontalOptions="Center"
+                        WidthRequest="200"
+                        Margin="8"
+                        Style="{StaticResource ButtonOutline}"/>
 
             <Label 
                 Text="Players:"

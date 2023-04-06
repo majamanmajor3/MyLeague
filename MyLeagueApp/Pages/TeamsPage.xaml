@@ -45,7 +45,52 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button
+            
+            <!--<CollectionView
+            ItemsSource="{Binding Teams}"
+            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="100">
+                        --><!--<Image
+                            HorizontalOptions="Center"
+                            Source="nodata.png"
+                            HeightRequest="160"
+                            WidthRequest="160"
+                            VerticalOptions="Center" />--><!--
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                    --><!--<LinearItemsLayout Orientation="Horizontal"/>--><!--
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Team">
+                        <Grid Padding="5">
+                            <Frame HeightRequest="30">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TeamsViewModel}}, Path=GoToDetailsCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid Padding="0" ColumnDefinitions="125,*">
+                                    <Image Aspect="AspectFill" Source="{Binding Logo}"
+                                       WidthRequest="30"
+                                       HeightRequest="30"/>
+                                    <VerticalStackLayout
+                                    VerticalOptions="Center"
+                                    Grid.Column="1"
+                                    Padding="5">
+                                        <Label FontAttributes="Bold" Text="{Binding City}" />
+                                        <Label FontAttributes="Italic" Text="{Binding Name}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->
+            
+            <Button
             Text="NEW TEAM"
             x:Name="button"
             TextColor="Black"

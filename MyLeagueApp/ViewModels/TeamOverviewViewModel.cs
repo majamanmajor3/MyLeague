@@ -12,9 +12,11 @@ using Microsoft.Maui.Maps;
 using Map = Microsoft.Maui.Controls.Maps.Map;
 using CommunityToolkit.Mvvm.Input;
 using MyLeagueApp.Pages;
+using System.Diagnostics;
 
 namespace MyLeagueApp.ViewModels
 {
+    [QueryProperty(nameof(Team), "Team")]
     partial class TeamOverviewViewModel : ObservableObject
     {
         MySqlConnection sqlConn = new MySqlConnection();
@@ -31,6 +33,12 @@ namespace MyLeagueApp.ViewModels
         MySqlDataReader sqlRd7;
         MySqlDataReader sqlRd8;
         MySqlDataReader sqlRdDF;
+        MySqlDataReader sqlRdA1;
+        MySqlDataReader sqlRdA2;
+        MySqlDataReader sqlRdA3;
+        MySqlDataReader sqlRdA4;
+        MySqlDataReader sqlRdA5;
+        MySqlDataReader sqlRdA6;
         MySqlDataReader sqlRdDate;
 
         String server = "localhost";
@@ -40,6 +48,12 @@ namespace MyLeagueApp.ViewModels
 
         [ObservableProperty]
         ObservableCollection<Player> players;
+
+        [ObservableProperty]
+        private Team team;
+
+        [ObservableProperty]
+        private int teamId;
 
         [ObservableProperty]
         private string teamName;
@@ -53,6 +67,11 @@ namespace MyLeagueApp.ViewModels
         [ObservableProperty]
         private string teamFullName;
 
+        [ObservableProperty]
+        private Arena teamArena;
+
+        Microsoft.Maui.ApplicationModel.IMap map;
+
         public TeamOverviewViewModel(int team_id)
         {
             Players = new ObservableCollection<Player>();
@@ -63,6 +82,9 @@ namespace MyLeagueApp.ViewModels
             List<Player> list = Players.ToList();
             list.Sort(CompareTeams);
             Players = new ObservableCollection<Player>(list);
+
+            Microsoft.Maui.ApplicationModel.IMap map;
+            //this.map = map;
         }
 
         private static int CompareTeams(Player b, Player a)
@@ -128,7 +150,101 @@ namespace MyLeagueApp.ViewModels
                 TeamLogo = sqlRd3[0].ToString();
 
                 sqlRd3.Close();
+
+                int arena_id;
+                string arena_name;
+                string arena_city;
+                string arena_state;
+                double arena_latitude;
+                double arena_longitude;
+
+                String sqlArena1 = "SELECT arena_id FROM `arenas` WHERE `team_id`=" + team_id + ";";
+
+                sqlCmd = new MySqlCommand(sqlArena1, sqlConn);
+                sqlRdA1 = sqlCmd.ExecuteReader();
+
+                while (sqlRdA1.Read())
+                {
+
+                }
+
+                arena_id = Int32.Parse(sqlRdA1[0].ToString());
+
+                sqlRdA1.Close();
+
+                String sqlArena2 = "SELECT name FROM `arenas` WHERE `team_id`=" + team_id + ";";
+
+                sqlCmd = new MySqlCommand(sqlArena2, sqlConn);
+                sqlRdA2 = sqlCmd.ExecuteReader();
+
+                while (sqlRdA2.Read())
+                {
+
+                }
+
+                arena_name = sqlRdA2[0].ToString();
+
+                sqlRdA2.Close();
+
+                String sqlArena3 = "SELECT city FROM `arenas` WHERE `team_id`=" + team_id + ";";
+
+                sqlCmd = new MySqlCommand(sqlArena3, sqlConn);
+                sqlRdA3 = sqlCmd.ExecuteReader();
+
+                while (sqlRdA3.Read())
+                {
+
+                }
+
+                arena_city = sqlRdA3[0].ToString();
+
+                sqlRdA3.Close();
+
+                String sqlArena4 = "SELECT state FROM `arenas` WHERE `team_id`=" + team_id + ";";
+
+                sqlCmd = new MySqlCommand(sqlArena4, sqlConn);
+                sqlRdA4 = sqlCmd.ExecuteReader();
+
+                while (sqlRdA4.Read())
+                {
+
+                }
+
+                arena_state = sqlRdA4[0].ToString();
+
+                sqlRdA4.Close();
+
+                String sqlArena5 = "SELECT latitude FROM `arenas` WHERE `team_id`=" + team_id + ";";
+
+                sqlCmd = new MySqlCommand(sqlArena5, sqlConn);
+                sqlRdA5 = sqlCmd.ExecuteReader();
+
+                while (sqlRdA5.Read())
+                {
+
+                }
+
+                arena_latitude = Double.Parse(sqlRdA5[0].ToString());
+
+                sqlRdA5.Close();
+
+                String sqlArena6 = "SELECT longitude FROM `arenas` WHERE `team_id`=" + team_id + ";";
+
+                sqlCmd = new MySqlCommand(sqlArena6, sqlConn);
+                sqlRdA6 = sqlCmd.ExecuteReader();
+
+                while (sqlRdA6.Read())
+                {
+
+                }
+
+                arena_longitude = Double.Parse(sqlRdA6[0].ToString());
+
+                sqlRdA6.Close();
+
                 sqlConn.Close();
+
+                TeamArena = new Arena(arena_id, arena_name, arena_city, arena_state, arena_latitude, arena_longitude, team_id);
 
             }
             catch (Exception ex)
@@ -272,6 +388,24 @@ namespace MyLeagueApp.ViewModels
         void AddPlayer()
         {
             Shell.Current.GoToAsync(nameof(NewPlayerPage));
+        }
+
+        [RelayCommand]
+        async Task OpenMap()
+        {
+            try
+            {
+                await map.OpenAsync(TeamArena.Latitude, TeamArena.Longitude, new MapLaunchOptions
+                {
+                    Name = TeamArena.Name,
+                    NavigationMode = NavigationMode.None
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to launch maps: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error, no Maps app!", ex.Message, "OK");
+            }
         }
 
     }

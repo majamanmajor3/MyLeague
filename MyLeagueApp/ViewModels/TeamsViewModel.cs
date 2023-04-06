@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MyLeagueApp.Classes;
+using MyLeagueApp.Pages;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -147,6 +148,19 @@ namespace MyLeagueApp.ViewModels
             {
                 //DisplayAlert("", ex.Message, "OK");
             }
+
+        }
+
+        [RelayCommand]
+        async Task GoToDetails(Team team)
+        {
+            if (team == null)
+                return;
+
+            await Shell.Current.GoToAsync(nameof(TeamOverviewPage), true, new Dictionary<string, object>
+        {
+           {"Team", team }
+        });
 
         }
 
