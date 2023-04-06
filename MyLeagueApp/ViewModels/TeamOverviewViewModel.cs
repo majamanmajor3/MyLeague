@@ -9,10 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui.Maps;
-using Map = Microsoft.Maui.Controls.Maps.Map;
+//using Map = Microsoft.Maui.Controls.Maps.Map;
 using CommunityToolkit.Mvvm.Input;
 using MyLeagueApp.Pages;
 using System.Diagnostics;
+using Microsoft.Maui.ApplicationModel;
 
 namespace MyLeagueApp.ViewModels
 {
@@ -69,6 +70,9 @@ namespace MyLeagueApp.ViewModels
 
         [ObservableProperty]
         private Arena teamArena;
+
+        [ObservableProperty]
+        private string teamArenaLocation;
 
         Microsoft.Maui.ApplicationModel.IMap map;
 
@@ -244,6 +248,8 @@ namespace MyLeagueApp.ViewModels
 
                 sqlConn.Close();
 
+                TeamArenaLocation = arena_city + ", " + arena_state;
+
                 TeamArena = new Arena(arena_id, arena_name, arena_city, arena_state, arena_latitude, arena_longitude, team_id);
 
             }
@@ -395,7 +401,7 @@ namespace MyLeagueApp.ViewModels
         {
             try
             {
-                await map.OpenAsync(TeamArena.Latitude, TeamArena.Longitude, new MapLaunchOptions
+                await Map.Default.OpenAsync(TeamArena.Latitude, TeamArena.Longitude, new MapLaunchOptions
                 {
                     Name = TeamArena.Name,
                     NavigationMode = NavigationMode.None

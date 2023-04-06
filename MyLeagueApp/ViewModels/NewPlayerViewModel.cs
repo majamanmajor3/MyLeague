@@ -130,12 +130,15 @@ namespace MyLeagueApp.ViewModels
 
                     sqlConn.Close();
 
+                    Application.Current.MainPage.DisplayAlert("", "Your new player has been created!", "OK");
+
                     Shell.Current.GoToAsync(nameof(TeamsPage));
 
                 }
                 catch (Exception ex)
                 {
                     Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                    sqlConn.Close();
                 }
             }
         }

@@ -204,6 +204,7 @@ namespace MyLeagueApp.ViewModels
             catch (Exception ex)
             {
                 Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                sqlConn2.Close();
             }
 
         }
@@ -272,13 +273,16 @@ namespace MyLeagueApp.ViewModels
 
                 sqlConn2.Close();
 
-                Shell.Current.GoToAsync("..");
+                Application.Current.MainPage.DisplayAlert("", "Your match has been edited succesfully!", "OK");
+
+                Shell.Current.GoToAsync(nameof(LeaguesPage));
                 // oldd meg szebben !!!
 
             }
             catch (Exception ex)
             {
                 Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                sqlConn2.Close();
             }
         }
     }

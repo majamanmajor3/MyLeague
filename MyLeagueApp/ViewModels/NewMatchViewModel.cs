@@ -153,6 +153,7 @@ namespace MyLeagueApp.ViewModels
             catch (Exception ex)
             {
                 //DisplayAlert("", ex.Message, "OK");
+                sqlConn.Close();
             }
 
         }
@@ -228,6 +229,7 @@ namespace MyLeagueApp.ViewModels
                 catch (Exception ex)
                 {
                     Microsoft.Maui.Controls.Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                    sqlConn.Close();
                 }
             }
         }

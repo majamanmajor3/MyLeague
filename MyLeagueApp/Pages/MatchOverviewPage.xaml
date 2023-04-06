@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.Pages.MatchOverviewPage"
+             Title="MatchOverviewPage"
+             BackgroundColor="Gray"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
+             x:DataType="viewmodel:MatchOverviewViewModel">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="0"
+            Padding="10,0"
+            VerticalOptions="Start">
+
+            <Label
+                Text="{Binding Arena.Name}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="25"
+                FontAttributes="Italic"
+                HorizontalOptions="Center"/>
+
+            <Label
+                Text="{Binding ArenaLocation}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                FontAttributes="Italic"
+                HorizontalOptions="Center"/>
+
+            <Label
+                Text="{Binding MatchDate}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Center"/>
+
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="250" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="200" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="650" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label
+                Text="{Binding HomeTeam.Name}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                FontAttributes="Bold, Italic"
+                HorizontalOptions="Center"/>
+
+                <Label
+                Grid.Column="1"
+                Text="{Binding AwayTeam.Name}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                FontAttributes="Bold, Italic"
+                HorizontalOptions="Center"/>
+
+                <Image
+                Grid.Row="1"
+                Source="{Binding HomeTeam.Logo}"
+                Aspect="AspectFit"
+                HeightRequest="200"
+                WidthRequest="200"/>
+
+                <Image 
+                Grid.Column="1"
+                Grid.Row="1"
+                Source="{Binding AwayTeam.Logo}"
+                Aspect="AspectFit"
+                HeightRequest="200"
+                WidthRequest="200"/>
+
+                <Label
+                Text="{Binding HomeScore}"
+                TextColor="Black"
+                Grid.Row="2"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                FontAttributes="Bold, Italic"
+                HorizontalOptions="Center"/>
+
+                <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Text="{Binding AwayScore}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                FontAttributes="Bold, Italic"
+                HorizontalOptions="Center"/>
+
+                <Label
+                Grid.Row="3"
+                Text="Star Players: "
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                HorizontalOptions="Start"/>
+
+                <Image 
+                Grid.Row="4"
+                Source="{Binding StarPlayerHome.Photo}"
+                Aspect="AspectFit"
+                HeightRequest="200"
+                WidthRequest="200"/>
+
+                <Image 
+                Grid.Row="4"
+                Grid.Column="1"
+                Source="{Binding StarPlayerAway.Photo}"
+                Aspect="AspectFit"
+                HeightRequest="200"
+                WidthRequest="200"/>
+
+                <Label
+                Grid.Row="5"
+                Text="{Binding StarPlayerHome}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="30"
+                HorizontalOptions="Center"/>
+
+                <Label
+                Grid.Row="5"
+                Grid.Column="1"
+                Text="{Binding StarPlayerAway}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="30"
+                HorizontalOptions="Center"/>
+
+            </Grid>
+
+            <Button Text="EDIT SCORE"
+                    Clicked="EditScoreButton"
+                    HorizontalOptions="Center"
+                    WidthRequest="200"
+                    Margin="8"
+                    Style="{StaticResource ButtonOutline}"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

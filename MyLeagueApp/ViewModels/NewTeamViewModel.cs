@@ -122,12 +122,15 @@ namespace MyLeagueApp.ViewModels
 
                     sqlConn.Close();
 
-                    Shell.Current.GoToAsync(nameof(TeamsPage));
+                    Application.Current.MainPage.DisplayAlert("", "Your new team has been created!", "OK");
+
+                    Shell.Current.GoToAsync(nameof(MainPage));
 
                 }
                 catch (Exception ex)
                 {
                     //DisplayAlert("", ex.Message, "OK");
+                    sqlConn.Close();
                 }
             }
         }

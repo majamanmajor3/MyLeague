@@ -17,5 +17,6 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(EditMatchViewModel), typeof(EditMatchViewModel));
 		Routing.RegisterRoute(nameof(TeamOverviewViewModel), typeof(TeamOverviewViewModel));
 		Routing.RegisterRoute(nameof(NewPlayerViewModel), typeof(NewPlayerViewModel));
+		Routing.RegisterRoute(nameof(MatchOverviewViewModel), typeof(MatchOverviewViewModel));
 	}
 }

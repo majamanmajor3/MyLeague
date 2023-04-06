@@ -1,4 +1,5 @@
 using MyLeagueApp.Classes;
+using MyLeagueApp.Pages;
 using MyLeagueApp.ViewModels;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Utilities.IO;
@@ -279,7 +280,9 @@ public partial class CurrentLeaguePage : ContentPage
     void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
     {
         Match item = args.SelectedItem as Match;
-        EditMatchPage page = new EditMatchPage(current_league_name, item.Id);
+        //EditMatchPage page = new EditMatchPage(current_league_name, item.Id);
+        //Navigation.PushAsync(page);
+        MatchOverviewPage page = new MatchOverviewPage(item.Id, current_league_name);
         Navigation.PushAsync(page);
     }
 }
