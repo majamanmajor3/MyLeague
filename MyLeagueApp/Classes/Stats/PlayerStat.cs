@@ -9,6 +9,7 @@ namespace MyLeagueApp.Classes.Stats
     internal class PlayerStat
     {
         public int Id { get; set; }
+        public int MatchId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public double Points { get; set; }
@@ -19,9 +20,10 @@ namespace MyLeagueApp.Classes.Stats
         public double ThreesMade { get; set; }
         public double ThreesAttempted { get; set; }
 
-        public PlayerStat(int Id, string FirstName, string LastName, double Points, double Rebounds, double Assists, double Steals, double Blocks, double ThreesMade, double ThreesAttempted)
+        public PlayerStat(int Id, int MatchId, string FirstName, string LastName, double Points, double Rebounds, double Assists, double Steals, double Blocks, double ThreesMade, double ThreesAttempted)
         {
             this.Id = Id;
+            this.MatchId = MatchId;
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.Points = Points;

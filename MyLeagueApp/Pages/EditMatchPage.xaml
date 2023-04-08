@@ -4,45 +4,155 @@
              x:Class="MyLeagueApp.EditMatchPage"
              Title="Edit Match" Height="450" Width="800"
              BackgroundColor="Gray"
-             xmlns:model="clr-namespace:MyLeagueApp.Classes"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes.Stats"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
              x:DataType="viewmodel:EditMatchViewModel">
-    <VerticalStackLayout>
-        <Grid Grid.Row="0" HorizontalOptions="Center" Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid Grid.Row="0" HorizontalOptions="Center" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <!--<Label Grid.Row="0" Grid.Column="0" Text="Edit Home Team"/>
+                <!--<Label Grid.Row="0" Grid.Column="0" Text="Edit Home Team"/>
             <Picker Grid.Row="0" Grid.Column="1" x:Name="home_picker">
             </Picker>-->
 
-            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Homename}" x:Name="homename"/>
-            <Entry Grid.Row="1" Grid.Column="1" Height="23" Width="200" x:Name="homescore"
-                     Text="{Binding HomeScore}"/>
+                <Label Grid.Row="1" Grid.Column="0" Text="{Binding Homename}" TextColor="Black" x:Name="homename"/>
+                <Entry Grid.Row="1" Grid.Column="1" Height="23" Width="200" x:Name="homescore"
+                     Text="{Binding HomeScore}" TextColor="Black"/>
 
-            <!--<Label Grid.Row="2" Grid.Column="0" Text="Edit Away Team" />
+                <!--<Label Grid.Row="2" Grid.Column="0" Text="Edit Away Team" />
             <Picker Grid.Row="2" Grid.Column="1" x:Name="away_picker">
             </Picker>-->
 
-            <Label Grid.Row="3" Grid.Column="0" Text="{Binding Awayname}" x:Name="awayname"/>
-            <Entry Grid.Row="3" Grid.Column="1" Height="23" Width="200" x:Name="awayscore"
-                     Text="{Binding AwayScore}"/>
+                <Label Grid.Row="3" Grid.Column="0" Text="{Binding Awayname}" TextColor="Black" x:Name="awayname"/>
+                <Entry Grid.Row="3" Grid.Column="1" Height="23" Width="200" x:Name="awayscore"
+                     Text="{Binding AwayScore}" TextColor="Black"/>
 
-            <!--<Label Grid.Row="4" Grid.Column="0" Text="Edit Match Date"/>
+                <!--<Label Grid.Row="4" Grid.Column="0" Text="Edit Match Date"/>
             <DatePicker Grid.Row="4" Grid.Column="1" x:Name="game_date" MinimumDate="01/01/2022"
                         MaximumDate="01/01/2032"/>-->
 
-        </Grid>
-        <Button Text="Confirm Match Edit" Height="23" Width="141" Margin="3" Command="{Binding ConfirmMatchClickedCommand}"/>
-    </VerticalStackLayout>
+            </Grid>
+
+            <ListView ItemsSource="{Binding Players}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:PlayerStat">
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                               Text="{Binding LastName}"
+                               FontAttributes="Bold"
+                               TextColor="Black"
+                               WidthRequest="250"/>
+                                <Label
+                               Grid.Column="1"
+                               Text="Points"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               WidthRequest="250"/>
+                                <Entry 
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               TextColor="Black"
+                               Text="{Binding Points}"/>
+                                <Label
+                               Grid.Column="2"
+                               Text="Rebounds"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               WidthRequest="250"/>
+                                <Entry 
+                               Grid.Row="1"
+                               Grid.Column="2"
+                               TextColor="Black"
+                               Text="{Binding Rebounds}"/>
+                                <Label
+                               Grid.Column="3"
+                               Text="Assists"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               WidthRequest="250"/>
+                                <Entry 
+                               Grid.Row="1"
+                               Grid.Column="3"
+                               TextColor="Black"
+                               Text="{Binding Assists}"/>
+                                <Label
+                               Grid.Column="4"
+                               Text="Steals"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               WidthRequest="250"/>
+                                <Entry 
+                               Grid.Row="1"
+                               Grid.Column="4"
+                               TextColor="Black"
+                               Text="{Binding Steals}"/>
+                                <Label
+                               Grid.Column="5"
+                               Text="Blocks"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               WidthRequest="250"/>
+                                <Entry 
+                               Grid.Row="1"
+                               Grid.Column="5"
+                               TextColor="Black"
+                               Text="{Binding Blocks}"/>
+                                <Label
+                               Grid.Column="6"
+                               Text="3s Made"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               WidthRequest="250"/>
+                                <Entry 
+                               Grid.Row="1"
+                               Grid.Column="6"
+                               TextColor="Black"
+                               Text="{Binding ThreesMade}"/>
+                                <Label
+                               Grid.Column="7"
+                               Text="3s Attempted"
+                               FontAttributes="Bold"
+                                TextColor="Black"
+                               WidthRequest="250"/>
+                                <Entry 
+                               Grid.Row="1"
+                               Grid.Column="7"
+                               TextColor="Black"
+                               Text="{Binding ThreesAttempted}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Text="Confirm Match Edit" Height="23" Width="141" Margin="3" Command="{Binding ConfirmMatchClickedCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
