@@ -254,7 +254,7 @@ namespace MyLeagueApp.ViewModels
 
                     sqlConn.Close();
 
-                    matches.Add(new Match(Int32.Parse(match_id), home_name, away_name, home_city, away_city, home_score, away_score, home_logo, away_logo, date));
+                    Matches.Add(new Match(Int32.Parse(match_id), home_name, away_name, home_city, away_city, home_score, away_score, home_logo, away_logo, date));
                 }
             }
             catch (Exception ex)

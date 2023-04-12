@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MyLeagueApp.Classes;
+using MyLeagueApp.Classes.Stats;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -74,10 +75,37 @@ namespace MyLeagueApp.ViewModels
         private Player starPlayerAway;
 
         [ObservableProperty]
+        private PlayerStat starPlayerStatsHome;
+
+        [ObservableProperty]
+        private PlayerStat starPlayerStatsAway;
+
+        [ObservableProperty]
+        private string homePoints;
+
+        [ObservableProperty]
+        private string awayPoints;
+
+        [ObservableProperty]
+        private string homeRebounds;
+
+        [ObservableProperty]
+        private string awayRebounds;
+
+        [ObservableProperty]
+        private string homeAssists;
+
+        [ObservableProperty]
+        private string awayAssists;
+
+        [ObservableProperty]
         private Arena arena;
 
         [ObservableProperty]
         private string arenaLocation;
+
+        [ObservableProperty]
+        private string matchup;
 
         public MatchOverviewViewModel(string league_name, int match_id)
         {
@@ -88,6 +116,17 @@ namespace MyLeagueApp.ViewModels
             loadSelections();
             loadArena(HomeTeam.Id);
             loadStarPlayers(HomeTeam.Id, AwayTeam.Id);
+            loadStarPlayersStats(starPlayerHome.Id, starPlayerAway.Id);
+            Matchup = HomeTeam.Name + " vs. " + AwayTeam.Name;
+            if (StarPlayerStatsHome.Points != 0 || StarPlayerStatsAway.Points != 0)
+            {
+                HomePoints = StarPlayerStatsHome.Points + " PPG";
+                AwayPoints = StarPlayerStatsAway.Points + " PPG";
+                HomeRebounds = StarPlayerStatsHome.Rebounds + " RPG";
+                AwayRebounds = StarPlayerStatsAway.Rebounds + " RPG";
+                HomeAssists = StarPlayerStatsHome.Assists + " APG";
+                AwayAssists = StarPlayerStatsAway.Assists + " APG";
+            }
         }
 
         private void loadTeams()
@@ -508,7 +547,7 @@ namespace MyLeagueApp.ViewModels
                 if (position == 4) pos_name = "Power Forward";
                 if (position == 5) pos_name = "Center";
 
-                StarPlayerHome = new Player(24515, first_name, last_name, home_id, photo, position, pos_name, full_name);
+                StarPlayerHome = new Player(player_id, first_name, last_name, home_id, photo, position, pos_name, full_name);
 
                 sqlConn.Open();
 
@@ -590,6 +629,318 @@ namespace MyLeagueApp.ViewModels
                 if (position == 5) pos_name = "Center";
 
                 StarPlayerAway = new Player(player_id, first_name, last_name, away_id, photo, position, pos_name, full_name);
+
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+            }
+        }
+
+        private void loadStarPlayersStats(int home_id, int away_id)
+        {
+            try
+            {
+
+                int player_id;
+                string first_name;
+                string last_name;
+                string photo;
+                int position;
+
+                int home_gamecount;
+                int away_gamecount;
+                int total_points = 0;
+                double average_points;
+                int total_rebounds = 0;
+                double average_rebounds;
+                int total_assists = 0;
+                double average_assists;
+                int total_steals = 0;
+                double average_steals;
+                int total_blocks = 0;
+                double average_blocks;
+                int total_threesmade = 0;
+                double average_threesmade;
+                int total_threesatt = 0;
+                double average_threesatt;
+
+                sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
+                                            ";password=" + password +
+                                            ";database=" + database +
+                                            ";convert zero datetime=True";
+
+                sqlConn.Open();
+
+                String sql_m_id = "SELECT COUNT(*) FROM `" + current_league_name + "_stats` WHERE `player_id`=" + home_id + "; ";
+
+                sqlCmd = new MySqlCommand(sql_m_id, sqlConn);
+                sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                while (sqlRdHS1.Read())
+                {
+
+                }
+
+                home_gamecount = Int32.Parse(sqlRdHS1[0].ToString());
+                sqlRdHS1.Close();
+
+                for (int i = 0; i < home_gamecount; i++)
+                {
+
+                    String sql_points = "SELECT points FROM `" + current_league_name + "_stats` WHERE `player_id`=" + home_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_points, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_points = total_points + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_rebounds = "SELECT rebounds FROM `" + current_league_name + "_stats` WHERE `player_id`=" + home_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_rebounds, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_rebounds = total_rebounds + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_assists = "SELECT assists FROM `" + current_league_name + "_stats` WHERE `player_id`=" + home_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_assists, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_assists = total_assists + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_steals = "SELECT steals FROM `" + current_league_name + "_stats` WHERE `player_id`=" + home_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_steals, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_steals = total_steals + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_blocks = "SELECT blocks FROM `" + current_league_name + "_stats` WHERE `player_id`=" + home_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_blocks, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_blocks = total_blocks + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_tmade = "SELECT threesmade FROM `" + current_league_name + "_stats` WHERE `player_id`=" + home_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_tmade, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_threesmade = total_threesmade + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_tatt = "SELECT threesattempted FROM `" + current_league_name + "_stats` WHERE `player_id`=" + home_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_tatt, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_threesatt = total_threesatt + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                }
+
+                if (home_gamecount == 0)
+                {
+                    StarPlayerStatsHome = new PlayerStat(home_id, current_match_id, StarPlayerHome.FirstName, StarPlayerHome.LastName, 0, 0, 0, 0, 0, 0, 0);
+                }
+                else
+                {
+                    average_points = total_points / home_gamecount;
+                    average_rebounds = total_rebounds / home_gamecount;
+                    average_assists = total_assists / home_gamecount;
+                    average_steals = total_steals / home_gamecount;
+                    average_blocks = total_blocks / home_gamecount;
+                    average_threesmade = total_threesmade / home_gamecount;
+                    average_threesatt = total_threesatt / home_gamecount;
+
+                    StarPlayerStatsHome = new PlayerStat(home_id, current_match_id, StarPlayerHome.FirstName, StarPlayerHome.LastName, average_points, average_rebounds, average_assists, average_steals, average_blocks, average_threesmade, average_threesatt);
+                }
+
+                total_points = 0;
+                average_points = 0;
+                total_rebounds = 0;
+                average_rebounds = 0;
+                total_assists = 0;
+                average_assists = 0;
+                total_steals = 0;
+                average_steals = 0;
+                total_blocks = 0;
+                average_blocks = 0;
+                total_threesmade = 0;
+                average_threesmade = 0;
+                total_threesatt = 0;
+                average_threesatt = 0;
+
+
+                String sql_a_id = "SELECT COUNT(*) FROM `" + current_league_name + "_stats` WHERE `player_id`=" + away_id + "; ";
+
+                sqlCmd = new MySqlCommand(sql_a_id, sqlConn);
+                sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                while (sqlRdHS1.Read())
+                {
+
+                }
+
+                away_gamecount = Int32.Parse(sqlRdHS1[0].ToString());
+                sqlRdHS1.Close();
+
+                for (int i = 0; i < away_gamecount; i++)
+                {
+
+                    String sql_points = "SELECT points FROM `" + current_league_name + "_stats` WHERE `player_id`=" + away_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_points, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_points = total_points + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_rebounds = "SELECT rebounds FROM `" + current_league_name + "_stats` WHERE `player_id`=" + away_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_rebounds, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_rebounds = total_rebounds + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_assists = "SELECT assists FROM `" + current_league_name + "_stats` WHERE `player_id`=" + away_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_assists, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_assists = total_assists + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_steals = "SELECT steals FROM `" + current_league_name + "_stats` WHERE `player_id`=" + away_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_steals, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_steals = total_steals + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_blocks = "SELECT blocks FROM `" + current_league_name + "_stats` WHERE `player_id`=" + away_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_blocks, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_blocks = total_blocks + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_tmade = "SELECT threesmade FROM `" + current_league_name + "_stats` WHERE `player_id`=" + away_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_tmade, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_threesmade = total_threesmade + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_tatt = "SELECT threesattempted FROM `" + current_league_name + "_stats` WHERE `player_id`=" + away_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_tatt, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    total_threesatt = total_threesatt + Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                }
+
+                if (away_gamecount == 0)
+                {
+                    StarPlayerStatsAway = new PlayerStat(away_id, current_match_id, StarPlayerAway.FirstName, StarPlayerAway.LastName, 0, 0, 0, 0, 0, 0, 0);
+                }
+                else
+                {
+                    average_points = total_points / home_gamecount;
+                    average_rebounds = total_rebounds / home_gamecount;
+                    average_assists = total_assists / home_gamecount;
+                    average_steals = total_steals / home_gamecount;
+                    average_blocks = total_blocks / home_gamecount;
+                    average_threesmade = total_threesmade / home_gamecount;
+                    average_threesatt = total_threesatt / home_gamecount;
+
+                    StarPlayerStatsAway = new PlayerStat(away_id, current_match_id, StarPlayerAway.FirstName, StarPlayerAway.LastName, average_points, average_rebounds, average_assists, average_steals, average_blocks, average_threesmade, average_threesatt);
+                }
+
+                sqlConn.Close();
 
             }
             catch (Exception ex)

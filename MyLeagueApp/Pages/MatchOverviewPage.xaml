@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyLeagueApp.Pages.MatchOverviewPage"
-             Title="MatchOverviewPage"
+             Title="{Binding Matchup}"
              BackgroundColor="Gray"
              xmlns:model="clr-namespace:MyLeagueApp.Classes"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
@@ -45,7 +45,11 @@
                     <RowDefinition Height="100" />
                     <RowDefinition Height="100" />
                     <RowDefinition Height="150" />
-                    <RowDefinition Height="200" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="650" />
@@ -141,6 +145,57 @@
                 TextColor="Black"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="30"
+                HorizontalOptions="Center"/>
+
+                <Label
+                Grid.Row="6"
+                Text="{Binding HomePoints}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                HorizontalOptions="Center"/>
+
+                <Label
+                Grid.Row="6"
+                Grid.Column="1"
+                Text="{Binding AwayPoints}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                HorizontalOptions="Center"/>
+
+                <Label
+                Grid.Row="7"
+                Text="{Binding HomeRebounds}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                HorizontalOptions="Center"/>
+
+                <Label
+                Grid.Row="7"
+                Grid.Column="1"
+                Text="{Binding AwayRebounds}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                HorizontalOptions="Center"/>
+
+                <Label
+                Grid.Row="8"
+                Text="{Binding HomeAssists}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                HorizontalOptions="Center"/>
+
+                <Label
+                Grid.Row="8"
+                Grid.Column="1"
+                Text="{Binding AwayAssists}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
                 HorizontalOptions="Center"/>
 
             </Grid>

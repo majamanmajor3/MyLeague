@@ -49,29 +49,29 @@ namespace MyLeagueApp.ViewModels
         [ObservableProperty]
         ObservableCollection<Player> players;
 
-        [ObservableProperty]
-        private string fullName;
+        //[ObservableProperty]
+        //private string fullName;
 
-        [ObservableProperty]
-        private int points;
+        //[ObservableProperty]
+        //private int points;
 
-        [ObservableProperty]
-        private int rebounds;
+        //[ObservableProperty]
+        //private int rebounds;
 
-        [ObservableProperty]
-        private int assists;
+        //[ObservableProperty]
+        //private int assists;
 
-        [ObservableProperty]
-        private int steals;
+        //[ObservableProperty]
+        //private int steals;
 
-        [ObservableProperty]
-        private int blocks;
+        //[ObservableProperty]
+        //private int blocks;
 
-        [ObservableProperty]
-        private int threesmade;
+        //[ObservableProperty]
+        //private int threesmade;
 
-        [ObservableProperty]
-        private int threesattempted;
+        //[ObservableProperty]
+        //private int threesattempted;
 
         private int homeScore;
         private int awayScore;
@@ -105,13 +105,6 @@ namespace MyLeagueApp.ViewModels
 
         public EditMatchViewModel(string league_name, int match_id)
         {
-            Points = 0;
-            Rebounds = 0;
-            Assists = 0;
-            Steals = 0;
-            Blocks = 0;
-            Threesmade = 0;
-            Threesattempted = 0;
             Players = new ObservableCollection<Player>();
             PlayerStats = new ObservableCollection<PlayerStat>();
             current_match_id = match_id;
@@ -361,6 +354,19 @@ namespace MyLeagueApp.ViewModels
                     position = Int32.Parse(sqlRd6[0].ToString());
                     sqlRd6.Close();
 
+                    String sql_valami = "SELECT COUNT(*) FROM `" + current_league_name + "_stats` WHERE player_id=" + player_id + " AND match_id=" + current_match_id + "; ";
+
+                    sqlCmd = new MySqlCommand(sql_valami, sqlConn);
+                    sqlRd = sqlCmd.ExecuteReader();
+
+                    while (sqlRd.Read())
+                    {
+
+                    }
+
+                    int statCheck = Int32.Parse(sqlRd[0].ToString());
+                    sqlRd.Close();
+
                     sqlConn.Close();
 
                     string full_name = first_name + " " + last_name;
@@ -374,6 +380,111 @@ namespace MyLeagueApp.ViewModels
                     if (position == 5) pos_name = "Center";
 
                     Players.Add(new Player(player_id, first_name, last_name, team_id, photo, position, pos_name, full_name));
+
+                    if (statCheck == 0)
+                    {
+                        PlayerStats.Add(new PlayerStat(player_id, current_match_id, first_name, last_name, 0, 0, 0, 0, 0, 0, 0));
+                    }
+                    else
+                    {
+                        sqlConn.Open();
+
+                        String sql_points = "SELECT points FROM `" + current_league_name + "_stats` WHERE player_id=" + player_id + " AND match_id=" + current_match_id + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_points, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        int points = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_rebounds = "SELECT rebounds FROM `" + current_league_name + "_stats` WHERE player_id=" + player_id + " AND match_id=" + current_match_id + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_rebounds, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        int rebounds = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_assists = "SELECT assists FROM `" + current_league_name + "_stats` WHERE player_id=" + player_id + " AND match_id=" + current_match_id + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_assists, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        int assists = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_steals = "SELECT steals FROM `" + current_league_name + "_stats` WHERE player_id=" + player_id + " AND match_id=" + current_match_id + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_steals, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        int steals = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_blocks = "SELECT blocks FROM `" + current_league_name + "_stats` WHERE player_id=" + player_id + " AND match_id=" + current_match_id + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_blocks, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        int blocks = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_3smade = "SELECT threesmade FROM `" + current_league_name + "_stats` WHERE player_id=" + player_id + " AND match_id=" + current_match_id + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_3smade, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        int threesMade = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_3satt = "SELECT threesattempted FROM `" + current_league_name + "_stats` WHERE player_id=" + player_id + " AND match_id=" + current_match_id + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_3satt, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        int threesAttempted = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        sqlConn.Close();
+
+                        PlayerStats.Add(new PlayerStat(player_id, current_match_id, first_name, last_name, points, rebounds, assists, steals, blocks, threesMade, threesAttempted));
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -452,6 +563,7 @@ namespace MyLeagueApp.ViewModels
                 {
 
                     Player player = Players[i];
+                    PlayerStat stat = PlayerStats[i];
 
                     String sql_valami = "SELECT COUNT(*) FROM `" + current_league_name + "_stats` WHERE player_id=" + player.Id + " AND match_id=" + current_match_id + "; ";
 
@@ -483,10 +595,10 @@ namespace MyLeagueApp.ViewModels
                         int stat_id = Int32.Parse(sqlRd[0].ToString());
                         sqlRd.Close();
 
-                        FullName = player.FullName;
+                        //FullName = player.FullName;
 
                         String sql_insert = "INSERT INTO `" + current_league_name + "_stats` (`stat_id`, `player_id`, `match_id`, `first_name`, `last_name`, `points`, `rebounds`, `steals`, `blocks`, `threesmade`, `threesattempted`, `assists`) " +
-                            "VALUES (" + stat_id + ", '" + player.Id + "', '" + current_match_id + "', '" + player.FirstName + "', '" + player.LastName + "', '" + Points + "', '" + Rebounds + "', '" + Steals + "', '" + Blocks + "', '" + Threesmade + "', '" + Threesattempted + "', '" + Assists + "');";
+                            "VALUES (" + stat_id + ", '" + player.Id + "', '" + current_match_id + "', '" + player.FirstName + "', '" + player.LastName + "', '" + stat.Points + "', '" + stat.Rebounds + "', '" + stat.Steals + "', '" + stat.Blocks + "', '" + stat.ThreesMade + "', '" + stat.ThreesAttempted + "', '" + stat.Assists + "');";
 
                         sqlCmd = new MySqlCommand(sql_insert, sqlConn2);
                         sqlRd = sqlCmd.ExecuteReader();
@@ -502,13 +614,13 @@ namespace MyLeagueApp.ViewModels
                     else
                     {
 
-                        String sqlupdate = "UPDATE `" + current_league_name + "_stats` SET `points` = '" + Points + 
-                            "', `rebounds` = '" + Rebounds + 
-                            "', `assists` = '" + Assists + 
-                            "', `steals` = '" + Steals + 
-                            "', `blocks` = '" + Blocks + 
-                            "', `threesmade` = '" + Threesmade + 
-                            "', `threesattempted` = '" + Threesattempted + 
+                        String sqlupdate = "UPDATE `" + current_league_name + "_stats` SET `points` = '" + stat.Points + 
+                            "', `rebounds` = '" + stat.Rebounds + 
+                            "', `assists` = '" + stat.Assists + 
+                            "', `steals` = '" + stat.Steals + 
+                            "', `blocks` = '" + stat.Blocks + 
+                            "', `threesmade` = '" + stat.ThreesMade + 
+                            "', `threesattempted` = '" + stat.ThreesAttempted + 
                             "' WHERE `" + current_league_name + "_stats`.`player_id` = " + player.Id +
                             " AND `" + current_league_name + "_stats`.`match_id` = " + current_match_id + ";";
 

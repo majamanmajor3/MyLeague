@@ -9,8 +9,8 @@
              x:DataType="viewmodel:CurrentLeagueViewModel">
     <ScrollView>
         <VerticalStackLayout
-            Spacing="10"
-            Padding="30,0"
+            Spacing="50"
+            Padding="20,0"
             VerticalOptions="Start">
 
             <Label
@@ -23,23 +23,51 @@
                 HeightRequest="200"
                 IsVisible="false"/>
 
-            <Button
+            <HorizontalStackLayout
+                Spacing="10"
+                Padding="65,0"
+                VerticalOptions="Start">
+
+                <Button
                 Text="NEW MATCH"
                 x:Name="button"
                 TextColor="Black"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
                 VerticalOptions="Center"
                 Clicked="NewMatchClicked"/>
 
-            <Button
+                <Button
                 Text="STATISTICS"
                 x:Name="button2"
                 TextColor="Black"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
                 VerticalOptions="Center"
                 Clicked="StatsClicked"/>
+
+                <Button
+                Text="LEAGUE LEADERS"
+                x:Name="button3"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
+                VerticalOptions="Center"
+                Clicked="LeadersClicked"/>
+
+            </HorizontalStackLayout>
 
             <Label
                 Text="Matches"
@@ -65,7 +93,8 @@
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
                                 </Grid.ColumnDefinitions>
                         
                                 <Image Grid.RowSpan="2"
@@ -116,6 +145,13 @@
                                    Aspect="AspectFit"
                                    HeightRequest="30"
                                    WidthRequest="30"/>
+
+                                <Image Grid.Column="6"
+                                   Source="{Binding Date}"
+                                   Aspect="AspectFit"
+                                   HeightRequest="30"
+                                   WidthRequest="30"/>
+                                
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

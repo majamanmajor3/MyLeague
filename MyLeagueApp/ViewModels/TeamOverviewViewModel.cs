@@ -74,6 +74,9 @@ namespace MyLeagueApp.ViewModels
         [ObservableProperty]
         private string teamArenaLocation;
 
+        [ObservableProperty]
+        private double awayStarAssists;
+
         Microsoft.Maui.ApplicationModel.IMap map;
 
         public TeamOverviewViewModel(int team_id)

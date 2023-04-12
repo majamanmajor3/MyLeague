@@ -45,7 +45,7 @@
 
             </Grid>
 
-            <ListView ItemsSource="{Binding Players}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
+            <ListView ItemsSource="{Binding PlayerStats}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:PlayerStat">
                         <ViewCell>

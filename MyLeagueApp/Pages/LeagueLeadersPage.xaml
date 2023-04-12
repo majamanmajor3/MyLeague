@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.Pages.LeagueLeadersPage"
+             Title="LeagueLeadersPage"
+             BackgroundColor="Gray"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes.Stats"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             x:DataType="viewmodel:LeagueLeadersViewModel">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="20"
+            Padding="0"
+            VerticalOptions="Start">
+            <Label
+                    Text="League Leaders"
+                    TextColor="Black"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="20"
+                    HeightRequest="200"
+                    IsVisible="false"/>
+
+            <Grid Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="143" />
+                    <ColumnDefinition Width="142" />
+                    <ColumnDefinition Width="162" />
+                    <ColumnDefinition Width="147" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0"
+                       Grid.ColumnSpan="20"
+                                   Text=""
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="1"
+                       Grid.ColumnSpan="20"
+                                   Text="Player"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="2"
+                       Grid.ColumnSpan="20"
+                                   Text="Points"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="3"
+                       Grid.ColumnSpan="20"
+                                   Text="Assists"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="4"
+                       Grid.ColumnSpan="20"
+                                   Text="Rebounds"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="5"
+                       Grid.ColumnSpan="20"
+                                   Text="Steals"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="6"
+                       Grid.ColumnSpan="20"
+                                   Text="Blocks"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+            </Grid>
+
+            <ListView ItemsSource="{Binding Playerstats}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:PlayerStatLeader">
+                        <ViewCell>
+                            <Grid Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.RowSpan="2"
+                                   Grid.Row="1"
+                                   Grid.Column="1"
+                                   Source="{Binding Photo}"
+                                   Aspect="AspectFit"
+                                   HeightRequest="30"
+                                   WidthRequest="30"/>
+                                <Label Grid.Column="2"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding LastName}"
+                                   FontAttributes="Bold"
+                                   TextColor="Black"/>
+                                <Label Grid.Row="2"
+                                   Grid.Column="2"
+                                   Text="{Binding Team}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="3"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding Points}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="4"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding Rebounds}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="5"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding Assists}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="6"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding Steals}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="7"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding Blocks}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

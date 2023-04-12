@@ -27,6 +27,7 @@ public static class MauiProgram
         builder.Services.AddTransient<TeamOverviewViewModel>();
         builder.Services.AddTransient<NewPlayerViewModel>();
         builder.Services.AddTransient<MatchOverviewViewModel>();
+        builder.Services.AddTransient<LeagueLeadersViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();

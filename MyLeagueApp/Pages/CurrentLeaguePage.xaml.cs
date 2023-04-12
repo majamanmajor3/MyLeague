@@ -277,6 +277,12 @@ public partial class CurrentLeaguePage : ContentPage
         Navigation.PushAsync(page);
     }
 
+    private void LeadersClicked(object sender, EventArgs e)
+    {
+        LeagueLeadersPage page = new LeagueLeadersPage(current_league_name);
+        Navigation.PushAsync(page);
+    }
+
     void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
     {
         Match item = args.SelectedItem as Match;
