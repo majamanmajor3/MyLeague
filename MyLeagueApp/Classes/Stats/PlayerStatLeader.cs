@@ -19,10 +19,11 @@ namespace MyLeagueApp.Classes.Stats
         public double Blocks { get; set; }
         public double ThreesMade { get; set; }
         public double ThreesAttempted { get; set; }
+        public double ThreesPercentage { get; set; }
         public string Photo { get; set; }
         public string Team { get; set; }
 
-        public PlayerStatLeader(int Id, int MatchId, string FirstName, string LastName, double Points, double Rebounds, double Assists, double Steals, double Blocks, double ThreesMade, double ThreesAttempted, string Photo, string Team)
+        public PlayerStatLeader(int Id, int MatchId, string FirstName, string LastName, double Points, double Rebounds, double Assists, double Steals, double Blocks, double ThreesMade, double ThreesAttempted, double ThreesPercentage, string Photo, string Team)
         {
             this.Id = Id;
             this.MatchId = MatchId;
@@ -35,6 +36,7 @@ namespace MyLeagueApp.Classes.Stats
             this.Blocks = Blocks;
             this.ThreesMade = ThreesMade;
             this.ThreesAttempted = ThreesAttempted;
+            this.ThreesPercentage = ThreesPercentage;
             this.Photo = Photo;
             this.Team = Team;
         }

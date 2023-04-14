@@ -32,6 +32,7 @@
                     <ColumnDefinition Width="142" />
                     <ColumnDefinition Width="162" />
                     <ColumnDefinition Width="147" />
+                    <ColumnDefinition Width="147" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
@@ -45,32 +46,79 @@
                        Grid.ColumnSpan="20"
                                    Text="Player"
                                    FontAttributes="Italic"
-                                 TextColor="Black"/>
+                                 TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LeagueLeadersViewModel}}, Path=OrderByNameCommand}"
+                                    CommandParameter="{Binding .}"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label Grid.Column="2"
                        Grid.ColumnSpan="20"
                                    Text="Points"
                                    FontAttributes="Italic"
-                                 TextColor="Black"/>
+                                 TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LeagueLeadersViewModel}}, Path=OrderByPointsCommand}"
+                                    CommandParameter="{Binding .}"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label Grid.Column="3"
-                       Grid.ColumnSpan="20"
-                                   Text="Assists"
-                                   FontAttributes="Italic"
-                                 TextColor="Black"/>
-                <Label Grid.Column="4"
                        Grid.ColumnSpan="20"
                                    Text="Rebounds"
                                    FontAttributes="Italic"
-                                 TextColor="Black"/>
+                                 TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LeagueLeadersViewModel}}, Path=OrderByReboundsCommand}"
+                                    CommandParameter="{Binding .}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Grid.Column="4"
+                       Grid.ColumnSpan="20"
+                                   Text="Assists"
+                                   FontAttributes="Italic"
+                                 TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LeagueLeadersViewModel}}, Path=OrderByAssistsCommand}"
+                                    CommandParameter="{Binding .}"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label Grid.Column="5"
                        Grid.ColumnSpan="20"
                                    Text="Steals"
                                    FontAttributes="Italic"
-                                 TextColor="Black"/>
+                                 TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LeagueLeadersViewModel}}, Path=OrderByStealsCommand}"
+                                    CommandParameter="{Binding .}"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label Grid.Column="6"
                        Grid.ColumnSpan="20"
                                    Text="Blocks"
                                    FontAttributes="Italic"
-                                 TextColor="Black"/>
+                                 TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LeagueLeadersViewModel}}, Path=OrderByBlocksCommand}"
+                                    CommandParameter="{Binding .}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Grid.Column="7"
+                       Grid.ColumnSpan="20"
+                                   Text="Three Pointer %"
+                                   FontAttributes="Italic"
+                                 TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LeagueLeadersViewModel}}, Path=OrderByThreesCommand}"
+                                    CommandParameter="{Binding .}"/>
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
 
             <ListView ItemsSource="{Binding Playerstats}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
@@ -87,6 +135,7 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
@@ -148,6 +197,13 @@
                                    Grid.Row="1"
                                    WidthRequest="150"
                                    Text="{Binding Blocks}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="8"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding ThreesPercentage}"
                                    FontAttributes="Italic"
                                    VerticalOptions="End"
                                    TextColor="Black"/>

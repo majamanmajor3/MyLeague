@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MyLeagueApp.Classes;
 using MyLeagueApp.Classes.Stats;
 using MySql.Data.MySqlClient;
@@ -65,14 +66,8 @@ namespace MyLeagueApp.ViewModels
             loadStats();
 
             List<PlayerStatLeader> list = Playerstats.ToList();
-            list.Sort(CompareTeams);
+            list.Sort(CompareTeamsPoints);
             Playerstats = new ObservableCollection<PlayerStatLeader>(list);
-        }
-
-        private static int CompareTeams(PlayerStatLeader b, PlayerStatLeader a)
-        {
-            if (a.Points > b.Points) return 1;
-            else return -1;
         }
 
         private void loadTeams()
@@ -400,7 +395,7 @@ namespace MyLeagueApp.ViewModels
 
                 sqlConn3.Open();
 
-                for (int i=0; i<Players.Count; i++)
+                for (int i = 0; i < Players.Count; i++)
                 {
 
                     player_id = Players[i].Id;
@@ -576,7 +571,12 @@ namespace MyLeagueApp.ViewModels
                     average_threesmade = total_threesmade / gamecount;
                     average_threesatt = total_threesatt / gamecount;
 
-                    Playerstats.Add(new PlayerStatLeader(player_id, match_id, Players[i].FirstName, Players[i].LastName, average_points, average_rebounds, average_assists, average_steals, average_blocks, average_threesmade, average_threesatt, photo, team_name));
+                    double threes_perc;
+
+                    if (average_threesatt == 0) threes_perc = 0;
+                    else threes_perc = (average_threesmade * 100) / average_threesatt;
+
+                    Playerstats.Add(new PlayerStatLeader(player_id, match_id, Players[i].FirstName, Players[i].LastName, average_points, average_rebounds, average_assists, average_steals, average_blocks, average_threesmade, average_threesatt, Math.Round(threes_perc, 2), photo, team_name));
 
 
                     total_points = 0;
@@ -593,6 +593,7 @@ namespace MyLeagueApp.ViewModels
                     average_threesmade = 0;
                     total_threesatt = 0;
                     average_threesatt = 0;
+                    threes_perc = 0;
 
                 }
 
@@ -604,6 +605,117 @@ namespace MyLeagueApp.ViewModels
                 Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
             }
 
+        }
+
+        [RelayCommand]
+        Task OrderByName()
+        {
+            //Shell.Current.GoToAsync(nameof(LeaguesPage));
+            List<PlayerStatLeader> list = Playerstats.ToList();
+            list.Sort(CompareTeamsName);
+            Playerstats = new ObservableCollection<PlayerStatLeader>(list);
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        Task OrderByPoints()
+        {
+            //Shell.Current.GoToAsync(nameof(LeaguesPage));
+            List<PlayerStatLeader> list = Playerstats.ToList();
+            list.Sort(CompareTeamsPoints);
+            Playerstats = new ObservableCollection<PlayerStatLeader>(list);
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        Task OrderByAssists()
+        {
+            //Shell.Current.GoToAsync(nameof(LeaguesPage));
+            List<PlayerStatLeader> list = Playerstats.ToList();
+            list.Sort(CompareTeamsAssists);
+            Playerstats = new ObservableCollection<PlayerStatLeader>(list);
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        Task OrderByRebounds()
+        {
+            //Shell.Current.GoToAsync(nameof(LeaguesPage));
+            List<PlayerStatLeader> list = Playerstats.ToList();
+            list.Sort(CompareTeamsRebounds);
+            Playerstats = new ObservableCollection<PlayerStatLeader>(list);
+            return Task.CompletedTask;
+        }
+        [RelayCommand]
+        Task OrderBySteals()
+        {
+            //Shell.Current.GoToAsync(nameof(LeaguesPage));
+            List<PlayerStatLeader> list = Playerstats.ToList();
+            list.Sort(CompareTeamsSteals);
+            Playerstats = new ObservableCollection<PlayerStatLeader>(list);
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        Task OrderByBlocks()
+        {
+            //Shell.Current.GoToAsync(nameof(LeaguesPage));
+            List<PlayerStatLeader> list = Playerstats.ToList();
+            list.Sort(CompareTeamsBlocks);
+            Playerstats = new ObservableCollection<PlayerStatLeader>(list);
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        Task OrderByThrees()
+        {
+            //Shell.Current.GoToAsync(nameof(LeaguesPage));
+            List<PlayerStatLeader> list = Playerstats.ToList();
+            list.Sort(CompareTeamsThrees);
+            Playerstats = new ObservableCollection<PlayerStatLeader>(list);
+            return Task.CompletedTask;
+        }
+
+        private static int CompareTeamsName(PlayerStatLeader b, PlayerStatLeader a)
+        {
+            if (a.LastName.CompareTo(b.LastName)<0) return 1;
+            else return -1;
+        }
+
+        private static int CompareTeamsPoints(PlayerStatLeader b, PlayerStatLeader a)
+        {
+            if (a.Points > b.Points) return 1;
+            else return -1;
+        }
+
+        private static int CompareTeamsAssists(PlayerStatLeader b, PlayerStatLeader a)
+        {
+            if (a.Assists > b.Assists) return 1;
+            else return -1;
+        }
+
+        private static int CompareTeamsRebounds(PlayerStatLeader b, PlayerStatLeader a)
+        {
+            if (a.Rebounds > b.Rebounds) return 1;
+            else return -1;
+        }
+
+        private static int CompareTeamsSteals(PlayerStatLeader b, PlayerStatLeader a)
+        {
+            if (a.Steals > b.Steals) return 1;
+            else return -1;
+        }
+
+        private static int CompareTeamsBlocks(PlayerStatLeader b, PlayerStatLeader a)
+        {
+            if (a.Blocks > b.Blocks) return 1;
+            else return -1;
+        }
+
+        private static int CompareTeamsThrees(PlayerStatLeader b, PlayerStatLeader a)
+        {
+            if (a.ThreesPercentage > b.ThreesPercentage) return 1;
+            else return -1;
         }
 
     }
