@@ -41,6 +41,7 @@ namespace MyLeagueApp.ViewModels
         public CurrentLeagueViewModel(string league_name)
         {
             Matches = new ObservableCollection<Match>();
+            League_name = league_name;
             loadMatches(league_name);
         }
 
@@ -261,6 +262,58 @@ namespace MyLeagueApp.ViewModels
             {
                 Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
             }
+        }
+
+        [RelayCommand]
+        async Task DeleteLeague()
+        {
+            try
+            {
+                bool answer = await Shell.Current.DisplayAlert("Attention", "Are you sure you want to delete this league?", "Yes", "No");
+
+                if (answer)
+                {
+                    sqlConn.Open();
+
+                    String sql_delete = "DROP TABLE `" + League_name + "`; ";
+
+                    sqlCmd = new MySqlCommand(sql_delete, sqlConn);
+
+                    sqlRd2 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd2.Read())
+                    {
+
+                    }
+
+                    sqlRd2.Close();
+
+                    String sql_delete2 = "DELETE FROM `leagues` WHERE name='" + League_name + "'; ";
+
+                    sqlCmd = new MySqlCommand(sql_delete2, sqlConn);
+
+                    sqlRd2 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd2.Read())
+                    {
+
+                    }
+
+                    sqlRd2.Close();
+
+                    sqlConn.Close();
+
+                    Application.Current.MainPage.DisplayAlert("", "The league has been succesfully deleted!", "OK");
+
+                    await Shell.Current.GoToAsync(nameof(LeaguesPage));
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                sqlConn.Close();
+            }
+
         }
 
     }

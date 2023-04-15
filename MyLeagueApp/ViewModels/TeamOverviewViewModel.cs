@@ -79,9 +79,12 @@ namespace MyLeagueApp.ViewModels
 
         Microsoft.Maui.ApplicationModel.IMap map;
 
+        int current_team_id;
+
         public TeamOverviewViewModel(int team_id)
         {
             Players = new ObservableCollection<Player>();
+            current_team_id = team_id;
             getTeamInfo(team_id);
             TeamFullName = TeamCity + " " + TeamName;
             loadPlayers(team_id);
@@ -259,6 +262,7 @@ namespace MyLeagueApp.ViewModels
             catch (Exception ex)
             {
                 //DisplayAlert("", ex.Message, "OK");
+                sqlConn.Close();
             }
 
         }
@@ -390,6 +394,7 @@ namespace MyLeagueApp.ViewModels
             catch (Exception ex)
             {
                 Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                sqlConn.Close();
             }
         }
 
@@ -415,6 +420,45 @@ namespace MyLeagueApp.ViewModels
                 Debug.WriteLine($"Unable to launch maps: {ex.Message}");
                 await Shell.Current.DisplayAlert("Error, no Maps app!", ex.Message, "OK");
             }
+        }
+
+        [RelayCommand]
+        async Task DeleteTeam()
+        {
+            try
+            {
+                bool answer = await Shell.Current.DisplayAlert("Attention", "Are you sure you want to delete this team?", "Yes", "No");
+
+                if (answer)
+                {
+                    sqlConn.Open();
+
+                    String sql_delete = "DELETE FROM `teams` WHERE `team_id`=" + current_team_id + "; ";
+
+                    sqlCmd = new MySqlCommand(sql_delete, sqlConn);
+
+                    sqlRd2 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd2.Read())
+                    {
+
+                    }
+
+                    sqlRd2.Close();
+
+                    sqlConn.Close();
+
+                    Application.Current.MainPage.DisplayAlert("", "The team has been succesfully deleted!", "OK");
+
+                    await Shell.Current.GoToAsync(nameof(TeamsPage));
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                sqlConn.Close();
+            }
+
         }
 
     }

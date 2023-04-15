@@ -96,13 +96,13 @@
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="100" />
                                 </Grid.ColumnDefinitions>
-                        
+
                                 <Image Grid.RowSpan="2"
                                    Source="{Binding HomeLogo}"
                                    Aspect="AspectFit"
                                    HeightRequest="30"
                                    WidthRequest="30"/>
-                        
+
                                 <Label Grid.RowSpan="2"
                                    Grid.Column="1"
                                    Text="{Binding HomeCity}"
@@ -114,7 +114,7 @@
                                    Text="{Binding HomeTeam}"
                                    FontAttributes="Italic"
                                    TextColor="Black"/>
-                        
+
                                 <Label Grid.RowSpan="2"
                                    Grid.Column="2"
                                    Text="{Binding HomeScore}"
@@ -151,12 +151,25 @@
                                    Aspect="AspectFit"
                                    HeightRequest="30"
                                    WidthRequest="30"/>
-                                
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button
+                Text="DELETE LEAGUE"
+                x:Name="buttonD"
+                TextColor="White"
+                BackgroundColor="Red"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
+                VerticalOptions="CenterAndExpand"
+                Command="{Binding DeleteLeagueCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

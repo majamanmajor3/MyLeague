@@ -90,7 +90,7 @@ namespace MyLeagueApp.ViewModels
 
                     sqlConn.Open();
 
-                    String sql = "SELECT COUNT(*)+1 FROM `teams`; ";
+                    String sql = "SELECT team_id+1 FROM `teams` ORDER BY team_id DESC LIMIT 0,1; ";
 
                     sqlCmd = new MySqlCommand(sql, sqlConn);
                     sqlRd = sqlCmd.ExecuteReader();

@@ -155,14 +155,39 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>-->
 
-            <Button
-            Text="NEW PLAYER"
-            x:Name="button"
-            TextColor="Black"
-            SemanticProperties.HeadingLevel="Level1"
-            FontSize="32"
-            VerticalOptions="CenterAndExpand"
-            Clicked="NewPlayerClicked"/>
+            <HorizontalStackLayout
+                Spacing="10"
+                Padding="220,0"
+                VerticalOptions="Start">
+
+                <Button
+                Text="NEW PLAYER"
+                x:Name="button"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
+                VerticalOptions="CenterAndExpand"
+                Clicked="NewPlayerClicked"/>
+
+                <Button
+                Text="DELETE TEAM"
+                x:Name="button2"
+                TextColor="White"
+                BackgroundColor="Red"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
+                VerticalOptions="CenterAndExpand"
+                Command="{Binding DeleteTeamCommand}"/>
+
+            </HorizontalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>

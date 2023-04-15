@@ -182,7 +182,7 @@ namespace MyLeagueApp.ViewModels
 
                     sqlConn.Open();
 
-                    String sql = "SELECT COUNT(*)+1 FROM `" + current_league_name + "`; ";
+                    String sql = "SELECT COUNT(*)+1 FROM `" + current_league_name + "` ORDER BY m_id DESC LIMIT 0,1; ";
 
                     sqlCmd = new MySqlCommand(sql, sqlConn);
                     sqlRd = sqlCmd.ExecuteReader();
