@@ -15,22 +15,6 @@ public partial class MainPage : ContentPage
 	{
         InitializeComponent();
         BindingContext = new MainViewModel();
-        //WebClient client = new WebClient();
-        //String player = client.DownloadString("https://free-nba.p.rapidapi.com/players/237?rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
-        //dynamic data = JObject.Parse(player);
-        ////textBox1.Text = player;
-        //team.Text = data.team.full_name;
-        //String stats = client.DownloadString("https://free-nba.p.rapidapi.com/stats?seasons[]=2021&player_ids[]=237&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
-        //dynamic data2 = JObject.Parse(stats);
-        //float ppg = 0;
-        //int cr = 0;
-        //foreach (var member in data2["data"])
-        //{
-        //    ppg += (float)member["pts"];
-        //    cr += 1;
-        //}
-        ////points.Text = (ppg / cr).ToString().Remove(4, 1) + " PPG";
-
     }
 
     private void TeamsClicked(object sender, EventArgs e)

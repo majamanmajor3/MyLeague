@@ -4,7 +4,7 @@
              x:Class="MyLeagueApp.NewTeamPage"
              Title="Add New Team"
              BackgroundColor="Gray"
-             xmlns:model="clr-namespace:MyLeagueApp.Classes"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes.Samples"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
              x:DataType="viewmodel:NewTeamViewModel">
     <VerticalStackLayout>
@@ -32,6 +32,11 @@
 
             <Label Grid.Row="2" Grid.Column="0" Text="Logo"/>
             <Button Grid.Row="2" Grid.Column="1" Text="Choose Photo" Height="23" Width="141" Margin="3" Command="{Binding ChoosePhotoClickedCommand}"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Text="Sample Team"/>
+            <Picker Grid.Row="3" Grid.Column="1" x:Name="team_picker" ItemsSource="{Binding Teams}" SelectedItem="{Binding Selected_team, Mode=TwoWay}">
+            </Picker>
+            
         </Grid>
         <Button Text="Add Team" Height="23" Width="141" Margin="3" Command="{Binding AddTeamCommand}"/>
     </VerticalStackLayout>
