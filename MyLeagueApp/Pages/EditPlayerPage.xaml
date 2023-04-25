@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.Pages.EditPlayerPage"
+             Title="EditPlayerPage"
+             BackgroundColor="Gray"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             x:DataType="viewmodel:EditPlayerViewModel">
+    <VerticalStackLayout>
+        <Grid Grid.Row="0" HorizontalOptions="Center" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Text="First Name"/>
+            <Entry Grid.Row="0" Grid.Column="1" Height="23" Width="200" x:Name="fname"
+                     Text="{Binding PlayerFirstName}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Text="Last Name"/>
+            <Entry Grid.Row="1" Grid.Column="1" Height="23" Width="200" x:Name="lname"
+                     Text="{Binding PlayerLastName}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Text="Position" />
+            <Entry Grid.Row="2" Grid.Column="1" Height="23" Width="200" x:Name="pos"
+                     Text="{Binding PlayerPosition}"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Text="Photo"/>
+            <Button Grid.Row="3" Grid.Column="1" Text="Choose Photo" Height="23" Width="141" Margin="3" Command="{Binding ChoosePhotoClickedCommand}"/>
+        </Grid>
+        <Button Text="Confirm Player Edit" Height="23" Width="141" Margin="3" Command="{Binding ConfirmPlayerClickedCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

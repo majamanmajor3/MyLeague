@@ -63,6 +63,12 @@
 	  <MauiXaml Update="Pages\EditMatchPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\EditPlayerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\EditTeamPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\LeagueLeadersPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

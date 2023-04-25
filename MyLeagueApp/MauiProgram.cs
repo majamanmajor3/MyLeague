@@ -28,6 +28,8 @@ public static class MauiProgram
         builder.Services.AddTransient<NewPlayerViewModel>();
         builder.Services.AddTransient<MatchOverviewViewModel>();
         builder.Services.AddTransient<LeagueLeadersViewModel>();
+        builder.Services.AddTransient<EditTeamViewModel>();
+        builder.Services.AddTransient<EditPlayerViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();

@@ -48,7 +48,8 @@
                     SemanticProperties.HeadingLevel="Level1"
                     FontSize="32"
                     VerticalOptions="CenterAndExpand"
-                    Command="{Binding OpenTeamsCommand}"/>
+                    Command="{Binding OpenTeamsCommand}">
+                </Button>
 
             </HorizontalStackLayout>
         </VerticalStackLayout>

@@ -70,7 +70,7 @@
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="20"/>
 
-            <ListView ItemsSource="{Binding Players}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
+            <ListView ItemsSource="{Binding Players}" x:Name="cv" ItemSelected="OnItemSelected" SeparatorColor="Black" SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Player">
                         <ViewCell>
@@ -156,8 +156,8 @@
             </CollectionView>-->
 
             <HorizontalStackLayout
-                Spacing="10"
-                Padding="220,0"
+                Spacing="50"
+                Padding="20,0"
                 VerticalOptions="Start">
 
                 <Button
@@ -172,6 +172,19 @@
                 Style="{StaticResource ButtonOutline}"
                 VerticalOptions="CenterAndExpand"
                 Clicked="NewPlayerClicked"/>
+
+                <Button
+                Text="EDIT TEAM"
+                x:Name="button3"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
+                VerticalOptions="CenterAndExpand"
+                Clicked="EditTeamClicked"/>
 
                 <Button
                 Text="DELETE TEAM"
