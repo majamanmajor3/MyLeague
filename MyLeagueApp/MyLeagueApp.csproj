@@ -49,6 +49,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Montserrat-Black.ttf" />
+	  <None Remove="Resources\Fonts\Montserrat-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\Montserrat-Medium.ttf" />
+	  <None Remove="Resources\Fonts\VinaSans-Regular.ttf" />
+	  <None Remove="Resources\Images\background.jpg" />
+	  <None Remove="Resources\Images\secondary_background.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="8.0.0-preview.2.7871" />

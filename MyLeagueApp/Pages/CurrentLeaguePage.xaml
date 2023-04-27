@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyLeagueApp.CurrentLeaguePage"
              Title="CurrentLeaguePage"
-             BackgroundColor="Gray"
+             BackgroundImageSource="secondary_background.jpg"
              xmlns:model="clr-namespace:MyLeagueApp.Classes"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
              x:DataType="viewmodel:CurrentLeagueViewModel">
@@ -83,7 +83,7 @@
                         <ViewCell>
                             <Grid Padding="5">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="20" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
@@ -146,11 +146,11 @@
                                    HeightRequest="30"
                                    WidthRequest="30"/>
 
-                                <Image Grid.Column="6"
-                                   Source="{Binding Date}"
-                                   Aspect="AspectFit"
-                                   HeightRequest="30"
-                                   WidthRequest="30"/>
+                                <Label Grid.Column="6"
+                                   Text="{Binding Date}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
 
                             </Grid>
                         </ViewCell>

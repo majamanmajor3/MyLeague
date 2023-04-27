@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyLeagueApp.Pages.TeamOverviewPage"
              Title="{Binding TeamFullName}"
-             BackgroundColor="Gray"
+             BackgroundImageSource="secondary_background.jpg"
              xmlns:model="clr-namespace:MyLeagueApp.Classes"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"

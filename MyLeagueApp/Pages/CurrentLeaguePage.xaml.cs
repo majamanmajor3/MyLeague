@@ -58,7 +58,7 @@ public partial class CurrentLeaguePage : ContentPage
             int away_id;
             int home_score;
             int away_score;
-            string date;
+            DateTime date;
 
             string home_name;
             string away_name;
@@ -174,7 +174,7 @@ public partial class CurrentLeaguePage : ContentPage
 
                 }
 
-                date = sqlRdDate[0].ToString();
+                date = DateTime.Parse(sqlRdDate[0].ToString());
                 sqlRdDate.Close();
 
                 String sql_h_name = "SELECT t.name FROM `" + league_name + "`l JOIN teams t ON (l.home_team = t.team_id) WHERE 1 LIMIT " + i + ",1; ";

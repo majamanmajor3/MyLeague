@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyLeagueApp.TeamsPage"
              Title="Teams"
-             BackgroundColor="Gray"
+             BackgroundImageSource="secondary_background.jpg"
              xmlns:model="clr-namespace:MyLeagueApp.Classes"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
              x:DataType="viewmodel:TeamsViewModel">
@@ -31,11 +31,13 @@
                                HeightRequest="30"
                                WidthRequest="30"/>
                             <Label Grid.Column="1"
+                               FontFamily="Montserrat"
                                Text="{Binding City}"
                                FontAttributes="Bold"
                                TextColor="Black"/>
                             <Label Grid.Row="1"
                                Grid.Column="1"
+                               FontFamily="Montserrat"
                                Text="{Binding Name}"
                                FontAttributes="Italic"
                                VerticalOptions="End"
@@ -93,6 +95,7 @@
             <Button
             Text="NEW TEAM"
             x:Name="button"
+            FontFamily="Montserrat"
             TextColor="Black"
             SemanticProperties.HeadingLevel="Level1"
             FontSize="32"

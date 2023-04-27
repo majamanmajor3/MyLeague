@@ -17,9 +17,9 @@ namespace MyLeagueApp.Classes
         public string AwayCity { get; set; }
         public int HomeScore { get; set; }
         public int AwayScore { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
-        public Match(int Id, string HomeName, string AwayName, string HomeCity, string AwayCity, int HomeScore, int AwayScore, string HomeLogo, string AwayLogo, string Date)
+        public Match(int Id, string HomeName, string AwayName, string HomeCity, string AwayCity, int HomeScore, int AwayScore, string HomeLogo, string AwayLogo, DateTime Date)
         {
             this.Id = Id;
             this.HomeTeam = HomeName;

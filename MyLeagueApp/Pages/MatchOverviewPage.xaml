@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyLeagueApp.Pages.MatchOverviewPage"
              Title="{Binding Matchup}"
-             BackgroundColor="Gray"
+             BackgroundImageSource="secondary_background.jpg"
              xmlns:model="clr-namespace:MyLeagueApp.Classes"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
@@ -59,18 +59,20 @@
                 <Label
                 Text="{Binding HomeTeam.Name}"
                 TextColor="Black"
+                FontFamily="MontserratEBI"
+                TextTransform="Uppercase"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="40"
-                FontAttributes="Bold, Italic"
                 HorizontalOptions="Center"/>
 
                 <Label
                 Grid.Column="1"
                 Text="{Binding AwayTeam.Name}"
                 TextColor="Black"
+                FontFamily="MontserratEBI"
+                TextTransform="Uppercase"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="40"
-                FontAttributes="Bold, Italic"
                 HorizontalOptions="Center"/>
 
                 <Image

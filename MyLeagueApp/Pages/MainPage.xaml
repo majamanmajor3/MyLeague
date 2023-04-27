@@ -2,21 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyLeagueApp.MainPage"
-             BackgroundColor="AliceBlue"
+             Title="MyLeague"
+             BackgroundImageSource="background.jpg"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
              x:DataType="viewmodel:MainViewModel">
 
     <ScrollView>
         <VerticalStackLayout
-            Spacing="200"
+            Spacing="170"
             Padding="30,0"
             VerticalOptions="Start">
 
             <Label
                 Text="MY LEAGUE"
+                FontFamily="VinaSans"
                 TextColor="Black"
                 SemanticProperties.HeadingLevel="Level1"
-                FontSize="40"
+                FontSize="120"
                 HorizontalOptions="Center" />
 
             <!--<Label
@@ -39,7 +41,8 @@
                     SemanticProperties.HeadingLevel="Level1"
                     FontSize="32"
                     VerticalOptions="CenterAndExpand"
-                    Command="{Binding OpenLeaguesCommand}"/>
+                    Command="{Binding OpenLeaguesCommand}">
+                </Button>
 
                 <Button
                     Text="TEAMS"

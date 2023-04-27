@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyLeagueApp.NewMatchPage"
              Title="Add New Match"
-             BackgroundColor="Gray"
+             BackgroundImageSource="secondary_background.jpg"
              xmlns:model="clr-namespace:MyLeagueApp.Classes"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
              x:DataType="viewmodel:NewMatchViewModel">

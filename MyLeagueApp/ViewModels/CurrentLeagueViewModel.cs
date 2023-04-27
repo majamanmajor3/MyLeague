@@ -43,6 +43,16 @@ namespace MyLeagueApp.ViewModels
             Matches = new ObservableCollection<Match>();
             League_name = league_name;
             loadMatches(league_name);
+
+            List<Match> list = Matches.ToList();
+            list.Sort(CompareDates);
+            Matches = new ObservableCollection<Match>(list);
+        }
+
+        private static int CompareDates(Match b, Match a)
+        {
+            if (a.Date.CompareTo(b.Date) < 0) return 1;
+            else return -1;
         }
 
         private void loadMatches(string league_name)
@@ -56,7 +66,7 @@ namespace MyLeagueApp.ViewModels
                 int away_id;
                 int home_score;
                 int away_score;
-                string date;
+                DateTime date;
 
                 string home_name;
                 string away_name;
@@ -172,7 +182,7 @@ namespace MyLeagueApp.ViewModels
 
                     }
 
-                    date = sqlRdDate[0].ToString();
+                    date = DateTime.Parse(sqlRdDate[0].ToString());
                     sqlRdDate.Close();
 
                     String sql_h_name = "SELECT t.name FROM `" + league_name + "`l JOIN teams t ON (l.home_team = t.team_id) WHERE 1 LIMIT " + i + ",1; ";
