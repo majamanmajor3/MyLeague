@@ -28,7 +28,7 @@ public partial class SampledTeamsPage : ContentPage
     {
         TeamSample item = args.SelectedItem as TeamSample;
         int id = item.Id;
-        //SampledTeamOverviewPage page = new SampledTeamOverviewPage(item.Id);
-        //Navigation.PushAsync(page);
+        SampledTeamOverviewPage page = new SampledTeamOverviewPage(item.Id);
+        Navigation.PushAsync(page);
     }
 }

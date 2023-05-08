@@ -173,7 +173,6 @@ namespace MyLeagueApp.ViewModels
         [RelayCommand]
         void SampledTeams()
         {
-            Shell.Current.DisplayAlert("Attention", "jes", "Yes", "No");
             Shell.Current.GoToAsync(nameof(SampledTeamsPage));
         }
     }

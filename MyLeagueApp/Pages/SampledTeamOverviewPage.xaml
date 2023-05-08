@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.Pages.SampledTeamOverviewPage"
+             Title="{Binding TeamFullName}"
+             BackgroundImageSource="secondary_background.jpg"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes.Samples"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
+             x:DataType="viewmodel:SampledTeamOverviewViewModel">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="10"
+            Padding="30,0"
+            VerticalOptions="Start">
+
+            <Label
+                Text="{Binding TeamCity}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                HorizontalOptions="Center"/>
+
+            <Label
+                Text="{Binding TeamName}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                HorizontalOptions="Center"/>
+
+            <Label
+                Text="{Binding TeamArena.Name}"
+                TextColor="Black"
+                FontFamily=""
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="40"
+                HorizontalOptions="Center"/>
+
+            <Label
+                Text="{Binding TeamArena.City}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                HorizontalOptions="Center"/>
+
+            <Label
+                Text="{Binding TeamArenaLocation}"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                HorizontalOptions="Center"/>
+
+            <Button Text="Show on Map"
+                        Command="{Binding OpenMapCommand}"
+                        HorizontalOptions="Center"
+                        WidthRequest="200"
+                        Margin="8"
+                        Style="{StaticResource ButtonOutline}"/>
+
+            <Label 
+                Text="Players:"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"/>
+
+            <ListView ItemsSource="{Binding Players}" x:Name="cv" ItemSelected="OnItemSelected" SeparatorColor="Black" SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:PlayerSample">
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1"
+                               Text="{Binding FullName}"
+                               FontAttributes="Bold"
+                               TextColor="Black"
+                               WidthRequest="250"/>
+                                <Label Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding PositionName}"
+                               FontAttributes="Italic"
+                               TextColor="Black"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!--<CollectionView
+            ItemsSource="{Binding Players}"
+            SelectionMode="None"
+            Background="Gray"
+            ItemsLayout="HorizontalList">
+                -->
+            <!--<CollectionView.EmptyView>
+                    <StackLayout Padding="100">
+
+                        <Image
+                            HorizontalOptions="Center"
+                            Source="nodata.png"
+                            HeightRequest="160"
+                            WidthRequest="160"
+                            VerticalOptions="Center" />
+
+                    </StackLayout>
+                </CollectionView.EmptyView>-->
+            <!--<CollectionView.ItemsLayout>
+                    -->
+            <!--<LinearItemsLayout Orientation="Vertical"/>-->
+            <!--
+
+                    <LinearItemsLayout Orientation="Horizontal"/>
+
+                </CollectionView.ItemsLayout>-->
+            <!--
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Player">
+                        <Grid Padding="0">
+                            <Frame HeightRequest="150" Background="Gray" BorderColor="Gray">
+                                -->
+            <!--<Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TeamOverviewViewModel}}, Path=GoToDetailsCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>-->
+            <!--
+                                <Grid Padding="2" ColumnDefinitions="125,*">
+                                    <Image Aspect="AspectFit" Source="{Binding Photo}"
+                                       WidthRequest="120"
+                                       HeightRequest="120"/>
+                                    <VerticalStackLayout
+                                    VerticalOptions="Center"
+                                    Grid.Column="1"
+                                    Padding="5">
+                                        <Label FontAttributes="Bold" Text="{Binding FullName}" TextColor="Black"/>
+                                        <Label FontAttributes="Italic" Text="{Binding PositionName}" TextColor="Black"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->
+
+            <HorizontalStackLayout
+                Spacing="50"
+                Padding="20,0"
+                VerticalOptions="Start">
+
+                <Button
+                Text="NEW PLAYER"
+                x:Name="button"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
+                VerticalOptions="CenterAndExpand"
+                Clicked="NewPlayerClicked"/>
+
+                <Button
+                Text="EDIT TEAM"
+                x:Name="button3"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
+                VerticalOptions="CenterAndExpand"
+                Clicked="EditTeamClicked"/>
+
+                <Button
+                Text="DELETE TEAM"
+                x:Name="button2"
+                TextColor="White"
+                BackgroundColor="Red"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
+                VerticalOptions="CenterAndExpand"
+                Command="{Binding DeleteTeamCommand}"/>
+
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
