@@ -92,34 +92,58 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>-->
 
-            <Button
-            Text="NEW TEAM"
-            x:Name="button"
-            FontFamily="Montserrat"
-            TextColor="Black"
-            SemanticProperties.HeadingLevel="Level1"
-            FontSize="32"
-            VerticalOptions="CenterAndExpand"
-            Command="{Binding AddTeamCommand}">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
+            <!--<VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor"
                                     Value="White" />
-                                <Setter Property="TextColor"
+                            <Setter Property="TextColor"
                                     Value="Black" />
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor"
                                     Value="Grey" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Button>
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>-->
+
+            <HorizontalStackLayout
+                Spacing="10"
+                Padding="40,0"
+                VerticalOptions="Start">
+
+                <Button
+                Text="NEW TEAM"
+                x:Name="button"
+                FontFamily="Montserrat"
+                TextColor="Black"
+                HorizontalOptions="Center"
+                WidthRequest="520"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                VerticalOptions="CenterAndExpand"
+                Command="{Binding AddTeamCommand}">
+                </Button>
+
+                <Button
+                Text="SHOW SAMPLED TEAMS"
+                x:Name="button2"
+                FontFamily="Montserrat"
+                TextColor="Black"
+                HorizontalOptions="Center"
+                WidthRequest="520"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                VerticalOptions="CenterAndExpand"
+                Command="{Binding SampledTeamsCommand}">
+                </Button>
+
+            </HorizontalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

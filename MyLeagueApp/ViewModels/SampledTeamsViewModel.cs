@@ -1,23 +1,20 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MyLeagueApp.Classes;
-using MyLeagueApp.Pages;
+using MyLeagueApp.Classes.Samples;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyLeagueApp.ViewModels
 {
-    partial class TeamsViewModel : ObservableObject
+    partial class SampledTeamsViewModel : ObservableObject
     {
         MySqlConnection sqlConn = new MySqlConnection();
         MySqlCommand sqlCmd = new MySqlCommand();
-        DataTable sqlDt = new DataTable();
         String sqlQuery;
         MySqlDataAdapter DtA = new MySqlDataAdapter();
         MySqlDataReader sqlRd;
@@ -26,7 +23,6 @@ namespace MyLeagueApp.ViewModels
         MySqlDataReader sqlRd3;
         MySqlDataReader sqlRdDF;
         MySqlDataReader sqlRdDate;
-        DataSet ds = new DataSet();
 
         ViewCell lastCell;
 
@@ -36,12 +32,12 @@ namespace MyLeagueApp.ViewModels
         String database = "myleague";
 
         [ObservableProperty]
-        ObservableCollection<Team> teams;
+        ObservableCollection<TeamSample> teams;
 
         //List<Team> teams;
-        public TeamsViewModel()
+        public SampledTeamsViewModel()
         {
-            Teams = new ObservableCollection<Team>();
+            Teams = new ObservableCollection<TeamSample>();
             loadTeams();
         }
 
@@ -54,7 +50,9 @@ namespace MyLeagueApp.ViewModels
                 string team_id;
                 string team_name;
                 string team_city;
-                string team_logo;
+                string team_abbreviation;
+                string team_conference;
+                string team_division;
 
                 sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
                                             ";password=" + password +
@@ -63,7 +61,7 @@ namespace MyLeagueApp.ViewModels
 
                 sqlConn.Open();
 
-                String sqlc = "SELECT COUNT(*) FROM `teams`; ";
+                String sqlc = "SELECT COUNT(*) FROM `sampled_teams`; ";
 
                 sqlCmd = new MySqlCommand(sqlc, sqlConn);
                 sqlRdC = sqlCmd.ExecuteReader();
@@ -83,7 +81,7 @@ namespace MyLeagueApp.ViewModels
 
                     sqlConn.Open();
 
-                    String sql = "SELECT team_id FROM `teams` WHERE 1 LIMIT " + i + ",1; ";
+                    String sql = "SELECT team_id FROM `sampled_teams` WHERE 1 LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql, sqlConn);
                     sqlRd = sqlCmd.ExecuteReader();
@@ -96,7 +94,7 @@ namespace MyLeagueApp.ViewModels
                     team_id = sqlRd[0].ToString();
                     sqlRd.Close();
 
-                    String sql2 = "SELECT name FROM `teams` WHERE 1 LIMIT " + i + ",1; ";
+                    String sql2 = "SELECT name FROM `sampled_teams` WHERE 1 LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql2, sqlConn);
                     sqlRd2 = sqlCmd.ExecuteReader();
@@ -109,7 +107,7 @@ namespace MyLeagueApp.ViewModels
                     team_name = sqlRd2[0].ToString();
                     sqlRd2.Close();
 
-                    String df_sql = "SELECT city FROM `teams` WHERE 1 LIMIT " + i + ",1; ";
+                    String df_sql = "SELECT city FROM `sampled_teams` WHERE 1 LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(df_sql, sqlConn);
                     sqlRdDF = sqlCmd.ExecuteReader();
@@ -123,9 +121,9 @@ namespace MyLeagueApp.ViewModels
 
                     sqlRdDF.Close();
 
-                    String sqlLogo = "SELECT logo FROM `teams` WHERE 1 LIMIT " + i + ",1; ";
+                    String sqlAbbrv = "SELECT abbreviation FROM `sampled_teams` WHERE 1 LIMIT " + i + ",1; ";
 
-                    sqlCmd = new MySqlCommand(sqlLogo, sqlConn);
+                    sqlCmd = new MySqlCommand(sqlAbbrv, sqlConn);
                     sqlRd3 = sqlCmd.ExecuteReader();
 
                     while (sqlRd3.Read())
@@ -133,36 +131,64 @@ namespace MyLeagueApp.ViewModels
 
                     }
 
-                    team_logo = sqlRd3[0].ToString();
+                    team_abbreviation = sqlRd3[0].ToString();
+
+                    sqlRd3.Close();
+
+                    String sqlDiv = "SELECT division FROM `sampled_teams` WHERE 1 LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sqlDiv, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    team_division = sqlRd3[0].ToString();
+
+                    sqlRd3.Close();
+
+                    String sqlConf = "SELECT conference FROM `sampled_teams` WHERE 1 LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sqlConf, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    team_conference = sqlRd3[0].ToString();
 
                     sqlRd3.Close();
 
                     sqlConn.Close();
 
-                    Teams.Add(new Team(Int32.Parse(team_id), team_name, team_city, team_logo));
+                    Teams.Add(new TeamSample(Int32.Parse(team_id), team_name, team_city, team_abbreviation, team_division, team_conference, team_city + " " + team_name));
 
                 }
 
             }
             catch (Exception ex)
             {
-                //DisplayAlert("", ex.Message, "OK");
+                Shell.Current.DisplayAlert("", ex.Message, "OK");
             }
 
         }
 
-        [RelayCommand]
-        async Task GoToDetails(Team team)
-        {
-            if (team == null)
-                return;
+        //[RelayCommand]
+        //async Task GoToDetails(TeamSample team)
+        //{
+        //    if (team == null)
+        //        return;
 
-            await Shell.Current.GoToAsync(nameof(TeamOverviewPage), true, new Dictionary<string, object>
-        {
-           {"Team", team }
-        });
+        //    await Shell.Current.GoToAsync(nameof(TeamOverviewPage), true, new Dictionary<string, object>
+        //{
+        //   {"Team", team }
+        //});
 
-        }
+        //}
 
         [RelayCommand]
         void AddTeam()
@@ -171,10 +197,9 @@ namespace MyLeagueApp.ViewModels
         }
 
         [RelayCommand]
-        void SampledTeams()
+        void CreatedTeams()
         {
-            Shell.Current.DisplayAlert("Attention", "jes", "Yes", "No");
-            Shell.Current.GoToAsync(nameof(SampledTeamsPage));
+            Shell.Current.GoToAsync(nameof(TeamsPage));
         }
     }
 }
