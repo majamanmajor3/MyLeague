@@ -14,12 +14,12 @@ namespace MyLeagueApp.Classes.Samples
         public int Team { get; set; }
         public string PositionLetter { get; set; }
         public string PositionName { get; set; }
-        public int HeightFeet { get; set; }
-        public int HeightInches { get; set; }
-        public int Weight { get; set; }
+        public string HeightFeet { get; set; }
+        public string HeightInches { get; set; }
+        public string Weight { get; set; }
         public string FullName { get; set; }
 
-        public PlayerSample(int Id, string FirstName, string LastName, int Team, string PositionLetter, string PositionName, int HeightFeet, int HeightInches, int Weight, string FullName)
+        public PlayerSample(int Id, string FirstName, string LastName, int Team, string PositionLetter, string PositionName, string HeightFeet, string HeightInches, string Weight, string FullName)
         {
             this.Id = Id;
             this.FirstName = FirstName;

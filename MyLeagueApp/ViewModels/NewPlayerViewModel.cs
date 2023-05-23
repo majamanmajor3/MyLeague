@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MyLeagueApp.Pages;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -141,6 +142,27 @@ namespace MyLeagueApp.ViewModels
                     sqlConn.Close();
                 }
             }
+        }
+
+        [RelayCommand]
+        async void SelectSampledPlayer()
+        {
+
+            string result = await Shell.Current.DisplayPromptAsync("Sample Player", "Please provide the name of the player you would like to sample");
+
+            if (result != null)
+            {
+                string searched_player;
+                searched_player = result;
+                NewSampledPlayerPage page = new NewSampledPlayerPage(result);
+                Shell.Current.Navigation.PushAsync(page);
+            }
+            else
+            {
+                Application.Current.MainPage.DisplayAlert("", "Please provide a proper name!", "OK");
+                Task.CompletedTask.Dispose();
+            }
+
         }
 
 

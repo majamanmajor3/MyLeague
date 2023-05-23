@@ -90,7 +90,7 @@ namespace MyLeagueApp.ViewModels
             current_team_id = team_id;
             getTeamInfo(team_id);
             TeamFullName = TeamCity + " " + TeamName;
-            //loadPlayers(team_id);
+            loadPlayers(team_id);
 
             List<PlayerSample> list = Players.ToList();
             list.Sort(CompareTeams);
@@ -307,10 +307,10 @@ namespace MyLeagueApp.ViewModels
                 int player_id;
                 string first_name;
                 string last_name;
-                int position;
-                int height_feet;
-                int height_inches;
-                int weight;
+                string position;
+                string height_feet;
+                string height_inches;
+                string weight;
 
                 sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
                                             ";password=" + password +
@@ -393,7 +393,7 @@ namespace MyLeagueApp.ViewModels
 
                     }
 
-                    position = Int32.Parse(sqlRd6[0].ToString());
+                    position = sqlRd6[0].ToString();
                     sqlRd6.Close();
 
                     String sql_hef = "SELECT height_feet FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
@@ -406,7 +406,7 @@ namespace MyLeagueApp.ViewModels
 
                     }
 
-                    height_feet = Int32.Parse(sqlRd6[0].ToString());
+                    height_feet = sqlRd6[0].ToString();
                     sqlRd6.Close();
 
                     String sql_hei = "SELECT height_inches FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
@@ -419,10 +419,10 @@ namespace MyLeagueApp.ViewModels
 
                     }
 
-                    height_inches = Int32.Parse(sqlRd6[0].ToString());
+                    height_inches = sqlRd6[0].ToString();
                     sqlRd6.Close();
 
-                    String sql_we = "SELECT weight FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
+                    String sql_we = "SELECT weight_pounds FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql_we, sqlConn);
                     sqlRd6 = sqlCmd.ExecuteReader();
@@ -432,7 +432,7 @@ namespace MyLeagueApp.ViewModels
 
                     }
 
-                    weight = Int32.Parse(sqlRd6[0].ToString());
+                    weight = sqlRd6[0].ToString();
                     sqlRd6.Close();
 
                     sqlConn.Close();
@@ -441,21 +441,15 @@ namespace MyLeagueApp.ViewModels
 
                     string pos_name = "NA";
 
-                    if (position == 1) pos_name = "Point Guard";
-                    if (position == 2) pos_name = "Shooting Guard";
-                    if (position == 3) pos_name = "Small Forward";
-                    if (position == 4) pos_name = "Power Forward";
-                    if (position == 5) pos_name = "Center";
+                    if (position == "G") pos_name = "Guard";
+                    if (position == "PG") pos_name = "Point Guard";
+                    if (position == "SG") pos_name = "Shooting Guard";
+                    if (position == "F") pos_name = "Forward";
+                    if (position == "SF") pos_name = "Small Forward";
+                    if (position == "PF") pos_name = "Power Forward";
+                    if (position == "C") pos_name = "Center";
 
-                    string pos_letter = "NA";
-
-                    if (position == 1) pos_letter = "PG";
-                    if (position == 2) pos_letter = "SG";
-                    if (position == 3) pos_letter = "SF";
-                    if (position == 4) pos_letter = "PF";
-                    if (position == 5) pos_letter = "C";
-
-                    Players.Add(new PlayerSample(player_id, first_name, last_name, team_id, pos_letter, pos_name, height_feet, height_inches, weight, full_name));
+                    Players.Add(new PlayerSample(player_id, first_name, last_name, team_id, position, pos_name, height_feet, height_inches, weight, full_name));
                 }
             }
             catch (Exception ex)

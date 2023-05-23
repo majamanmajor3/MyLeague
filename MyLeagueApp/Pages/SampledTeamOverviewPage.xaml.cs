@@ -1,4 +1,5 @@
 using MyLeagueApp.Classes;
+using MyLeagueApp.Classes.Samples;
 using MyLeagueApp.ViewModels;
 
 namespace MyLeagueApp.Pages;
@@ -25,12 +26,18 @@ public partial class SampledTeamOverviewPage : ContentPage
         Navigation.PushAsync(page);
     }
 
+    private void ViewCell_Tapped(object sender, System.EventArgs e)
+    {
+        var viewCell = (ViewCell)sender;
+        viewCell.View.BackgroundColor = Color.FromArgb("#f0f8ff");
+    }
+
     void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
     {
-        Player item = args.SelectedItem as Player;
+        PlayerSample item = args.SelectedItem as PlayerSample;
         int player_id = item.Id;
         //DisplayAlert("", name, "OK");
-        EditPlayerPage page = new EditPlayerPage(player_id);
+        SampledPlayerOverviewPage page = new SampledPlayerOverviewPage(player_id);
         Navigation.PushAsync(page);
     }
 }

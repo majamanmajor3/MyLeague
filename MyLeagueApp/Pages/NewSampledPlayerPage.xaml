@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.Pages.NewSampledPlayerPage"
+             Title="Sample Player"
+             BackgroundImageSource="secondary_background.jpg"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes.Samples"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             x:DataType="viewmodel:NewSampledPlayerViewModel">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="20"
+            Padding="0"
+            VerticalOptions="Start">
+
+            <ListView ItemsSource="{Binding Players}" x:Name="cv" ItemSelected="OnItemSelected" SeparatorColor="Black" SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:PlayerSample">
+                        <ViewCell Tapped="ViewCell_Tapped">
+                            <Grid Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.RowSpan="2"
+                               FontFamily="Montserrat"
+                               Text="{Binding FullName}"
+                               FontAttributes="Bold"
+                               TextColor="Black"/>
+                                <!--<Label Grid.Column="2"
+                               FontFamily="Montserrat"
+                               Text="{Binding Team}"
+                               FontAttributes="Bold"
+                               TextColor="Black"/>-->
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

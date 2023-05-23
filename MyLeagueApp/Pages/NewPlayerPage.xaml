@@ -37,6 +37,40 @@
             <Label Grid.Row="3" Grid.Column="0" Text="Photo"/>
             <Button Grid.Row="3" Grid.Column="1" Text="Choose Photo" Height="23" Width="141" Margin="3" Command="{Binding ChoosePhotoClickedCommand}"/>
         </Grid>
-        <Button Text="Add Player" Height="23" Width="141" Margin="3" Command="{Binding AddPlayerCommand}"/>
+
+        <HorizontalStackLayout
+                Spacing="10"
+                HeightRequest="550"
+                Padding="40,0"
+                VerticalOptions="Start">
+
+            <Button
+                Text="Add Player"
+                x:Name="button"
+                FontFamily="Montserrat"
+                TextColor="Black"
+                HorizontalOptions="Center"
+                WidthRequest="520"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                VerticalOptions="CenterAndExpand"
+                Command="{Binding AddPlayerCommand}">
+            </Button>
+
+            <Button
+                Text="Select Sampled Player"
+                x:Name="button2"
+                FontFamily="Montserrat"
+                TextColor="Black"
+                HorizontalOptions="Center"
+                WidthRequest="520"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                VerticalOptions="CenterAndExpand"
+                Command="{Binding SelectSampledPlayerCommand}">
+            </Button>
+
+        </HorizontalStackLayout>
+        
     </VerticalStackLayout>
 </ContentPage>
