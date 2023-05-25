@@ -74,8 +74,8 @@ public partial class NewSampledPlayerPage : ContentPage
 
                 //player_id = 1;
 
-                String sql2 = "INSERT INTO `sampled_players` (`player_id`, `first_name`, `last_name`, `team`, `position`, `height_feet`, `height_inches`, `weight_pounds`) " +
-                    "VALUES (" + player_id + ", '" + item.FirstName + "', '" + item.LastName + "', '" + item.Team + "', '" + item.PositionLetter + "', '" + item.HeightFeet + "', '" + item.HeightInches + "', '" + item.Weight + "');";
+                String sql2 = "INSERT INTO `sampled_players` (`player_id`, `first_name`, `last_name`, `team`, `position`, `height_feet`, `height_inches`, `weight_pounds`, `api_player_id`) " +
+                    "VALUES (" + player_id + ", '" + item.FirstName + "', '" + item.LastName + "', '" + item.Team + "', '" + item.PositionLetter + "', '" + item.HeightFeet + "', '" + item.HeightInches + "', '" + item.Weight + "', '" + item.Id + "');";
 
                 sqlCmd = new MySqlCommand(sql2, sqlConn);
 

@@ -27,8 +27,8 @@ public partial class SampledTeamsPage : ContentPage
     void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
     {
         TeamSample item = args.SelectedItem as TeamSample;
-        int id = item.Id;
-        SampledTeamOverviewPage page = new SampledTeamOverviewPage(item.Id);
+        int id = item.ApiId;
+        SampledTeamOverviewPage page = new SampledTeamOverviewPage(id);
         Navigation.PushAsync(page);
     }
 }

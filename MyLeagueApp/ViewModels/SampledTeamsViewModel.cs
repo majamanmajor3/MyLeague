@@ -48,6 +48,7 @@ namespace MyLeagueApp.ViewModels
 
                 int team_count;
                 string team_id;
+                int team_api;
                 string team_name;
                 string team_city;
                 string team_abbreviation;
@@ -92,6 +93,19 @@ namespace MyLeagueApp.ViewModels
                     }
 
                     team_id = sqlRd[0].ToString();
+                    sqlRd.Close();
+
+                    String sql_api = "SELECT api_id FROM `sampled_teams` WHERE 1 LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_api, sqlConn);
+                    sqlRd = sqlCmd.ExecuteReader();
+
+                    while (sqlRd.Read())
+                    {
+
+                    }
+
+                    team_api = Int32.Parse(sqlRd[0].ToString());
                     sqlRd.Close();
 
                     String sql2 = "SELECT name FROM `sampled_teams` WHERE 1 LIMIT " + i + ",1; ";
@@ -165,7 +179,7 @@ namespace MyLeagueApp.ViewModels
 
                     sqlConn.Close();
 
-                    Teams.Add(new TeamSample(Int32.Parse(team_id), team_name, team_city, team_abbreviation, team_division, team_conference, team_city + " " + team_name));
+                    Teams.Add(new TeamSample(Int32.Parse(team_id), team_api, team_name, team_city, team_abbreviation, team_division, team_conference, team_city + " " + team_name));
 
                 }
 

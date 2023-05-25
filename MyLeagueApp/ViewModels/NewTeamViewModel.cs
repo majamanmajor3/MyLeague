@@ -94,7 +94,7 @@ namespace MyLeagueApp.ViewModels
                     team_conference = (string)member["conference"];
                     team_division = (string)member["division"];
 
-                    Teams.Add(new TeamSample(team_id, team_name, team_city, team_abbreviation, team_division, team_conference, team_fullname));
+                    Teams.Add(new TeamSample(0, team_id, team_name, team_city, team_abbreviation, team_division, team_conference, team_fullname));
                 }
 
             }
@@ -265,8 +265,8 @@ namespace MyLeagueApp.ViewModels
                         team_name = name;
                         team_city = city;
 
-                        String sql2 = "INSERT INTO `sampled_teams` (`team_id`, `city`, `name`, `abbreviation`, `conference`, `division`) " +
-                            "VALUES (" + team_id + ", '" + Selected_team.City + "', '" + Selected_team.Name + "', '" + Selected_team.Abbreviation + "', '" + Selected_team.Conference + "', '" + Selected_team.Division + "');";
+                        String sql2 = "INSERT INTO `sampled_teams` (`team_id`, `city`, `name`, `abbreviation`, `conference`, `division`, `api_id`) " +
+                            "VALUES (" + team_id + ", '" + Selected_team.City + "', '" + Selected_team.Name + "', '" + Selected_team.Abbreviation + "', '" + Selected_team.Conference + "', '" + Selected_team.Division + "', '" + Selected_team.ApiId + "');";
 
                         sqlCmd = new MySqlCommand(sql2, sqlConn);
 

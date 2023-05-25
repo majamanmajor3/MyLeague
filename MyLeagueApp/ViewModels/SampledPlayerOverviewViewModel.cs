@@ -55,6 +55,9 @@ namespace MyLeagueApp.ViewModels
         private PlayerSample player;
 
         [ObservableProperty]
+        private string playerFullName;
+
+        [ObservableProperty]
         private string playerFirstName;
 
         [ObservableProperty]
@@ -108,6 +111,10 @@ namespace MyLeagueApp.ViewModels
                 //string team_city;
                 //string team_logo;
 
+                string first_name;
+                string last_name;
+                string full_name;
+
                 sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
                                             ";password=" + password +
                                             ";database=" + database +
@@ -126,6 +133,8 @@ namespace MyLeagueApp.ViewModels
                 }
 
                 PlayerFirstName = sqlRd2[0].ToString();
+                first_name = sqlRd2[0].ToString();
+
                 sqlRd2.Close();
 
                 String df_sql = "SELECT last_name FROM `sampled_players` WHERE `player_id`=" + player_id + ";";
@@ -139,6 +148,7 @@ namespace MyLeagueApp.ViewModels
                 }
 
                 PlayerLastName = sqlRdDF[0].ToString();
+                last_name = sqlRdDF[0].ToString();
 
                 sqlRdDF.Close();
 
@@ -210,6 +220,8 @@ namespace MyLeagueApp.ViewModels
 
                 PlayerWeightPounds = sqlRd3[0].ToString();
 
+                sqlRd3.Close();
+
                 String sql_api = "SELECT api_player_id FROM `sampled_players` WHERE `player_id`=" + player_id + ";";
 
                 sqlCmd = new MySqlCommand(sqlConf, sqlConn);
@@ -224,6 +236,9 @@ namespace MyLeagueApp.ViewModels
 
                 sqlRd3.Close();
 
+                full_name = first_name + " " + last_name;
+                PlayerFullName = full_name;
+
                 sqlConn.Close();
 
                 Player = new PlayerSample(player_id, PlayerFirstName, PlayerLastName, PlayerTeam, PlayerPosition, PlayerPosition, PlayerHeightFeet, PlayerHeightInches, PlayerWeightPounds, PlayerFirstName + " " + PlayerLastName);
@@ -231,7 +246,7 @@ namespace MyLeagueApp.ViewModels
             }
             catch (Exception ex)
             {
-                //DisplayAlert("", ex.Message, "OK");
+                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
                 sqlConn.Close();
             }
 
@@ -457,6 +472,8 @@ namespace MyLeagueApp.ViewModels
                 dynamic data = JObject.Parse(stats);
                 int cr = 1;
 
+                List<PlayerStatSample> list = new List<PlayerStatSample>();
+
                 foreach (var member in data["data"])
                 {
                     int player_id = Player.Id;
@@ -471,8 +488,18 @@ namespace MyLeagueApp.ViewModels
                     int threes_made = (int)member["fg3m"];
                     int threes_att = (int)member["fg3a"];
 
-                    Matches.Add(new PlayerStatSample(cr, player_id, game_id, points, rebounds, assists, steals, blocks, fg_made, fg_att, threes_made, threes_att, Int32.Parse(result)));
+                    int year = Int32.Parse(result);
+
+                    PlayerStatSample stat = new(cr, player_id, game_id, points, rebounds, assists, steals, blocks, fg_made, fg_att, threes_made, threes_att, year);
+
+                    list.Add(stat);
                     cr++;
+                }
+
+                if(list == null)
+                {
+                    Application.Current.MainPage.DisplayAlert("", "Your player has not played a single game this season!", "OK");
+                    return;
                 }
 
                 double points_avg = 0;
@@ -485,7 +512,7 @@ namespace MyLeagueApp.ViewModels
                 double threes_made_avg = 0;
                 double threes_att_avg = 0;
 
-                List<PlayerStatSample> list = Matches.ToList();
+                //List<PlayerStatSample> list = Matches.ToList();
 
                 foreach (PlayerStatSample match in list)
                 {
@@ -512,15 +539,15 @@ namespace MyLeagueApp.ViewModels
 
                 bool answer = await Shell.Current.DisplayAlert("Are you sure you want to import this season?",
                                                           "Season: " + Int32.Parse(result) + "\n" +
-                                                          "Points/Game: " + points_avg + "\n" +
-                                                          "Rebounds/Game: " + rebounds_avg + "\n" +
-                                                          "Assists/Game: " + assists_avg + "\n" +
-                                                          "Steals/Game: " + steals_avg + "\n" +
-                                                          "Blocks/Game: " + blocks_avg + "\n" +
-                                                          "Field Goals Made/Game: " + fg_made_avg + "\n" +
-                                                          "Field Goals Attempted/Game: " + fg_att_avg + "\n" +
-                                                          "Three Pointers Made/Game: " + threes_made_avg + "\n" +
-                                                          "Three Pointers Attempted/Game: " + threes_att_avg + "\n" +
+                                                          "Points/Game: " + Math.Round(points_avg, 1) + "\n" +
+                                                          "Rebounds/Game: " + Math.Round(rebounds_avg, 1) + "\n" +
+                                                          "Assists/Game: " + Math.Round(assists_avg, 1) + "\n" +
+                                                          "Steals/Game: " + Math.Round(steals_avg, 1) + "\n" +
+                                                          "Blocks/Game: " + Math.Round(blocks_avg, 1) + "\n" +
+                                                          "Field Goals Made/Game: " + Math.Round(fg_made_avg, 1) + "\n" +
+                                                          "Field Goals Attempted/Game: " + Math.Round(fg_att_avg, 1) + "\n" +
+                                                          "Three Pointers Made/Game: " + Math.Round(threes_made_avg, 1) + "\n" +
+                                                          "Three Pointers Attempted/Game: " + Math.Round(threes_att_avg, 1) + "\n" +
                                                           "Games Played: " + list.Count
                                                           , "Yes", "No");
 

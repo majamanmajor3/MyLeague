@@ -36,17 +36,22 @@
                                     <RowDefinition Height="20" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="2"
+                                <Label Grid.Column="1"
                                    Grid.Row="1"
                                    WidthRequest="150"
                                    Text="{Binding Season}"
                                    FontAttributes="Bold"
                                    TextColor="Black"/>
-                                <Label Grid.Row="2"
+                                <Label Grid.Row="1"
                                    Grid.Column="2"
                                    Text="{Binding Points}"
                                    FontAttributes="Italic"

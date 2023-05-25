@@ -9,6 +9,6 @@ public partial class SampledPlayerOverviewPage : ContentPage
 	{
         InitializeComponent();
         current_player_id = player_id;
-        BindingContext = new SampledPlayerOverviewPage(player_id);
+        BindingContext = new SampledPlayerOverviewViewModel(player_id);
     }
 }
