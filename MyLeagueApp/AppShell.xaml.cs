@@ -18,6 +18,7 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(SampledTeamOverviewPage), typeof(SampledTeamOverviewPage));
 		Routing.RegisterRoute(nameof(SampledPlayerOverviewPage), typeof(SampledPlayerOverviewPage));
 		Routing.RegisterRoute(nameof(NewSampledPlayerPage), typeof(NewSampledPlayerPage));
+		Routing.RegisterRoute(nameof(ComparisonPage), typeof(ComparisonPage));
 		Routing.RegisterRoute(nameof(NewMatchViewModel), typeof(NewMatchViewModel));
 		Routing.RegisterRoute(nameof(EditMatchViewModel), typeof(EditMatchViewModel));
 		Routing.RegisterRoute(nameof(TeamOverviewViewModel), typeof(TeamOverviewViewModel));
@@ -30,5 +31,6 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(SampledTeamOverviewViewModel), typeof(SampledTeamOverviewViewModel));
 		Routing.RegisterRoute(nameof(SampledPlayerOverviewViewModel), typeof(SampledPlayerOverviewViewModel));
 		Routing.RegisterRoute(nameof(NewSampledPlayerViewModel), typeof(NewSampledPlayerViewModel));
+		Routing.RegisterRoute(nameof(ComparisonViewModel), typeof(ComparisonViewModel));
 	}
 }

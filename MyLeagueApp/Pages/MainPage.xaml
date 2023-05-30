@@ -30,7 +30,7 @@
                 HorizontalOptions="Center" />-->
 
             <HorizontalStackLayout
-                Spacing="200"
+                Spacing="100"
                 Padding="100,0"
                 HorizontalOptions="CenterAndExpand">
 
@@ -42,6 +42,16 @@
                     FontSize="32"
                     VerticalOptions="CenterAndExpand"
                     Command="{Binding OpenLeaguesCommand}">
+                </Button>
+
+                <Button
+                    Text="COMPARE"
+                    x:Name="comparison"
+                    TextColor="Black"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="32"
+                    VerticalOptions="CenterAndExpand"
+                    Command="{Binding OpenComparisonCommand}">
                 </Button>
 
                 <Button

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MyLeagueApp.Pages;
 
 namespace MyLeagueApp.ViewModels
 {
@@ -21,6 +22,12 @@ namespace MyLeagueApp.ViewModels
         void OpenLeagues()
         {
             Shell.Current.GoToAsync(nameof(LeaguesPage));
+        }
+
+        [RelayCommand]
+        public void OpenComparison()
+        {
+            Shell.Current.GoToAsync(nameof(ComparisonPage));
         }
 
     }

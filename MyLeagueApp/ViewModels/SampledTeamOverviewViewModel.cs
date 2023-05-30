@@ -83,6 +83,7 @@ namespace MyLeagueApp.ViewModels
         Microsoft.Maui.ApplicationModel.IMap map;
 
         int current_team_id;
+        int current_api_id;
 
         public SampledTeamOverviewViewModel(int team_id)
         {
@@ -122,6 +123,19 @@ namespace MyLeagueApp.ViewModels
                                             ";convert zero datetime=True";
 
                 sqlConn.Open();
+
+                String sql1 = "SELECT api_id FROM `sampled_teams` WHERE `team_id`=" + team_id + ";";
+
+                sqlCmd = new MySqlCommand(sql1, sqlConn);
+                sqlRd2 = sqlCmd.ExecuteReader();
+
+                while (sqlRd2.Read())
+                {
+
+                }
+
+                current_api_id = Int32.Parse(sqlRd2[0].ToString());
+                sqlRd2.Close();
 
                 String sql2 = "SELECT name FROM `sampled_teams` WHERE `team_id`=" + team_id + ";";
 
@@ -319,7 +333,7 @@ namespace MyLeagueApp.ViewModels
 
                 sqlConn.Open();
 
-                String sql = "SELECT COUNT(*) FROM `sampled_players` WHERE `team`=" + team_id + "; ";
+                String sql = "SELECT COUNT(*) FROM `sampled_players` WHERE `team`=" + current_api_id + "; ";
 
                 sqlCmd = new MySqlCommand(sql, sqlConn);
                 sqlRd3 = sqlCmd.ExecuteReader();
@@ -344,7 +358,7 @@ namespace MyLeagueApp.ViewModels
                 {
                     sqlConn.Open();
 
-                    String sql_m_id = "SELECT player_id FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
+                    String sql_m_id = "SELECT player_id FROM sampled_players WHERE `team`=" + current_api_id + " LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql_m_id, sqlConn);
                     sqlRd = sqlCmd.ExecuteReader();
@@ -357,7 +371,7 @@ namespace MyLeagueApp.ViewModels
                     player_id = Int32.Parse(sqlRd[0].ToString());
                     sqlRd.Close();
 
-                    String sql_h_id = "SELECT first_name FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
+                    String sql_h_id = "SELECT first_name FROM sampled_players WHERE `team`=" + current_api_id + " LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql_h_id, sqlConn);
                     sqlRd2 = sqlCmd.ExecuteReader();
@@ -370,7 +384,7 @@ namespace MyLeagueApp.ViewModels
                     first_name = sqlRd2[0].ToString();
                     sqlRd2.Close();
 
-                    String sql_a_id = "SELECT last_name FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
+                    String sql_a_id = "SELECT last_name FROM sampled_players WHERE `team`=" + current_api_id + " LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql_a_id, sqlConn);
                     sqlRd4 = sqlCmd.ExecuteReader();
@@ -383,7 +397,7 @@ namespace MyLeagueApp.ViewModels
                     last_name = sqlRd4[0].ToString();
                     sqlRd4.Close();
 
-                    String sql_pos = "SELECT position FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
+                    String sql_pos = "SELECT position FROM sampled_players WHERE `team`=" + current_api_id + " LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql_pos, sqlConn);
                     sqlRd6 = sqlCmd.ExecuteReader();
@@ -396,7 +410,7 @@ namespace MyLeagueApp.ViewModels
                     position = sqlRd6[0].ToString();
                     sqlRd6.Close();
 
-                    String sql_hef = "SELECT height_feet FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
+                    String sql_hef = "SELECT height_feet FROM sampled_players WHERE `team`=" + current_api_id + " LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql_hef, sqlConn);
                     sqlRd6 = sqlCmd.ExecuteReader();
@@ -409,7 +423,7 @@ namespace MyLeagueApp.ViewModels
                     height_feet = sqlRd6[0].ToString();
                     sqlRd6.Close();
 
-                    String sql_hei = "SELECT height_inches FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
+                    String sql_hei = "SELECT height_inches FROM sampled_players WHERE `team`=" + current_api_id + " LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql_hei, sqlConn);
                     sqlRd6 = sqlCmd.ExecuteReader();
@@ -422,7 +436,7 @@ namespace MyLeagueApp.ViewModels
                     height_inches = sqlRd6[0].ToString();
                     sqlRd6.Close();
 
-                    String sql_we = "SELECT weight_pounds FROM sampled_players WHERE `team`=" + team_id + " LIMIT " + i + ",1; ";
+                    String sql_we = "SELECT weight_pounds FROM sampled_players WHERE `team`=" + current_api_id + " LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql_we, sqlConn);
                     sqlRd6 = sqlCmd.ExecuteReader();
@@ -449,7 +463,7 @@ namespace MyLeagueApp.ViewModels
                     if (position == "PF") pos_name = "Power Forward";
                     if (position == "C") pos_name = "Center";
 
-                    Players.Add(new PlayerSample(player_id, first_name, last_name, team_id, position, pos_name, height_feet, height_inches, weight, full_name));
+                    Players.Add(new PlayerSample(player_id, first_name, last_name, current_api_id, position, pos_name, height_feet, height_inches, weight, full_name));
                 }
             }
             catch (Exception ex)

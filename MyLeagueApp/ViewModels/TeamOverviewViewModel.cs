@@ -388,7 +388,7 @@ namespace MyLeagueApp.ViewModels
                     if (position == 4) pos_name = "Power Forward";
                     if (position == 5) pos_name = "Center";
 
-                    players.Add(new Player(player_id, first_name, last_name, team_id, photo, position, pos_name, full_name));
+                    Players.Add(new Player(player_id, first_name, last_name, team_id, photo, position, pos_name, full_name));
                 }
             }
             catch (Exception ex)

@@ -38,6 +38,7 @@ public static class MauiProgram
         builder.Services.AddTransient<SampledTeamOverviewViewModel>();
         builder.Services.AddTransient<SampledPlayerOverviewViewModel>();
         builder.Services.AddTransient<NewSampledPlayerViewModel>();
+        builder.Services.AddTransient<ComparisonViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();

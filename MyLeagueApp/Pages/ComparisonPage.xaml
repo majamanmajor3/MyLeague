@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLeagueApp.Pages.ComparisonPage"
+             Title="Comparison Page"
+             BackgroundImageSource="secondary_background.jpg"
+             xmlns:model="clr-namespace:MyLeagueApp.Classes.Samples"
+             xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             x:DataType="viewmodel:ComparisonViewModel">
+    
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to the Comparison Page!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            HeightRequest="80"
+            FontSize="40"
+            TextColor="{Binding PointsColor1}"/>
+
+        <!--<Grid Grid.Row="0" HorizontalOptions="Center" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>-->
+
+            <HorizontalStackLayout
+                Spacing="444"
+                Padding="47,0"
+                VerticalOptions="Center">
+
+                <Label Text="Select type and first compared element"/>
+
+                <Label Text="Select type and second compared element"/>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center">
+
+                <Picker x:Name="type_picker1" WidthRequest="275" ItemsSource="{Binding Types}" SelectedItem="{Binding Selected_type1, Mode=TwoWay}"/>
+
+                <Button
+                        Text="CHECK COMPATIBILITY"
+                        WidthRequest="200"
+                        FontSize="12"
+                        Command="{Binding LoadElementsCommand}">
+                </Button>
+
+                <Picker x:Name="type_picker2" WidthRequest="295" ItemsSource="{Binding Types}" SelectedItem="{Binding Selected_type2, Mode=TwoWay}"/>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center">
+
+                <Picker x:Name="element_picker1" WidthRequest="275" ItemsSource="{Binding Players}" SelectedItem="{Binding Selected_player1, Mode=TwoWay}"/>
+
+                <Button
+                        Text="SELECT SEASONS"
+                        WidthRequest="200"
+                        FontSize="12"
+                        Command="{Binding LoadSeasonsCommand}">
+                </Button>
+
+                <Picker x:Name="element_picker2" WidthRequest="295" ItemsSource="{Binding Players}" SelectedItem="{Binding Selected_player2, Mode=TwoWay}"/>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center">
+
+                <Picker x:Name="season_picker1" WidthRequest="275" ItemsSource="{Binding Seasons1}" SelectedItem="{Binding Selected_season1, Mode=TwoWay}"/>
+
+                <Button
+                        Text="COMPARE"
+                        WidthRequest="200"
+                        FontSize="12"
+                        Command="{Binding LoadStatisticsCommand}">
+                </Button>
+
+                <Picker x:Name="season_picker2" WidthRequest="295" ItemsSource="{Binding Seasons2}" SelectedItem="{Binding Selected_season2, Mode=TwoWay}"/>
+
+            </HorizontalStackLayout>
+
+        <Label 
+                Text="Invalid Options Selected"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                HeightRequest="80"
+                FontSize="40"
+                IsVisible="{Binding LabelVisibility}"/>
+
+        <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+            <Label Text="{Binding Stats1.Points}" TextColor="{Binding PointsColor1}"/>
+
+            <Label Text="PPG"/>
+
+            <Label Text="{Binding Stats2.Points}" TextColor="{Binding PointsColor2}"/>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+            <Label Text="{Binding Stats1.Rebounds}" TextColor="{Binding ReboundsColor1}"/>
+
+            <Label Text="RPG"/>
+
+            <Label Text="{Binding Stats2.Rebounds}" TextColor="{Binding ReboundsColor2}"/>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+            <Label Text="{Binding Stats1.Assists}" TextColor="{Binding AssistsColor1}"/>
+
+            <Label Text="APG"/>
+
+            <Label Text="{Binding Stats2.Assists}" TextColor="{Binding AssistsColor2}"/>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+            <Label Text="{Binding Stats1.Steals}" TextColor="{Binding StealsColor1}"/>
+
+            <Label Text="SPG"/>
+
+            <Label Text="{Binding Stats2.Steals}" TextColor="{Binding StealsColor2}"/>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+            <Label Text="{Binding Stats1.Blocks}" TextColor="{Binding BlocksColor1}"/>
+
+            <Label Text="BPG"/>
+
+            <Label Text="{Binding Stats2.Blocks}" TextColor="{Binding BlocksColor2}"/>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+            <Label Text="{Binding Stats1.FGMade}" TextColor="{Binding FgmadeColor1}"/>
+
+            <Label Text="FGMPG"/>
+
+            <Label Text="{Binding Stats2.FGMade}" TextColor="{Binding FgmadeColor2}"/>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+            <Label Text="{Binding Stats1.FGAttempted}" TextColor="{Binding FgattColor1}"/>
+
+            <Label Text="FGAPG"/>
+
+            <Label Text="{Binding Stats2.FGAttempted}" TextColor="{Binding FgattColor2}"/>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+            <Label Text="{Binding Stats1.ThreesMade}" TextColor="{Binding ThreesmadeColor1}"/>
+
+            <Label Text="3SMPG"/>
+
+            <Label Text="{Binding Stats2.ThreesMade}" TextColor="{Binding ThreesmadeColor2}"/>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+            <Label Text="{Binding Stats1.ThreesAttempted}" TextColor="{Binding ThreesattColor1}"/>
+
+            <Label Text="3SAPG"/>
+
+            <Label Text="{Binding Stats2.ThreesAttempted}" TextColor="{Binding ThreesattColor2}"/>
+
+        </HorizontalStackLayout>
+
+        <!--</Grid>-->
+
+    </VerticalStackLayout>
+</ContentPage>
