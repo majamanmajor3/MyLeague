@@ -7,17 +7,17 @@
              xmlns:model="clr-namespace:MyLeagueApp.Classes.Samples"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
              x:DataType="viewmodel:ComparisonViewModel">
-    
-    <VerticalStackLayout>
-        <Label 
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label 
             Text="Welcome to the Comparison Page!"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
             HeightRequest="80"
-            FontSize="40"
-            TextColor="{Binding PointsColor1}"/>
+            FontSize="40"/>
 
-        <!--<Grid Grid.Row="0" HorizontalOptions="Center" Margin="10">
+            <!--<Grid Grid.Row="0" HorizontalOptions="Center" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -96,7 +96,7 @@
 
             </HorizontalStackLayout>
 
-        <Label 
+            <Label 
                 Text="Invalid Options Selected"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center"
@@ -104,133 +104,217 @@
                 FontSize="40"
                 IsVisible="{Binding LabelVisibility}"/>
 
-        <HorizontalStackLayout
-                Spacing="127.5"
-                Padding="50,0"
+            <Label Text="" HeightRequest="50"/>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
-            <Label Text="{Binding Stats1.Points}" TextColor="{Binding PointsColor1}"/>
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
 
-            <Label Text="PPG"/>
+                    <Label Grid.Column="0" Text="{Binding Stats1.Points}" TextColor="{Binding PointsColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-            <Label Text="{Binding Stats2.Points}" TextColor="{Binding PointsColor2}"/>
+                    <Label Grid.Column="1" Text="PPG"  FontSize="20" HorizontalTextAlignment="Center"/>
 
-        </HorizontalStackLayout>
+                    <Label Grid.Column="2" Text="{Binding Stats2.Points}" TextColor="{Binding PointsColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        <HorizontalStackLayout
-                Spacing="127.5"
-                Padding="50,0"
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
-            <Label Text="{Binding Stats1.Rebounds}" TextColor="{Binding ReboundsColor1}"/>
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
 
-            <Label Text="RPG"/>
+                    <Label Grid.Column="0" Text="{Binding Stats1.Rebounds}" TextColor="{Binding ReboundsColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-            <Label Text="{Binding Stats2.Rebounds}" TextColor="{Binding ReboundsColor2}"/>
+                    <Label Grid.Column="1" Text="RPG" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        </HorizontalStackLayout>
+                    <Label Grid.Column="2" Text="{Binding Stats2.Rebounds}" TextColor="{Binding ReboundsColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        <HorizontalStackLayout
-                Spacing="127.5"
-                Padding="50,0"
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
-            <Label Text="{Binding Stats1.Assists}" TextColor="{Binding AssistsColor1}"/>
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
 
-            <Label Text="APG"/>
+                    <Label Grid.Column="0" Text="{Binding Stats1.Assists}" TextColor="{Binding AssistsColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-            <Label Text="{Binding Stats2.Assists}" TextColor="{Binding AssistsColor2}"/>
+                    <Label Grid.Column="1" Text="APG" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        </HorizontalStackLayout>
+                    <Label Grid.Column="2" Text="{Binding Stats2.Assists}" TextColor="{Binding AssistsColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        <HorizontalStackLayout
-                Spacing="127.5"
-                Padding="50,0"
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
-            <Label Text="{Binding Stats1.Steals}" TextColor="{Binding StealsColor1}"/>
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
 
-            <Label Text="SPG"/>
+                    <Label Grid.Column="0" Text="{Binding Stats1.Steals}" TextColor="{Binding StealsColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-            <Label Text="{Binding Stats2.Steals}" TextColor="{Binding StealsColor2}"/>
+                    <Label Grid.Column="1" Text="SPG" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        </HorizontalStackLayout>
+                    <Label Grid.Column="2" Text="{Binding Stats2.Steals}" TextColor="{Binding StealsColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        <HorizontalStackLayout
-                Spacing="127.5"
-                Padding="50,0"
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
-            <Label Text="{Binding Stats1.Blocks}" TextColor="{Binding BlocksColor1}"/>
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
 
-            <Label Text="BPG"/>
+                    <Label Grid.Column="0" Text="{Binding Stats1.Blocks}" TextColor="{Binding BlocksColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-            <Label Text="{Binding Stats2.Blocks}" TextColor="{Binding BlocksColor2}"/>
+                    <Label Grid.Column="1" Text="BPG" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        </HorizontalStackLayout>
+                    <Label Grid.Column="2" Text="{Binding Stats2.Blocks}" TextColor="{Binding BlocksColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        <HorizontalStackLayout
-                Spacing="127.5"
-                Padding="50,0"
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="40"
+                Padding="438,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
-            <Label Text="{Binding Stats1.FGMade}" TextColor="{Binding FgmadeColor1}"/>
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="85"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
 
-            <Label Text="FGMPG"/>
+                    <Label Grid.Column="0" Text="{Binding Stats1.FGMade}" TextColor="{Binding FgmadeColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-            <Label Text="{Binding Stats2.FGMade}" TextColor="{Binding FgmadeColor2}"/>
+                    <Label Grid.Column="1" Text="FGMPG" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        </HorizontalStackLayout>
+                    <Label Grid.Column="2" Text="{Binding Stats2.FGMade}" TextColor="{Binding FgmadeColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        <HorizontalStackLayout
-                Spacing="127.5"
-                Padding="50,0"
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
-            <Label Text="{Binding Stats1.FGAttempted}" TextColor="{Binding FgattColor1}"/>
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
 
-            <Label Text="FGAPG"/>
+                    <Label Grid.Column="0" Text="{Binding Stats1.FGAttempted}" TextColor="{Binding FgattColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-            <Label Text="{Binding Stats2.FGAttempted}" TextColor="{Binding FgattColor2}"/>
+                    <Label Grid.Column="1" Text="FGAPG" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        </HorizontalStackLayout>
+                    <Label Grid.Column="2" Text="{Binding Stats2.FGAttempted}" TextColor="{Binding FgattColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        <HorizontalStackLayout
-                Spacing="127.5"
-                Padding="50,0"
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
-            <Label Text="{Binding Stats1.ThreesMade}" TextColor="{Binding ThreesmadeColor1}"/>
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
 
-            <Label Text="3SMPG"/>
+                    <Label Grid.Column="0" Text="{Binding Stats1.ThreesMade}" TextColor="{Binding ThreesmadeColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-            <Label Text="{Binding Stats2.ThreesMade}" TextColor="{Binding ThreesmadeColor2}"/>
+                    <Label Grid.Column="1" Text="3SMPG" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        </HorizontalStackLayout>
+                    <Label Grid.Column="2" Text="{Binding Stats2.ThreesMade}" TextColor="{Binding ThreesmadeColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        <HorizontalStackLayout
-                Spacing="127.5"
-                Padding="50,0"
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
-            <Label Text="{Binding Stats1.ThreesAttempted}" TextColor="{Binding ThreesattColor1}"/>
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
 
-            <Label Text="3SAPG"/>
+                    <Label Grid.Column="0" Text="{Binding Stats1.ThreesAttempted}" TextColor="{Binding ThreesattColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-            <Label Text="{Binding Stats2.ThreesAttempted}" TextColor="{Binding ThreesattColor2}"/>
+                    <Label Grid.Column="1" Text="3SAPG" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        </HorizontalStackLayout>
+                    <Label Grid.Column="2" Text="{Binding Stats2.ThreesAttempted}" TextColor="{Binding ThreesattColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
-        <!--</Grid>-->
+                </Grid>
 
-    </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <!--</Grid>-->
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

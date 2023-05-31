@@ -81,67 +81,67 @@ namespace MyLeagueApp.ViewModels
         string selected_season2;
 
         [ObservableProperty]
-        bool pickerVisibility;
+        bool pickerVisibility = false;
 
         [ObservableProperty]
-        bool labelVisibility;
+        bool labelVisibility = false;
 
         [ObservableProperty]
-        bool statsVisibility;
+        bool statsVisibility = false;
 
         [ObservableProperty]
-        private string pointsColor1 = "Green";
+        private Color pointsColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string pointsColor2;
+        private Color pointsColor2 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string reboundsColor1;
+        private Color reboundsColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string reboundsColor2;
+        private Color reboundsColor2 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string assistsColor1;
+        private Color assistsColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string assistsColor2;
+        private Color assistsColor2 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string stealsColor1;
+        private Color stealsColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string stealsColor2;
+        private Color stealsColor2 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string blocksColor1;
+        private Color blocksColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string blocksColor2;
+        private Color blocksColor2 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string fgmadeColor1;
+        private Color fgmadeColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string fgmadeColor2;
+        private Color fgmadeColor2 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string fgattColor1;
+        private Color fgattColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string fgattColor2;
+        private Color fgattColor2 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string threesmadeColor1;
+        private Color threesmadeColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string threesmadeColor2;
+        private Color threesmadeColor2 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string threesattColor1;
+        private Color threesattColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
-        string threesattColor2;
+        private Color threesattColor2 = Color.FromRgb(0, 0, 0);
 
         public ComparisonViewModel()
         {
@@ -150,27 +150,6 @@ namespace MyLeagueApp.ViewModels
             Teams = new ObservableCollection<TeamSample>();
             Seasons1 = new ObservableCollection<string>();
             Seasons2 = new ObservableCollection<string>();
-            PickerVisibility = false;
-            LabelVisibility = false;
-            StatsVisibility = false;
-            PointsColor1 = "Green";
-            PointsColor2 = "Black";
-            ReboundsColor1 = "Black";
-            ReboundsColor2 = "Black";
-            AssistsColor1 = "Black";
-            AssistsColor2 = "Black";
-            StealsColor1 = "Black";
-            StealsColor2 = "Black";
-            BlocksColor1 = "Black";
-            BlocksColor2 = "Black";
-            FgmadeColor1 = "Black";
-            FgmadeColor2 = "Black";
-            FgattColor1 = "Black";
-            FgattColor1 = "Black";
-            ThreesmadeColor1 = "Black";
-            ThreesmadeColor2 = "Black";
-            ThreesattColor1 = "Black";
-            ThreesattColor2 = "Black";
         }
 
         [RelayCommand]
@@ -826,8 +805,106 @@ namespace MyLeagueApp.ViewModels
                     }
 
                     StatsVisibility = true;
-                    PointsColor1 = "Green";
                     sqlConn.Close();
+
+                    if(Stats1.Points > Stats2.Points)
+                    {
+                        PointsColor1 = Color.FromRgb(0, 128, 0);
+                        PointsColor2 = Color.FromRgb(255, 0, 0);
+                    } else if(Stats1.Points < Stats2.Points)
+                    {
+                        PointsColor1 = Color.FromRgb(255, 0, 0);
+                        PointsColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats1.Rebounds > Stats2.Rebounds)
+                    {
+                        ReboundsColor1 = Color.FromRgb(0, 128, 0);
+                        ReboundsColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats1.Rebounds < Stats2.Rebounds)
+                    {
+                        ReboundsColor1 = Color.FromRgb(255, 0, 0);
+                        ReboundsColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats1.Assists > Stats2.Assists)
+                    {
+                        AssistsColor1 = Color.FromRgb(0, 128, 0);
+                        AssistsColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats1.Assists < Stats2.Assists)
+                    {
+                        AssistsColor1 = Color.FromRgb(255, 0, 0);
+                        AssistsColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats1.Steals > Stats2.Steals)
+                    {
+                        StealsColor1 = Color.FromRgb(0, 128, 0);
+                        StealsColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats1.Steals < Stats2.Steals)
+                    {
+                        StealsColor1 = Color.FromRgb(255, 0, 0);
+                        StealsColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats1.Blocks > Stats2.Blocks)
+                    {
+                        BlocksColor1 = Color.FromRgb(0, 128, 0);
+                        BlocksColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats1.Blocks < Stats2.Blocks)
+                    {
+                        BlocksColor1 = Color.FromRgb(255, 0, 0);
+                        BlocksColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats1.FGMade > Stats2.FGMade)
+                    {
+                        FgmadeColor1= Color.FromRgb(0, 128, 0);
+                        FgmadeColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats1.FGMade < Stats2.FGMade)
+                    {
+                        FgmadeColor1 = Color.FromRgb(255, 0, 0);
+                        FgmadeColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats1.FGAttempted > Stats2.FGAttempted)
+                    {
+                        FgattColor1 = Color.FromRgb(0, 128, 0);
+                        FgattColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats1.FGAttempted < Stats2.FGAttempted)
+                    {
+                        FgattColor1 = Color.FromRgb(255, 0, 0);
+                        FgattColor1 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats1.ThreesMade > Stats2.ThreesMade)
+                    {
+                        ThreesmadeColor1 = Color.FromRgb(0, 128, 0);
+                        ThreesmadeColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats1.ThreesMade < Stats2.ThreesMade)
+                    {
+                        ThreesmadeColor1 = Color.FromRgb(255, 0, 0);
+                        ThreesmadeColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats1.ThreesAttempted > Stats2.ThreesAttempted)
+                    {
+                        ThreesattColor1 = Color.FromRgb(0, 128, 0);
+                        ThreesattColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats1.ThreesAttempted < Stats2.ThreesAttempted)
+                    {
+                        ThreesattColor1 = Color.FromRgb(255, 0, 0);
+                        ThreesattColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
                 }
             }
             catch (Exception ex)
