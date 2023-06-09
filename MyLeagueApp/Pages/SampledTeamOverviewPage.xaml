@@ -59,6 +59,70 @@
                         Style="{StaticResource ButtonOutline}"/>
 
             <Label 
+                Text="Seasonal Stats:"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"/>
+
+            <ListView ItemsSource="{Binding Stats}" x:Name="cv2" SeparatorColor="Black" SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:SeasonalStatsTeam">
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding Season}"
+                                   FontAttributes="Bold"
+                                   TextColor="Black"/>
+                                <Label Grid.Row="1"
+                                   Grid.Column="2"
+                                   Text="{Binding Wins}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="3"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding Losses}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="4"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding PPG}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                                <Label Grid.Column="5"
+                                   Grid.Row="1"
+                                   WidthRequest="150"
+                                   Text="{Binding APPG}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="Black"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label 
                 Text="Players:"
                 TextColor="Black"
                 SemanticProperties.HeadingLevel="Level1"
@@ -151,8 +215,7 @@
             </CollectionView>-->
 
             <HorizontalStackLayout
-                Spacing="50"
-                Padding="20,0"
+                Spacing="10"
                 VerticalOptions="Start">
 
                 <Button
@@ -162,8 +225,8 @@
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="16"
                 HorizontalOptions="Center"
-                WidthRequest="300"
-                Margin="8"
+                WidthRequest="250"
+                Margin="1"
                 Style="{StaticResource ButtonOutline}"
                 VerticalOptions="CenterAndExpand"
                 Clicked="NewPlayerClicked"/>
@@ -175,11 +238,24 @@
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="16"
                 HorizontalOptions="Center"
-                WidthRequest="300"
+                WidthRequest="250"
                 Margin="8"
                 Style="{StaticResource ButtonOutline}"
                 VerticalOptions="CenterAndExpand"
                 Clicked="EditTeamClicked"/>
+
+                <Button
+                Text="IMPORT SEASON"
+                x:Name="button4"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="16"
+                HorizontalOptions="Center"
+                WidthRequest="250"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"
+                VerticalOptions="CenterAndExpand"
+                Command="{Binding AddSeasonCommand}"/>
 
                 <Button
                 Text="DELETE TEAM"
@@ -189,7 +265,7 @@
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="16"
                 HorizontalOptions="Center"
-                WidthRequest="300"
+                WidthRequest="250"
                 Margin="8"
                 Style="{StaticResource ButtonOutline}"
                 VerticalOptions="CenterAndExpand"
