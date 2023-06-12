@@ -104,6 +104,9 @@ namespace MyLeagueApp.ViewModels
         bool teamsVisibility = false;
 
         [ObservableProperty]
+        bool teamStatsVisibility = false;
+
+        [ObservableProperty]
         private Color pointsColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
@@ -157,6 +160,30 @@ namespace MyLeagueApp.ViewModels
         [ObservableProperty]
         private Color threesattColor2 = Color.FromRgb(0, 0, 0);
 
+        [ObservableProperty]
+        private Color teamPPGColor1 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color teamPPGColor2= Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color teamAPPGColor1 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color teamAPPGColor2 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color teamWinsColor1 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color teamWinsColor2 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color teamLossesColor1 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color teamLossesColor2 = Color.FromRgb(0, 0, 0);
+
         public ComparisonViewModel()
         {
             Types = new List<string>{"Player","Team"};
@@ -178,6 +205,15 @@ namespace MyLeagueApp.ViewModels
                 }
                 else
                 {
+                    Players = new ObservableCollection<PlayerSample>();
+                    Teams = new ObservableCollection<TeamSample>();
+
+                    PlayersVisibility = false;
+                    TeamsVisibility = false;
+                    PlayerSeasonsVisibility = false;
+                    TeamSeasonsVisibility = false;
+                    StatsVisibility = false;
+
                     if (Selected_type1 == "Player")
                     {
                         LabelVisibility = false;
@@ -733,7 +769,7 @@ namespace MyLeagueApp.ViewModels
 
                     sqlConn.Close();
 
-                    PlayerSeasonsVisibility = true;
+                    TeamSeasonsVisibility = true;
                 }
             }
             catch (Exception ex)
@@ -1193,6 +1229,278 @@ namespace MyLeagueApp.ViewModels
                     {
                         ThreesattColor1 = Color.FromRgb(255, 0, 0);
                         ThreesattColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                sqlConn.Close();
+            }
+        }
+
+        [RelayCommand]
+        private void LoadTeamStatistics()
+        {
+            try
+            {
+                if ((Selected_season1 == null) || (Selected_season2 == null))
+                {
+                    LabelVisibility = true;
+                    return;
+                }
+                else
+                {
+                    LabelVisibility = false;
+
+                    string stats_count = "0";
+                    int season_id;
+                    double ppg;
+                    double appg;
+                    int wins;
+                    int losses;
+
+                    sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
+                                                ";password=" + password +
+                                                ";database=" + database +
+                                                ";convert zero datetime=True";
+
+                    sqlConn.Open();
+
+                    String sql = "SELECT COUNT(*) FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team1.ApiId + " AND `season`=" + Selected_season1 + "; ";
+
+                    sqlCmd = new MySqlCommand(sql, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    stats_count = sqlRd3[0].ToString();
+                    sqlRd3.Close();
+                    //sqlConn.Close();
+
+                    int cr = Int32.Parse(stats_count);
+
+                    if (cr == 0)
+                    {
+                        //label.IsVisible = true;
+                    }
+
+                    for (int i = 0; i < cr; i++)
+                    {
+                        //sqlConn.Open();
+
+                        String sql_id = "SELECT stat_id FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team1.ApiId + " AND `season`=" + Selected_season1 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_id, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        season_id = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_pts = "SELECT wins FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team1.ApiId + " AND `season`=" + Selected_season1 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_pts, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        wins = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_rb = "SELECT losses FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team1.ApiId + " AND `season`=" + Selected_season1 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_rb, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        losses = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_as = "SELECT ppg FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team1.ApiId + " AND `season`=" + Selected_season1 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_as, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        ppg = Double.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_st = "SELECT appg FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team1.ApiId + " AND `season`=" + Selected_season1 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_st, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        appg = Double.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        Stats_team1 = new SeasonalStatsTeam(season_id, Selected_team1.ApiId, wins, losses, ppg, appg, Int32.Parse(Selected_season1));
+                    }
+
+
+
+                    sql = "SELECT COUNT(*) FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team2.ApiId + " AND `season`=" + Selected_season2 + "; ";
+
+                    sqlCmd = new MySqlCommand(sql, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    stats_count = sqlRd3[0].ToString();
+                    sqlRd3.Close();
+                    //sqlConn.Close();
+
+                    cr = Int32.Parse(stats_count);
+
+                    if (cr == 0)
+                    {
+                        //label.IsVisible = true;
+                    }
+
+                    for (int i = 0; i < cr; i++)
+                    {
+                        //sqlConn.Open();
+
+                        String sql_id = "SELECT stat_id FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team2.ApiId + " AND `season`=" + Selected_season2 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_id, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        season_id = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_pts = "SELECT wins FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team2.ApiId + " AND `season`=" + Selected_season2 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_pts, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        wins = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_rb = "SELECT losses FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team2.ApiId + " AND `season`=" + Selected_season2 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_rb, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        losses = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_as = "SELECT ppg FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team2.ApiId + " AND `season`=" + Selected_season2 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_as, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        ppg = Double.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        String sql_st = "SELECT appg FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team2.ApiId + " AND `season`=" + Selected_season2 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_st, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
+                        {
+
+                        }
+
+                        appg = Double.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
+
+                        Stats_team2 = new SeasonalStatsTeam(season_id, Selected_team2.ApiId, wins, losses, ppg, appg, Int32.Parse(Selected_season2));
+                    }
+
+                    TeamStatsVisibility = true;
+                    sqlConn.Close();
+
+                    if (Stats_team1.Wins > Stats_team2.Wins)
+                    {
+                        TeamWinsColor1 = Color.FromRgb(0, 128, 0);
+                        TeamWinsColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats_team1.Wins < Stats_team2.Wins)
+                    {
+                        TeamWinsColor1 = Color.FromRgb(255, 0, 0);
+                        TeamWinsColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats_team1.Losses < Stats_team2.Losses)
+                    {
+                        TeamLossesColor1 = Color.FromRgb(0, 128, 0);
+                        TeamLossesColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats_team1.Losses > Stats_team2.Losses)
+                    {
+                        TeamLossesColor1 = Color.FromRgb(255, 0, 0);
+                        TeamLossesColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats_team1.PPG > Stats_team2.PPG)
+                    {
+                        TeamPPGColor1 = Color.FromRgb(0, 128, 0);
+                        TeamPPGColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats_team1.PPG < Stats_team2.PPG)
+                    {
+                        TeamPPGColor1 = Color.FromRgb(255, 0, 0);
+                        TeamPPGColor2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats_team1.APPG < Stats_team2.APPG)
+                    {
+                        TeamAPPGColor1 = Color.FromRgb(0, 128, 0);
+                        TeamAPPGColor2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats_team1.APPG > Stats_team2.APPG)
+                    {
+                        TeamAPPGColor1 = Color.FromRgb(255, 0, 0);
+                        TeamAPPGColor2 = Color.FromRgb(0, 128, 0);
                     }
 
                 }

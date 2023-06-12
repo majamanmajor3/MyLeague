@@ -3,7 +3,10 @@ using MyLeagueApp.Classes;
 using MyLeagueApp.Classes.Samples;
 using MyLeagueApp.ViewModels;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.Utilities.IO;
 using System.Data.SqlTypes;
+using System.Net;
 
 namespace MyLeagueApp.Pages;
 
@@ -37,9 +40,20 @@ public partial class NewSampledPlayerPage : ContentPage
         int id = item.Id;
         //DisplayAlert("", name, "OK");
 
+        WebClient client = new WebClient();
+        //String stats = client.DownloadString("https://free-nba.p.rapidapi.com/stats?seasons[]=2021&player_ids[]=237&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
+        String teams = client.DownloadString("https://free-nba.p.rapidapi.com/teams/" + item.Team + "?rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
+        dynamic data = JObject.Parse(teams);
+        string team_name = (string)data["full_name"];
+
+        //foreach (var member in data["data"])
+        //{
+        //    team_name = (string)member["full_name"];
+        //}
+
         bool answer = await Shell.Current.DisplayAlert("Are you sure you want to sample this player?",
                                                           "Full Name: " + item.FullName + "\n" +
-                                                          "Team: " + item.Team + "\n" +
+                                                          "Team: " + team_name + "\n" +
                                                           "Position Name: " + item.PositionName + "\n" +
                                                           "Height: " + item.HeightFeet + "'" + item.HeightInches + "\n" +
                                                           "Weight: " + item.Weight + "\n"

@@ -128,7 +128,7 @@
                         Text="COMPARE"
                         WidthRequest="200"
                         FontSize="12"
-                        Command="{Binding LoadPlayerStatisticsCommand}"
+                        Command="{Binding LoadTeamStatisticsCommand}"
                         IsVisible="{Binding TeamSeasonsVisibility}">
                 </Button>
 
@@ -348,6 +348,98 @@
                     <Label Grid.Column="1" Text="3SAPG" FontSize="20" HorizontalTextAlignment="Center"/>
 
                     <Label Grid.Column="2" Text="{Binding Stats2.ThreesAttempted}" TextColor="{Binding ThreesattColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding TeamStatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding Stats_team1.Wins}" TextColor="{Binding TeamWinsColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="Wins"  FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding Stats_team2.Wins}" TextColor="{Binding TeamWinsColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding TeamStatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding Stats_team1.Losses}" TextColor="{Binding TeamLossesColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="Losses"  FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding Stats_team2.Losses}" TextColor="{Binding TeamLossesColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding TeamStatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding Stats_team1.PPG}" TextColor="{Binding TeamPPGColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="PPG"  FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding Stats_team2.PPG}" TextColor="{Binding TeamPPGColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding TeamStatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding Stats_team1.APPG}" TextColor="{Binding TeamAPPGColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="APPG"  FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding Stats_team2.APPG}" TextColor="{Binding TeamAPPGColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
                 </Grid>
 
