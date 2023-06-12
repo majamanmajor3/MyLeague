@@ -65,16 +65,17 @@
                 Padding="50,0"
                 VerticalOptions="Center">
 
-                <Picker x:Name="element_picker1" WidthRequest="275" ItemsSource="{Binding Players}" SelectedItem="{Binding Selected_player1, Mode=TwoWay}"/>
+                <Picker x:Name="element_picker1" WidthRequest="275" ItemsSource="{Binding Players}" SelectedItem="{Binding Selected_player1, Mode=TwoWay}" IsVisible="{Binding PlayersVisibility}"/>
 
                 <Button
                         Text="SELECT SEASONS"
                         WidthRequest="200"
                         FontSize="12"
-                        Command="{Binding LoadSeasonsCommand}">
+                        Command="{Binding LoadPlayerSeasonsCommand}"
+                        IsVisible="{Binding PlayersVisibility}">
                 </Button>
 
-                <Picker x:Name="element_picker2" WidthRequest="295" ItemsSource="{Binding Players}" SelectedItem="{Binding Selected_player2, Mode=TwoWay}"/>
+                <Picker x:Name="element_picker2" WidthRequest="295" ItemsSource="{Binding Players}" SelectedItem="{Binding Selected_player2, Mode=TwoWay}" IsVisible="{Binding PlayersVisibility}"/>
 
             </HorizontalStackLayout>
 
@@ -83,16 +84,55 @@
                 Padding="50,0"
                 VerticalOptions="Center">
 
-                <Picker x:Name="season_picker1" WidthRequest="275" ItemsSource="{Binding Seasons1}" SelectedItem="{Binding Selected_season1, Mode=TwoWay}"/>
+                <Picker x:Name="element_picker3" WidthRequest="275" ItemsSource="{Binding Teams}" SelectedItem="{Binding Selected_team1, Mode=TwoWay}" IsVisible="{Binding TeamsVisibility}"/>
+
+                <Button
+                        Text="SELECT SEASONS"
+                        WidthRequest="200"
+                        FontSize="12"
+                        Command="{Binding LoadTeamSeasonsCommand}"
+                        IsVisible="{Binding TeamsVisibility}">
+                </Button>
+
+                <Picker x:Name="element_picker4" WidthRequest="295" ItemsSource="{Binding Teams}" SelectedItem="{Binding Selected_team2, Mode=TwoWay}" IsVisible="{Binding TeamsVisibility}"/>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center">
+
+                <Picker x:Name="season_picker1" WidthRequest="275" ItemsSource="{Binding Seasons1}" SelectedItem="{Binding Selected_season1, Mode=TwoWay}" IsVisible="{Binding PlayerSeasonsVisibility}"/>
 
                 <Button
                         Text="COMPARE"
                         WidthRequest="200"
                         FontSize="12"
-                        Command="{Binding LoadStatisticsCommand}">
+                        Command="{Binding LoadPlayerStatisticsCommand}"
+                        IsVisible="{Binding PlayerSeasonsVisibility}">
                 </Button>
 
-                <Picker x:Name="season_picker2" WidthRequest="295" ItemsSource="{Binding Seasons2}" SelectedItem="{Binding Selected_season2, Mode=TwoWay}"/>
+                <Picker x:Name="season_picker2" WidthRequest="295" ItemsSource="{Binding Seasons2}" SelectedItem="{Binding Selected_season2, Mode=TwoWay}" IsVisible="{Binding PlayerSeasonsVisibility}"/>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="127.5"
+                Padding="50,0"
+                VerticalOptions="Center">
+
+                <Picker x:Name="season_picker3" WidthRequest="275" ItemsSource="{Binding Seasons1}" SelectedItem="{Binding Selected_season1, Mode=TwoWay}" IsVisible="{Binding TeamSeasonsVisibility}"/>
+
+                <Button
+                        Text="COMPARE"
+                        WidthRequest="200"
+                        FontSize="12"
+                        Command="{Binding LoadPlayerStatisticsCommand}"
+                        IsVisible="{Binding TeamSeasonsVisibility}">
+                </Button>
+
+                <Picker x:Name="season_picker4" WidthRequest="295" ItemsSource="{Binding Seasons2}" SelectedItem="{Binding Selected_season2, Mode=TwoWay}" IsVisible="{Binding TeamSeasonsVisibility}"/>
 
             </HorizontalStackLayout>
 
