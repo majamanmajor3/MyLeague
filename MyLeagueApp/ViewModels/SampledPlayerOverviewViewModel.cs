@@ -196,7 +196,7 @@ namespace MyLeagueApp.ViewModels
 
                 String sqlHInches = "SELECT height_inches FROM `sampled_players` WHERE `player_id`=" + player_id + ";";
 
-                sqlCmd = new MySqlCommand(sqlConf, sqlConn);
+                sqlCmd = new MySqlCommand(sqlHInches, sqlConn);
                 sqlRd3 = sqlCmd.ExecuteReader();
 
                 while (sqlRd3.Read())
@@ -210,7 +210,7 @@ namespace MyLeagueApp.ViewModels
 
                 String sqlWeigth = "SELECT weight_pounds FROM `sampled_players` WHERE `player_id`=" + player_id + ";";
 
-                sqlCmd = new MySqlCommand(sqlConf, sqlConn);
+                sqlCmd = new MySqlCommand(sqlWeigth, sqlConn);
                 sqlRd3 = sqlCmd.ExecuteReader();
 
                 while (sqlRd3.Read())
@@ -224,7 +224,7 @@ namespace MyLeagueApp.ViewModels
 
                 String sql_api = "SELECT api_player_id FROM `sampled_players` WHERE `player_id`=" + player_id + ";";
 
-                sqlCmd = new MySqlCommand(sqlConf, sqlConn);
+                sqlCmd = new MySqlCommand(sql_api, sqlConn);
                 sqlRd3 = sqlCmd.ExecuteReader();
 
                 while (sqlRd3.Read())
@@ -268,7 +268,11 @@ namespace MyLeagueApp.ViewModels
                 double fg_att;
                 double threes_made;
                 double threes_att;
+                double ft_made;
+                double ft_att;
+                double turnovers;
                 int season;
+                int team;
 
                 sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
                                             ";password=" + password +
@@ -432,6 +436,45 @@ namespace MyLeagueApp.ViewModels
                     threes_att = Double.Parse(sqlRd6[0].ToString());
                     sqlRd6.Close();
 
+                    String sql_ftm = "SELECT ft_made FROM seasonal_stats WHERE `player_id`=" + player_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_ftm, sqlConn);
+                    sqlRd6 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd6.Read())
+                    {
+
+                    }
+
+                    ft_made = Double.Parse(sqlRd6[0].ToString());
+                    sqlRd6.Close();
+
+                    String sql_fta = "SELECT ft_attempted FROM seasonal_stats WHERE `player_id`=" + player_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_fta, sqlConn);
+                    sqlRd6 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd6.Read())
+                    {
+
+                    }
+
+                    ft_att = Double.Parse(sqlRd6[0].ToString());
+                    sqlRd6.Close();
+
+                    String sql_turn = "SELECT turnovers FROM seasonal_stats WHERE `player_id`=" + player_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_turn, sqlConn);
+                    sqlRd6 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd6.Read())
+                    {
+
+                    }
+
+                    turnovers = Double.Parse(sqlRd6[0].ToString());
+                    sqlRd6.Close();
+
                     String sql_season = "SELECT season FROM seasonal_stats WHERE `player_id`=" + player_id + " LIMIT " + i + ",1; ";
 
                     sqlCmd = new MySqlCommand(sql_season, sqlConn);
@@ -445,9 +488,22 @@ namespace MyLeagueApp.ViewModels
                     season = Int32.Parse(sqlRd6[0].ToString());
                     sqlRd6.Close();
 
+                    String sql_team = "SELECT team FROM seasonal_stats WHERE `player_id`=" + player_id + " LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql_team, sqlConn);
+                    sqlRd6 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd6.Read())
+                    {
+
+                    }
+
+                    team = Int32.Parse(sqlRd6[0].ToString());
+                    sqlRd6.Close();
+
                     sqlConn.Close();
 
-                    Stats.Add(new SeasonalStats(season_id, player_id, points, rebounds, assists, steals, blocks, fg_made, fg_att, threes_made, threes_att, season));
+                    Stats.Add(new SeasonalStats(season_id, player_id, points, rebounds, assists, steals, blocks, fg_made, fg_att, threes_made, threes_att, ft_made, ft_att, turnovers, season, team, 0));
                 }
             }
             catch (Exception ex)
@@ -471,12 +527,14 @@ namespace MyLeagueApp.ViewModels
                 String stats = client.DownloadString(search_string);
                 dynamic data = JObject.Parse(stats);
                 int cr = 1;
+                int team_id = 0;
 
                 List<PlayerStatSample> list = new List<PlayerStatSample>();
 
                 foreach (var member in data["data"])
                 {
                     int player_id = Player.Id;
+                    team_id = (int)member["team"]["id"];
                     int game_id = (int)member["id"];
                     int points = (int)member["pts"];
                     int rebounds = (int)member["reb"];
@@ -487,10 +545,13 @@ namespace MyLeagueApp.ViewModels
                     int fg_att = (int)member["fga"];
                     int threes_made = (int)member["fg3m"];
                     int threes_att = (int)member["fg3a"];
+                    int turnovers = (int)member["turnover"];
+                    int free_made = (int)member["ftm"];
+                    int free_att = (int)member["fta"];
 
                     int year = Int32.Parse(result);
 
-                    PlayerStatSample stat = new(cr, player_id, game_id, points, rebounds, assists, steals, blocks, fg_made, fg_att, threes_made, threes_att, year);
+                    PlayerStatSample stat = new(cr, player_id, game_id, points, rebounds, assists, steals, blocks, fg_made, fg_att, threes_made, threes_att, free_made, free_att, turnovers, year, 0);
 
                     list.Add(stat);
                     cr++;
@@ -511,6 +572,9 @@ namespace MyLeagueApp.ViewModels
                 double fg_att_avg = 0;
                 double threes_made_avg = 0;
                 double threes_att_avg = 0;
+                double free_made_avg = 0;
+                double free_att_avg = 0;
+                double turnovers_avg = 0;
 
                 //List<PlayerStatSample> list = Matches.ToList();
 
@@ -525,6 +589,9 @@ namespace MyLeagueApp.ViewModels
                     fg_att_avg += match.FGAttempted;
                     threes_made_avg += match.ThreesMade;
                     threes_att_avg += match.ThreesAttempted;
+                    free_made_avg += match.FreeThrowsMade;
+                    free_att_avg += match.FreeThrowsAttempted;
+                    turnovers_avg += match.Turnovers;
                 }
 
                 points_avg /= list.Count;
@@ -536,6 +603,9 @@ namespace MyLeagueApp.ViewModels
                 fg_att_avg /= list.Count;
                 threes_made_avg /= list.Count;
                 threes_att_avg /= list.Count;
+                free_made_avg /= list.Count;
+                free_att_avg /= list.Count;
+                turnovers_avg /= list.Count;
 
                 bool answer = await Shell.Current.DisplayAlert("Are you sure you want to import this season?",
                                                           "Season: " + Int32.Parse(result) + "\n" +
@@ -548,6 +618,9 @@ namespace MyLeagueApp.ViewModels
                                                           "Field Goals Attempted/Game: " + Math.Round(fg_att_avg, 1) + "\n" +
                                                           "Three Pointers Made/Game: " + Math.Round(threes_made_avg, 1) + "\n" +
                                                           "Three Pointers Attempted/Game: " + Math.Round(threes_att_avg, 1) + "\n" +
+                                                          "Free Throws Made/Game: " + Math.Round(free_made_avg, 1) + "\n" +
+                                                          "Free Throws Attempted/Game: " + Math.Round(free_att_avg, 1) + "\n" +
+                                                          "Turnovers/Game: " + Math.Round(turnovers_avg, 1) + "\n" +
                                                           "Games Played: " + list.Count
                                                           , "Yes", "No");
 
@@ -581,8 +654,8 @@ namespace MyLeagueApp.ViewModels
                             int stat_id = Int32.Parse(sqlRd[0].ToString());
                             sqlRd.Close();
 
-                            String sql_ins = "INSERT INTO `sampled_player_stats` (`stat_id`, `player_id`, `game_id`, `points`, `rebounds`, `assists`, `steals`, `blocks`, `fg_made`, `fg_attempted`, `threes_made`, `threes_attempted`, `season`) " +
-                            "VALUES (" + stat_id + ", '" + Player.Id + "', '" + match.MatchId + "', '" + match.Points + "', '" + match.Rebounds + "', '" + match.Assists + "', '" + match.Steals + "', '" + match.Blocks + "', '" + match.FGMade + "', '" + match.FGAttempted + "', '" + match.ThreesMade + "', '" + match.ThreesAttempted + "', '" + Int32.Parse(result) + "');";
+                            String sql_ins = "INSERT INTO `sampled_player_stats` (`stat_id`, `player_id`, `game_id`, `points`, `rebounds`, `assists`, `steals`, `blocks`, `fg_made`, `fg_attempted`, `threes_made`, `threes_attempted`, `ft_made`, `ft_attempted`, `turnovers`, `season`) " +
+                            "VALUES (" + stat_id + ", '" + Player.Id + "', '" + match.MatchId + "', '" + match.Points + "', '" + match.Rebounds + "', '" + match.Assists + "', '" + match.Steals + "', '" + match.Blocks + "', '" + match.FGMade + "', '" + match.FGAttempted + "', '" + match.ThreesMade + "', '" + match.ThreesAttempted + "', '" + match.FreeThrowsMade +  "', '" + match.FreeThrowsAttempted + "', '" + match.Turnovers + "', '" + Int32.Parse(result) + "');";
 
                             sqlCmd = new MySqlCommand(sql_ins, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -609,8 +682,8 @@ namespace MyLeagueApp.ViewModels
                         int season_id = Int32.Parse(sqlRd[0].ToString());
                         sqlRd.Close();
 
-                        String sql2 = "INSERT INTO `seasonal_stats` (`season_id`, `player_id`, `points`, `rebounds`, `assists`, `steals`, `blocks`, `fg_made`, `fg_attempted`, `threes_made`, `threes_attempted`, `season`) " +
-                            "VALUES (" + season_id + ", '" + Player.Id + "', '" + points_avg + "', '" + rebounds_avg + "', '" + assists_avg + "', '" + steals_avg + "', '" + blocks_avg + "', '" + fg_made_avg + "', '" + fg_att_avg + "', '" + threes_made_avg + "', '" + threes_att_avg + "', '" + Int32.Parse(result) + "');";
+                        String sql2 = "INSERT INTO `seasonal_stats` (`season_id`, `player_id`, `points`, `rebounds`, `assists`, `steals`, `blocks`, `fg_made`, `fg_attempted`, `threes_made`, `threes_attempted`, `ft_made`, `ft_attempted`, `turnovers`, `season`, `team`) " +
+                            "VALUES (" + season_id + ", '" + Player.Id + "', '" + points_avg + "', '" + rebounds_avg + "', '" + assists_avg + "', '" + steals_avg + "', '" + blocks_avg + "', '" + fg_made_avg + "', '" + fg_att_avg + "', '" + threes_made_avg + "', '" + threes_att_avg + "', '" + free_made_avg + "', '" + free_att_avg + "', '" + turnovers_avg + "', '" + Int32.Parse(result) + "', '" + team_id + "');";
 
                         sqlCmd = new MySqlCommand(sql2, sqlConn);
 
