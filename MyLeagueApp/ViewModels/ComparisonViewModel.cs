@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Syncfusion.Maui.Charts;
+using MyLeagueApp.Classes;
 
 namespace MyLeagueApp.ViewModels
 {
@@ -48,6 +50,12 @@ namespace MyLeagueApp.ViewModels
 
         [ObservableProperty]
         ObservableCollection<GameStatSample> matchups;
+
+        [ObservableProperty]
+        ObservableCollection<GraphData> graphData1;
+
+        [ObservableProperty]
+        ObservableCollection<GraphData> graphData2;
 
         [ObservableProperty]
         SeasonalStats stats1;
@@ -264,6 +272,8 @@ namespace MyLeagueApp.ViewModels
             Seasons1 = new ObservableCollection<string>();
             Seasons2 = new ObservableCollection<string>();
             Matchups = new ObservableCollection<GameStatSample>();
+            GraphData1 = new ObservableCollection<GraphData>();
+            GraphData2 = new ObservableCollection<GraphData>();
         }
 
         [RelayCommand]
@@ -1509,7 +1519,7 @@ namespace MyLeagueApp.ViewModels
                         for (int i = 0; i < matchups1; i++)
                         {
 
-                            String sql_id1 = "SELECT game_id FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + "; ";
+                            String sql_id1 = "SELECT game_id FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + " LIMIT " + i + ",1; ";
 
                             sqlCmd = new MySqlCommand(sql_id1, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -1522,7 +1532,7 @@ namespace MyLeagueApp.ViewModels
                             int game_id = Int32.Parse(sqlRd[0].ToString());
                             sqlRd.Close();
 
-                            String sql_home1 = "SELECT home_score FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + "; ";
+                            String sql_home1 = "SELECT home_score FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + " LIMIT " + i + ",1; ";
 
                             sqlCmd = new MySqlCommand(sql_home1, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -1535,7 +1545,7 @@ namespace MyLeagueApp.ViewModels
                             int home_score = Int32.Parse(sqlRd[0].ToString());
                             sqlRd.Close();
 
-                            String sql_away1 = "SELECT away_score FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + "; ";
+                            String sql_away1 = "SELECT away_score FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + " LIMIT " + i + ",1; ";
 
                             sqlCmd = new MySqlCommand(sql_away1, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -1548,7 +1558,7 @@ namespace MyLeagueApp.ViewModels
                             int away_score = Int32.Parse(sqlRd[0].ToString());
                             sqlRd.Close();
 
-                            String sql_date1 = "SELECT date FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + "; ";
+                            String sql_date1 = "SELECT date FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + " LIMIT " + i + ",1; ";
 
                             sqlCmd = new MySqlCommand(sql_date1, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -1561,7 +1571,7 @@ namespace MyLeagueApp.ViewModels
                             string date = sqlRd[0].ToString().Remove(10);
                             sqlRd.Close();
 
-                            String sql_postseason1 = "SELECT postseason FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + "; ";
+                            String sql_postseason1 = "SELECT postseason FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + " LIMIT " + i + ",1; ";
 
                             sqlCmd = new MySqlCommand(sql_postseason1, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -1598,7 +1608,7 @@ namespace MyLeagueApp.ViewModels
                         for (int i = 0; i < matchups2; i++)
                         {
 
-                            String sql_id1 = "SELECT game_id FROM `sampled_games` WHERE `home_id`=" + Stats2.Team + " AND `away_id`=" + Stats1.Team + " AND `season`=" + Selected_season1 + "; ";
+                            String sql_id1 = "SELECT game_id FROM `sampled_games` WHERE `home_id`=" + Stats2.Team + " AND `away_id`=" + Stats1.Team + " AND `season`=" + Selected_season1 + " LIMIT " + i + ",1; ";
 
                             sqlCmd = new MySqlCommand(sql_id1, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -1611,7 +1621,7 @@ namespace MyLeagueApp.ViewModels
                             int game_id = Int32.Parse(sqlRd[0].ToString());
                             sqlRd.Close();
 
-                            String sql_home1 = "SELECT home_score FROM `sampled_games` WHERE `home_id`=" + Stats2.Team + " AND `away_id`=" + Stats1.Team + " AND `season`=" + Selected_season1 + "; ";
+                            String sql_home1 = "SELECT home_score FROM `sampled_games` WHERE `home_id`=" + Stats2.Team + " AND `away_id`=" + Stats1.Team + " AND `season`=" + Selected_season1 + " LIMIT " + i + ",1; ";
 
                             sqlCmd = new MySqlCommand(sql_home1, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -1624,7 +1634,7 @@ namespace MyLeagueApp.ViewModels
                             int home_score = Int32.Parse(sqlRd[0].ToString());
                             sqlRd.Close();
 
-                            String sql_away1 = "SELECT away_score FROM `sampled_games` WHERE `home_id`=" + Stats2.Team + " AND `away_id`=" + Stats1.Team + " AND `season`=" + Selected_season1 + "; ";
+                            String sql_away1 = "SELECT away_score FROM `sampled_games` WHERE `home_id`=" + Stats2.Team + " AND `away_id`=" + Stats1.Team + " AND `season`=" + Selected_season1 + " LIMIT " + i + ",1; ";
 
                             sqlCmd = new MySqlCommand(sql_away1, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -1637,7 +1647,7 @@ namespace MyLeagueApp.ViewModels
                             int away_score = Int32.Parse(sqlRd[0].ToString());
                             sqlRd.Close();
 
-                            String sql_date1 = "SELECT date FROM `sampled_games` WHERE `home_id`=" + Stats2.Team + " AND `away_id`=" + Stats1.Team + " AND `season`=" + Selected_season1 + "; ";
+                            String sql_date1 = "SELECT date FROM `sampled_games` WHERE `home_id`=" + Stats2.Team + " AND `away_id`=" + Stats1.Team + " AND `season`=" + Selected_season1 + " LIMIT " + i + ",1; ";
 
                             sqlCmd = new MySqlCommand(sql_date1, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -1650,7 +1660,7 @@ namespace MyLeagueApp.ViewModels
                             string date = sqlRd[0].ToString().Remove(10);
                             sqlRd.Close();
 
-                            String sql_postseason1 = "SELECT postseason FROM `sampled_games` WHERE `home_id`=" + Stats2.Team + " AND `away_id`=" + Stats1.Team + " AND `season`=" + Selected_season1 + "; ";
+                            String sql_postseason1 = "SELECT postseason FROM `sampled_games` WHERE `home_id`=" + Stats2.Team + " AND `away_id`=" + Stats1.Team + " AND `season`=" + Selected_season1 + " LIMIT " + i + ",1; ";
 
                             sqlCmd = new MySqlCommand(sql_postseason1, sqlConn);
                             sqlRd = sqlCmd.ExecuteReader();
@@ -1674,6 +1684,8 @@ namespace MyLeagueApp.ViewModels
                         MatchupVisibility = true;
 
                     }
+
+                    LoadGraphData();
 
                     StatsVisibility = true;
                     sqlConn.Close();
@@ -2104,6 +2116,374 @@ namespace MyLeagueApp.ViewModels
                     }
 
                 }
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                sqlConn.Close();
+            }
+        }
+
+        private void LoadGraphData()
+        {
+            try
+            {
+                int stats_count;
+                int stat_id;
+                double points;
+                double rebounds;
+                double assists;
+                double steals;
+                double blocks;
+                double fgmade;
+                double fgatt;
+                double threesmade;
+                double threesatt;
+                double ft_made;
+                double ft_att;
+                double turnovers;
+
+                //sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
+                //                            ";password=" + password +
+                //                            ";database=" + database +
+                //                            ";convert zero datetime=True";
+
+                //sqlConn.Open();
+
+                String sql = "SELECT COUNT(*) FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id`; ";
+
+                sqlCmd = new MySqlCommand(sql, sqlConn);
+                sqlRd3 = sqlCmd.ExecuteReader();
+
+                while (sqlRd3.Read())
+                {
+
+                }
+
+                stats_count = Int32.Parse(sqlRd3[0].ToString());
+                sqlRd3.Close();
+
+                for(int i = 0; i < stats_count; i++)
+                {
+
+                    String sql1 = "SELECT stat_id FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    stat_id = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT points FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    points = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT rebounds FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    rebounds = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT assists FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    assists = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT steals FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    steals = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT blocks FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    blocks = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT fg_made FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    fgmade = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT fg_attempted FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    fgatt = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT ft_made FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    ft_made = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT ft_attempted FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    ft_att = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT turnovers FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    turnovers = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    double efficiency = (points + rebounds + assists + steals + blocks)
+                            - ((fgatt - fgmade) + (ft_att - ft_made) + turnovers);
+
+                    GraphData1.Add(new GraphData(i+1, efficiency));
+
+                }
+
+                sql = "SELECT COUNT(*) FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id`; ";
+
+                sqlCmd = new MySqlCommand(sql, sqlConn);
+                sqlRd3 = sqlCmd.ExecuteReader();
+
+                while (sqlRd3.Read())
+                {
+
+                }
+
+                stats_count = Int32.Parse(sqlRd3[0].ToString());
+                sqlRd3.Close();
+
+                for (int i = 0; i < stats_count; i++)
+                {
+
+                    String sql1 = "SELECT stat_id FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    stat_id = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT points FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    points = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT rebounds FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    rebounds = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT assists FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    assists = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT steals FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    steals = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT blocks FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    blocks = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT fg_made FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    fgmade = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT fg_attempted FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    fgatt = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT ft_made FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    ft_made = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT ft_attempted FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    ft_att = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    sql1 = "SELECT turnovers FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + " ORDER BY `game_id` LIMIT " + i + ",1; ";
+
+                    sqlCmd = new MySqlCommand(sql1, sqlConn);
+                    sqlRd3 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd3.Read())
+                    {
+
+                    }
+
+                    turnovers = Int32.Parse(sqlRd3[0].ToString());
+                    sqlRd3.Close();
+
+                    double efficiency = (points + rebounds + assists + steals + blocks)
+                            - ((fgatt - fgmade) + (ft_att - ft_made) + turnovers);
+
+                    GraphData2.Add(new GraphData(i + 1, efficiency));
+
+                }
+
+                //sqlConn.Close();
+
             }
             catch (Exception ex)
             {

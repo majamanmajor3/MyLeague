@@ -6,6 +6,7 @@
              BackgroundImageSource="secondary_background.jpg"
              xmlns:model="clr-namespace:MyLeagueApp.Classes.Samples"
              xmlns:viewmodel="clr-namespace:MyLeagueApp.ViewModels"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              x:DataType="viewmodel:ComparisonViewModel">
 
     <ScrollView>
@@ -641,6 +642,49 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+            <Label Text="" HeightRequest="20"/>
+
+            <chart:SfCartesianChart IsVisible="{Binding StatsVisibility}" Title="Efficiency by Season Games">
+                
+                <chart:SfCartesianChart.XAxes>
+                    <chart:CategoryAxis>
+                        <chart:CategoryAxis.Title>
+                            <chart:ChartAxisTitle Text="Game"></chart:ChartAxisTitle>
+                        </chart:CategoryAxis.Title>
+                    </chart:CategoryAxis>
+                </chart:SfCartesianChart.XAxes >
+
+                <chart:SfCartesianChart.YAxes>
+                    <chart:NumericalAxis>
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="Efficiency"></chart:ChartAxisTitle>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.YAxes>
+
+                <chart:SfCartesianChart.Legend>
+                    <chart:ChartLegend/>
+                </chart:SfCartesianChart.Legend>
+
+                <chart:SfCartesianChart.Series>
+                    <chart:LineSeries ItemsSource="{Binding GraphData1}"
+                        XBindingPath="Id" 
+                        YBindingPath="Data"
+                        ShowDataLabels="False"
+                        Label="{Binding Selected_player1.FullName}"
+                        EnableTooltip="True">
+                    </chart:LineSeries>
+                    <chart:LineSeries ItemsSource="{Binding GraphData2}"
+                        XBindingPath="Id" 
+                        YBindingPath="Data"
+                        ShowDataLabels="False"
+                        Label="{Binding Selected_player2.FullName}"
+                        EnableTooltip="True">
+                    </chart:LineSeries>
+                </chart:SfCartesianChart.Series>
+                
+            </chart:SfCartesianChart>
 
             <!--</Grid>-->
 
