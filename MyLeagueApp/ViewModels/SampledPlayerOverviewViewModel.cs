@@ -503,7 +503,7 @@ namespace MyLeagueApp.ViewModels
 
                     sqlConn.Close();
 
-                    Stats.Add(new SeasonalStats(season_id, player_id, points, rebounds, assists, steals, blocks, fg_made, fg_att, threes_made, threes_att, ft_made, ft_att, turnovers, season, team, 0));
+                    Stats.Add(new SeasonalStats(season_id, player_id, points, rebounds, assists, steals, blocks, fg_made, fg_att, threes_made, threes_att, ft_made, ft_att, turnovers, season, team, 0, 0, 0));
                 }
             }
             catch (Exception ex)

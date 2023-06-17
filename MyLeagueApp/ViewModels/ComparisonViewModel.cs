@@ -52,10 +52,16 @@ namespace MyLeagueApp.ViewModels
         ObservableCollection<GameStatSample> matchups;
 
         [ObservableProperty]
-        ObservableCollection<GraphData> graphData1;
+        ObservableCollection<GraphData> graphDataEfficiency1;
 
         [ObservableProperty]
-        ObservableCollection<GraphData> graphData2;
+        ObservableCollection<GraphData> graphDataEfficiency2;
+
+        [ObservableProperty]
+        ObservableCollection<GraphData> graphDataTrueShooting1;
+
+        [ObservableProperty]
+        ObservableCollection<GraphData> graphDataTrueShooting2;
 
         [ObservableProperty]
         SeasonalStats stats1;
@@ -116,6 +122,18 @@ namespace MyLeagueApp.ViewModels
 
         [ObservableProperty]
         TeamSample selected_team2;
+
+        [ObservableProperty]
+        string teamWinPrc1;
+
+        [ObservableProperty]
+        string teamWinPrc2;
+
+        [ObservableProperty]
+        double teamWinPyt1;
+
+        [ObservableProperty]
+        double teamWinPyt2;
 
         [ObservableProperty]
         string selected_season1;
@@ -264,6 +282,30 @@ namespace MyLeagueApp.ViewModels
         [ObservableProperty]
         private Color seasonEfficiency2 = Color.FromRgb(0, 0, 0);
 
+        [ObservableProperty]
+        private Color seasonTS1 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color seasonTS2 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color seasonFTR1 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color seasonFTR2 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color playerTeamPrc1 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color playerTeamPrc2 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color playerTeamPyt1 = Color.FromRgb(0, 0, 0);
+
+        [ObservableProperty]
+        private Color playerTeamPyt2 = Color.FromRgb(0, 0, 0);
+
         public ComparisonViewModel()
         {
             Types = new List<string>{"Player","Team"};
@@ -272,8 +314,10 @@ namespace MyLeagueApp.ViewModels
             Seasons1 = new ObservableCollection<string>();
             Seasons2 = new ObservableCollection<string>();
             Matchups = new ObservableCollection<GameStatSample>();
-            GraphData1 = new ObservableCollection<GraphData>();
-            GraphData2 = new ObservableCollection<GraphData>();
+            GraphDataEfficiency1 = new ObservableCollection<GraphData>();
+            GraphDataEfficiency2 = new ObservableCollection<GraphData>();
+            graphDataTrueShooting1 = new ObservableCollection<GraphData>();
+            graphDataTrueShooting2 = new ObservableCollection<GraphData>();
         }
 
         [RelayCommand]
@@ -1108,7 +1152,11 @@ namespace MyLeagueApp.ViewModels
                         double efficiency = (points + rebounds + assists + steals + blocks)
                             - ((fgatt - fgmade) + (ft_att - ft_made) + turnovers);
 
-                        Stats1 = new SeasonalStats(season_id, Selected_player1.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, Int32.Parse(Selected_season1), team, efficiency);
+                        double true_shooting = (0.5 * points) / (fgatt + 0.44 * ft_att);
+
+                        double ft_rate = ft_att / fgatt;
+
+                        Stats1 = new SeasonalStats(season_id, Selected_player1.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, Int32.Parse(Selected_season1), team, efficiency, Math.Round(true_shooting, 2), Math.Round(ft_rate, 2));
                     }
 
 
@@ -1323,7 +1371,11 @@ namespace MyLeagueApp.ViewModels
                         double efficiency = (points + rebounds + assists + steals + blocks)
                             - ((fgatt - fgmade) + (ft_att - ft_made) + turnovers);
 
-                        Stats2 = new SeasonalStats(season_id, Selected_player2.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, Int32.Parse(Selected_season2), team, efficiency);
+                        double true_shooting = (0.5 * points) / (fgatt + 0.44 * ft_att);
+
+                        double ft_rate = ft_att / fgatt;
+
+                        Stats2 = new SeasonalStats(season_id, Selected_player2.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, Int32.Parse(Selected_season2), team, efficiency, Math.Round(true_shooting, 2), Math.Round(ft_rate, 2));
                     }
 
                     double total_efficiency = Stats1.Efficiency + Stats2.Efficiency;
@@ -1687,6 +1739,15 @@ namespace MyLeagueApp.ViewModels
 
                     LoadGraphData();
 
+                    double win_prc1 = 100 * PlayerTeamWins1 / (PlayerTeamWins1 + PlayerTeamLosses1);
+                    double win_prc2 = 100 * PlayerTeamWins2 / (PlayerTeamWins2 + PlayerTeamLosses2);
+
+                    TeamWinPrc1 = Math.Round(win_prc1, 2) + "%";
+                    TeamWinPrc2 = Math.Round(win_prc2, 2) + "%";
+
+                    TeamWinPyt1 = Math.Round((PlayerTeamWins1 + PlayerTeamLosses1) * (PlayerTeamPPG1 / (PlayerTeamPPG1 + PlayerTeamPPG2)), 2);
+                    TeamWinPyt2 = Math.Round((PlayerTeamWins2 + PlayerTeamLosses2) * (PlayerTeamPPG2 / (PlayerTeamPPG1 + PlayerTeamPPG2)), 2);
+
                     StatsVisibility = true;
                     sqlConn.Close();
 
@@ -1841,6 +1902,50 @@ namespace MyLeagueApp.ViewModels
                     {
                         SeasonEfficiency1 = Color.FromRgb(255, 0, 0);
                         SeasonEfficiency2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats1.TrueShooting > Stats2.TrueShooting)
+                    {
+                        SeasonTS1 = Color.FromRgb(0, 128, 0);
+                        SeasonTS2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats1.TrueShooting < Stats2.TrueShooting)
+                    {
+                        SeasonTS1 = Color.FromRgb(255, 0, 0);
+                        SeasonTS2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (Stats1.FreeThrowRate > Stats2.FreeThrowRate)
+                    {
+                        SeasonFTR1 = Color.FromRgb(0, 128, 0);
+                        SeasonFTR2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (Stats1.FreeThrowRate < Stats2.FreeThrowRate)
+                    {
+                        SeasonFTR1 = Color.FromRgb(255, 0, 0);
+                        SeasonFTR2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (win_prc1 > win_prc2)
+                    {
+                        PlayerTeamPrc1 = Color.FromRgb(0, 128, 0);
+                        PlayerTeamPrc2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (win_prc1 < win_prc2)
+                    {
+                        PlayerTeamPrc1 = Color.FromRgb(255, 0, 0);
+                        PlayerTeamPrc2 = Color.FromRgb(0, 128, 0);
+                    }
+
+                    if (TeamWinPyt1 > TeamWinPyt2)
+                    {
+                        PlayerTeamPyt1 = Color.FromRgb(0, 128, 0);
+                        PlayerTeamPyt2 = Color.FromRgb(255, 0, 0);
+                    }
+                    else if (TeamWinPyt1 < TeamWinPyt2)
+                    {
+                        PlayerTeamPyt1 = Color.FromRgb(255, 0, 0);
+                        PlayerTeamPyt2 = Color.FromRgb(0, 128, 0);
                     }
 
                 }
@@ -2312,7 +2417,10 @@ namespace MyLeagueApp.ViewModels
                     double efficiency = (points + rebounds + assists + steals + blocks)
                             - ((fgatt - fgmade) + (ft_att - ft_made) + turnovers);
 
-                    GraphData1.Add(new GraphData(i+1, efficiency));
+                    double true_shooting = (0.5 * points) / (fgatt + 0.44 * ft_att);
+
+                    GraphDataEfficiency1.Add(new GraphData(i+1, efficiency));
+                    GraphDataTrueShooting1.Add(new GraphData(i+1, Math.Round(true_shooting, 3)));
 
                 }
 
@@ -2478,7 +2586,10 @@ namespace MyLeagueApp.ViewModels
                     double efficiency = (points + rebounds + assists + steals + blocks)
                             - ((fgatt - fgmade) + (ft_att - ft_made) + turnovers);
 
-                    GraphData2.Add(new GraphData(i + 1, efficiency));
+                    double true_shooting = (0.5 * points) / (fgatt + 0.44 * ft_att);
+
+                    GraphDataEfficiency2.Add(new GraphData(i + 1, efficiency));
+                    GraphDataTrueShooting2.Add(new GraphData(i + 1, Math.Round(true_shooting, 3)));
 
                 }
 

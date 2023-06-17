@@ -402,6 +402,54 @@
 
             </HorizontalStackLayout>
 
+            <Label Text="" HeightRequest="20"/>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="330,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="95"/>
+                        <ColumnDefinition Width="255"/>
+                        <ColumnDefinition Width="95"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding Stats1.TrueShooting}" TextColor="{Binding SeasonTS1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="True Shooting %" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding Stats2.TrueShooting}" TextColor="{Binding SeasonTS2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="330,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="95"/>
+                        <ColumnDefinition Width="255"/>
+                        <ColumnDefinition Width="95"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding Stats1.FreeThrowRate}" TextColor="{Binding SeasonFTR1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="Free Throw Rate" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding Stats2.FreeThrowRate}" TextColor="{Binding SeasonFTR2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
             <Label Text="" HeightRequest="50"/>
 
             <HorizontalStackLayout
@@ -486,6 +534,29 @@
                         <ColumnDefinition Width="75"/>
                     </Grid.ColumnDefinitions>
 
+                    <Label Grid.Column="0" Text="{Binding TeamWinPrc1}" TextColor="{Binding PlayerTeamPrc1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="Win %" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding TeamWinPrc2}" TextColor="{Binding PlayerTeamPrc2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
                     <Label Grid.Column="0" Text="{Binding PlayerTeamPPG1}" TextColor="{Binding PlayerTeamPPGColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
 
                     <Label Grid.Column="1" Text="PPG" FontSize="20" HorizontalTextAlignment="Center"/>
@@ -514,6 +585,29 @@
                     <Label Grid.Column="1" Text="APPG" FontSize="20" HorizontalTextAlignment="Center"/>
 
                     <Label Grid.Column="2" Text="{Binding PlayerTeamAPPG2}" TextColor="{Binding PlayerTeamAPPGColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="413,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="135"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding TeamWinPyt1}" TextColor="{Binding PlayerTeamPyt1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="Pythagorean Wins" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding TeamWinPyt2}" TextColor="{Binding PlayerTeamPyt2}" FontSize="20" HorizontalTextAlignment="Center"/>
 
                 </Grid>
 
@@ -668,14 +762,14 @@
                 </chart:SfCartesianChart.Legend>
 
                 <chart:SfCartesianChart.Series>
-                    <chart:LineSeries ItemsSource="{Binding GraphData1}"
+                    <chart:LineSeries ItemsSource="{Binding GraphDataEfficiency1}"
                         XBindingPath="Id" 
                         YBindingPath="Data"
                         ShowDataLabels="False"
                         Label="{Binding Selected_player1.FullName}"
                         EnableTooltip="True">
                     </chart:LineSeries>
-                    <chart:LineSeries ItemsSource="{Binding GraphData2}"
+                    <chart:LineSeries ItemsSource="{Binding GraphDataEfficiency2}"
                         XBindingPath="Id" 
                         YBindingPath="Data"
                         ShowDataLabels="False"
@@ -684,6 +778,47 @@
                     </chart:LineSeries>
                 </chart:SfCartesianChart.Series>
                 
+            </chart:SfCartesianChart>
+
+            <chart:SfCartesianChart IsVisible="{Binding StatsVisibility}" Title="True Shooting % by Season Games">
+
+                <chart:SfCartesianChart.XAxes>
+                    <chart:CategoryAxis>
+                        <chart:CategoryAxis.Title>
+                            <chart:ChartAxisTitle Text="Game"></chart:ChartAxisTitle>
+                        </chart:CategoryAxis.Title>
+                    </chart:CategoryAxis>
+                </chart:SfCartesianChart.XAxes >
+
+                <chart:SfCartesianChart.YAxes>
+                    <chart:NumericalAxis>
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="TS%"></chart:ChartAxisTitle>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.YAxes>
+
+                <chart:SfCartesianChart.Legend>
+                    <chart:ChartLegend/>
+                </chart:SfCartesianChart.Legend>
+
+                <chart:SfCartesianChart.Series>
+                    <chart:LineSeries ItemsSource="{Binding GraphDataTrueShooting1}"
+                        XBindingPath="Id" 
+                        YBindingPath="Data"
+                        ShowDataLabels="False"
+                        Label="{Binding Selected_player1.FullName}"
+                        EnableTooltip="True">
+                    </chart:LineSeries>
+                    <chart:LineSeries ItemsSource="{Binding GraphDataTrueShooting2}"
+                        XBindingPath="Id" 
+                        YBindingPath="Data"
+                        ShowDataLabels="False"
+                        Label="{Binding Selected_player2.FullName}"
+                        EnableTooltip="True">
+                    </chart:LineSeries>
+                </chart:SfCartesianChart.Series>
+
             </chart:SfCartesianChart>
 
             <!--</Grid>-->
