@@ -934,6 +934,8 @@ namespace MyLeagueApp.ViewModels
                     double ft_made;
                     double ft_att;
                     double turnovers;
+                    double fouls;
+                    double minutes;
 
                     sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
                                                 ";password=" + password +
@@ -1136,6 +1138,32 @@ namespace MyLeagueApp.ViewModels
                         turnovers = Double.Parse(sqlRd6[0].ToString());
                         sqlRd6.Close();
 
+                        String sql_fouls = "SELECT personal_fouls FROM `seasonal_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_fouls, sqlConn);
+                        sqlRd6 = sqlCmd.ExecuteReader();
+
+                        while (sqlRd6.Read())
+                        {
+
+                        }
+
+                        fouls = Double.Parse(sqlRd6[0].ToString());
+                        sqlRd6.Close();
+
+                        String sql_minutes = "SELECT minutes_played FROM `seasonal_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_minutes, sqlConn);
+                        sqlRd6 = sqlCmd.ExecuteReader();
+
+                        while (sqlRd6.Read())
+                        {
+
+                        }
+
+                        minutes = Double.Parse(sqlRd6[0].ToString());
+                        sqlRd6.Close();
+
                         String sql_team = "SELECT team FROM `seasonal_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + "; ";
 
                         sqlCmd = new MySqlCommand(sql_team, sqlConn);
@@ -1156,7 +1184,7 @@ namespace MyLeagueApp.ViewModels
 
                         double ft_rate = ft_att / fgatt;
 
-                        Stats1 = new SeasonalStats(season_id, Selected_player1.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, Int32.Parse(Selected_season1), team, efficiency, Math.Round(true_shooting, 2), Math.Round(ft_rate, 2));
+                        Stats1 = new SeasonalStats(season_id, Selected_player1.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, fouls, minutes, Int32.Parse(Selected_season1), team, efficiency, Math.Round(true_shooting, 2), Math.Round(ft_rate, 2));
                     }
 
 
@@ -1355,6 +1383,32 @@ namespace MyLeagueApp.ViewModels
                         turnovers = Double.Parse(sqlRd6[0].ToString());
                         sqlRd6.Close();
 
+                        String sql_fouls = "SELECT personal_fouls FROM `seasonal_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_fouls, sqlConn);
+                        sqlRd6 = sqlCmd.ExecuteReader();
+
+                        while (sqlRd6.Read())
+                        {
+
+                        }
+
+                        fouls = Double.Parse(sqlRd6[0].ToString());
+                        sqlRd6.Close();
+
+                        String sql_minutes = "SELECT minutes_played FROM `seasonal_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_minutes, sqlConn);
+                        sqlRd6 = sqlCmd.ExecuteReader();
+
+                        while (sqlRd6.Read())
+                        {
+
+                        }
+
+                        minutes = Double.Parse(sqlRd6[0].ToString());
+                        sqlRd6.Close();
+
                         String sql_team = "SELECT team FROM `seasonal_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + "; ";
 
                         sqlCmd = new MySqlCommand(sql_team, sqlConn);
@@ -1375,7 +1429,7 @@ namespace MyLeagueApp.ViewModels
 
                         double ft_rate = ft_att / fgatt;
 
-                        Stats2 = new SeasonalStats(season_id, Selected_player2.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, Int32.Parse(Selected_season2), team, efficiency, Math.Round(true_shooting, 2), Math.Round(ft_rate, 2));
+                        Stats2 = new SeasonalStats(season_id, Selected_player2.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, fouls, minutes, Int32.Parse(Selected_season2), team, efficiency, Math.Round(true_shooting, 2), Math.Round(ft_rate, 2));
                     }
 
                     double total_efficiency = Stats1.Efficiency + Stats2.Efficiency;

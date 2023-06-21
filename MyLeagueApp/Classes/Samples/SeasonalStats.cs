@@ -23,13 +23,15 @@ namespace MyLeagueApp.Classes.Samples
         public double FreeThrowsMade { get; set; }
         public double FreeThrowsAttempted { get; set; }
         public double Turnovers { get; set; }
+        public double PersonalFouls { get; set; }
+        public double MinutesPlayed { get; set; }
         public int Season { get; set; }
         public int Team { get; set; }
         public double Efficiency { get; set; }
         public double TrueShooting { get; set; }
         public double FreeThrowRate { get; set; }
 
-        public SeasonalStats(int StatId, int PlayerId, double Points, double Rebounds, double Assists, double Steals, double Blocks, double FGMade, double FGAttempted, double ThreesMade, double ThreesAttempted, double FreeThrowsMade, double FreeThrowsAttempted, double Turnovers, int Season, int Team, double Efficiency, double TrueShooting, double FreeThrowRate)
+        public SeasonalStats(int StatId, int PlayerId, double Points, double Rebounds, double Assists, double Steals, double Blocks, double FGMade, double FGAttempted, double ThreesMade, double ThreesAttempted, double FreeThrowsMade, double FreeThrowsAttempted, double Turnovers, double PersonalFouls, double MinutesPlayed, int Season, int Team, double Efficiency, double TrueShooting, double FreeThrowRate)
         {
             this.SeasonId = SeasonId;
             this.PlayerId = PlayerId;
@@ -38,13 +40,15 @@ namespace MyLeagueApp.Classes.Samples
             this.Assists = Assists;
             this.Steals = Steals;
             this.Blocks = Blocks;
-            this.FGMade = ThreesMade;
-            this.FGAttempted = ThreesAttempted;
+            this.FGMade = FGMade;
+            this.FGAttempted = FGAttempted;
             this.ThreesMade = ThreesMade;
             this.ThreesAttempted = ThreesAttempted;
             this.FreeThrowsMade = FreeThrowsMade;
             this.FreeThrowsAttempted = FreeThrowsAttempted;
             this.Turnovers = Turnovers;
+            this.PersonalFouls = PersonalFouls;
+            this.MinutesPlayed = MinutesPlayed;
             this.Season = Season;
             this.Team = Team;
             this.Efficiency = Efficiency;

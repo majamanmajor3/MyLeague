@@ -24,10 +24,12 @@ namespace MyLeagueApp.Classes.Samples
         public double FreeThrowsMade { get; set; }
         public double FreeThrowsAttempted { get; set; }
         public double Turnovers { get; set; }
+        public double PersonalFouls { get; set; }
+        public double MinutesPlayed { get; set; }
         public int Season { get; set; }
         public double Efficiency { get; set; }
 
-        public PlayerStatSample(int StatId, int PlayerId, int MatchId, double Points, double Rebounds, double Assists, double Steals, double Blocks, double FGMade, double FGAttempted, double ThreesMade, double ThreesAttempted, double FreeThrowsMade, double FreeThrowsAttempted, double Turnovers, int Season, double Efficiency)
+        public PlayerStatSample(int StatId, int PlayerId, int MatchId, double Points, double Rebounds, double Assists, double Steals, double Blocks, double FGMade, double FGAttempted, double ThreesMade, double ThreesAttempted, double FreeThrowsMade, double FreeThrowsAttempted, double Turnovers, double PersonalFouls, double MinutesPlayed, int Season, double Efficiency)
         {
             this.StatId = StatId;
             this.PlayerId = PlayerId;
@@ -44,6 +46,8 @@ namespace MyLeagueApp.Classes.Samples
             this.FreeThrowsMade = FreeThrowsMade;
             this.FreeThrowsAttempted = FreeThrowsAttempted;
             this.Turnovers = Turnovers;
+            this.PersonalFouls = PersonalFouls;
+            this.MinutesPlayed = MinutesPlayed;
             this.Season = Season;
             this.Efficiency = Efficiency;
         }
