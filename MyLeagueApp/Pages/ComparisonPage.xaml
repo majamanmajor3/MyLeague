@@ -193,7 +193,7 @@
 
             </HorizontalStackLayout>
 
-            <Label Text="" HeightRequest="50"/>
+            <Label Text="" HeightRequest="50" IsVisible="{Binding StatsVisibility}"/>
 
             <HorizontalStackLayout
                 Spacing="47"
@@ -450,7 +450,7 @@
 
             </HorizontalStackLayout>
 
-            <Label Text="" HeightRequest="50"/>
+            <Label Text="" HeightRequest="50" IsVisible="{Binding StatsVisibility}"/>
 
             <HorizontalStackLayout
                 Spacing="47"
@@ -613,6 +613,56 @@
 
             </HorizontalStackLayout>
 
+
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="340,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding TeamStatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="95"/>
+                        <ColumnDefinition Width="235"/>
+                        <ColumnDefinition Width="95"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding TeamEfficiency1}" TextColor="{Binding TeamEffColor1}" FontSize="30" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="Efficiency" FontSize="30" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding TeamEfficiency2}" TextColor="{Binding TeamEffColor2}" FontSize="30" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="331,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding TeamStatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="235"/>
+                        <ColumnDefinition Width="105"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding TeamOdds1}" TextColor="{Binding TeamOddsColor1}" FontSize="30" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="Odds By EFF" FontSize="30" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding TeamOdds2}" TextColor="{Binding TeamOddsColor2}" FontSize="30" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <Label Text="" HeightRequest="50"/>
+
             <HorizontalStackLayout
                 Spacing="47"
                 Padding="442,0"
@@ -705,8 +755,54 @@
 
             </HorizontalStackLayout>
 
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding TeamStatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding TeamWinPrc1}" TextColor="{Binding PlayerTeamPrc1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="Win %" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding TeamWinPrc2}" TextColor="{Binding PlayerTeamPrc2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="413,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding TeamStatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="135"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding TeamWinPyt1}" TextColor="{Binding PlayerTeamPyt1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="Pythagorean Wins" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding TeamWinPyt2}" TextColor="{Binding PlayerTeamPyt2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
             <Label Text="" HeightRequest="20"/>
-            
+
             <Label Grid.Column="0" Text="Teams' Matchups" FontSize="20" HorizontalTextAlignment="Center" IsVisible="{Binding MatchupVisibility}"/>
 
             <ListView ItemsSource="{Binding Matchups}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default" IsVisible="{Binding MatchupVisibility}" HorizontalOptions="Center">
@@ -740,7 +836,7 @@
             <Label Text="" HeightRequest="20"/>
 
             <chart:SfCartesianChart IsVisible="{Binding StatsVisibility}" Title="Efficiency by Season Games">
-                
+
                 <chart:SfCartesianChart.XAxes>
                     <chart:CategoryAxis>
                         <chart:CategoryAxis.Title>
@@ -777,7 +873,7 @@
                         EnableTooltip="True">
                     </chart:LineSeries>
                 </chart:SfCartesianChart.Series>
-                
+
             </chart:SfCartesianChart>
 
             <chart:SfCartesianChart IsVisible="{Binding StatsVisibility}" Title="True Shooting % by Season Games">
