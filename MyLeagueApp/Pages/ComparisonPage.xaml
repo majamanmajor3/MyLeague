@@ -172,15 +172,15 @@
 
             <HorizontalStackLayout
                 Spacing="47"
-                Padding="331,0"
+                Padding="321,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
                 <Grid Grid.Row="0" HorizontalOptions="Center">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="115"/>
                         <ColumnDefinition Width="235"/>
-                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="115"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Text="{Binding PlayerOdds1}" TextColor="{Binding SeasonEfficiency1}" FontSize="30" HorizontalTextAlignment="Center"/>
@@ -453,16 +453,16 @@
             <Label Text="" HeightRequest="50" IsVisible="{Binding StatsVisibility}"/>
 
             <HorizontalStackLayout
-                Spacing="47"
-                Padding="442,0"
+                Spacing="7"
+                Padding="417,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding StatsVisibility}">
 
                 <Grid Grid.Row="0" HorizontalOptions="Center">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="75"/>
-                        <ColumnDefinition Width="75"/>
-                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="65"/>
+                        <ColumnDefinition Width="105"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Text="{Binding PlayerTeam1}" FontSize="20" HorizontalTextAlignment="Center"/>
@@ -640,15 +640,15 @@
 
             <HorizontalStackLayout
                 Spacing="47"
-                Padding="331,0"
+                Padding="319,0"
                 VerticalOptions="Center"
                 IsVisible="{Binding TeamStatsVisibility}">
 
                 <Grid Grid.Row="0" HorizontalOptions="Center">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="115"/>
                         <ColumnDefinition Width="235"/>
-                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="115"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Text="{Binding TeamOdds1}" TextColor="{Binding TeamOddsColor1}" FontSize="30" HorizontalTextAlignment="Center"/>
@@ -801,6 +801,29 @@
 
             </HorizontalStackLayout>
 
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="413,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding TeamStatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="135"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding PlayersCount1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="Player Count" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding PlayersCount2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
             <Label Text="" HeightRequest="20"/>
 
             <Label Grid.Column="0" Text="Teams' Matchups" FontSize="20" HorizontalTextAlignment="Center" IsVisible="{Binding MatchupVisibility}"/>
@@ -832,6 +855,75 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+            <Label Text="" HeightRequest="20"/>
+
+            <HorizontalStackLayout
+                Spacing="120"
+                Padding="190,0"
+                VerticalOptions="Center">
+
+                <VerticalStackLayout
+                HorizontalOptions="Center">
+
+                    <Label Grid.Column="0" Text="{Binding TeamsEFF1}" FontSize="20" HorizontalTextAlignment="Center" IsVisible="{Binding TeamStatsVisibility}"/>
+
+                    <ListView ItemsSource="{Binding TeamPlayersEfficiency1}" x:Name="cv2" SeparatorColor="Black" SeparatorVisibility="Default" IsVisible="{Binding TeamStatsVisibility}" HorizontalOptions="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:EfficiencyShow">
+                                <ViewCell>
+                                    <Grid Padding="2" HorizontalOptions="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="225"/>
+                                            <ColumnDefinition Width="75"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
+                                   FontSize="20"
+                                   Text="{Binding Name}"
+                                   HorizontalTextAlignment="Center"/>
+                                        <Label Grid.Column="1"
+                                   FontSize="20"
+                                   Text="{Binding Efficiency}"
+                                   HorizontalTextAlignment="Center"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                HorizontalOptions="Center">
+
+                    <Label Grid.Column="0" Text="{Binding TeamsEFF2}" FontSize="20" HorizontalTextAlignment="Center" IsVisible="{Binding TeamStatsVisibility}"/>
+
+                    <ListView ItemsSource="{Binding TeamPlayersEfficiency2}" x:Name="cv3" SeparatorColor="Black" SeparatorVisibility="Default" IsVisible="{Binding TeamStatsVisibility}" HorizontalOptions="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:EfficiencyShow">
+                                <ViewCell>
+                                    <Grid Padding="2" HorizontalOptions="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="225"/>
+                                            <ColumnDefinition Width="75"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
+                                   FontSize="20"
+                                   Text="{Binding Name}"
+                                   HorizontalTextAlignment="Center"/>
+                                        <Label Grid.Column="1"
+                                   FontSize="20"
+                                   Text="{Binding Efficiency}"
+                                   HorizontalTextAlignment="Center"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </VerticalStackLayout>
+
+            </HorizontalStackLayout>
 
             <Label Text="" HeightRequest="20"/>
 
@@ -918,6 +1010,12 @@
             </chart:SfCartesianChart>
 
             <!--</Grid>-->
+
+            <ImageButton
+                Source="hint2.png"
+                HorizontalOptions="End"
+                Command="{Binding OpenHintCommand}"
+                HeightRequest="15"/>
 
         </VerticalStackLayout>
     </ScrollView>

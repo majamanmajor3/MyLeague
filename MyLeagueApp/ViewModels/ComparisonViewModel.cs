@@ -76,6 +76,12 @@ namespace MyLeagueApp.ViewModels
         ObservableCollection<GraphData> graphDataTrueShooting2;
 
         [ObservableProperty]
+        ObservableCollection<EfficiencyShow> teamPlayersEfficiency1;
+
+        [ObservableProperty]
+        ObservableCollection<EfficiencyShow> teamPlayersEfficiency2;
+
+        [ObservableProperty]
         SeasonalStats stats1;
 
         [ObservableProperty]
@@ -136,6 +142,12 @@ namespace MyLeagueApp.ViewModels
         double playerTeamAPPG2;
 
         [ObservableProperty]
+        string teamsEFF1;
+
+        [ObservableProperty]
+        string teamsEFF2;
+
+        [ObservableProperty]
         PlayerSample selected_player1;
 
         [ObservableProperty]
@@ -170,6 +182,12 @@ namespace MyLeagueApp.ViewModels
 
         [ObservableProperty]
         string playerOdds2;
+
+        [ObservableProperty]
+        int playersCount1;
+
+        [ObservableProperty]
+        int playersCount2;
 
         [ObservableProperty]
         bool pickerVisibility = false;
@@ -358,6 +376,8 @@ namespace MyLeagueApp.ViewModels
             PlayersTeam2 = new ObservableCollection<PlayerSample>();
             PlayerStatsTeam1 = new ObservableCollection<SeasonalStats>();
             PlayerStatsTeam2 = new ObservableCollection<SeasonalStats>();
+            TeamPlayersEfficiency1 = new ObservableCollection<EfficiencyShow>();
+            TeamPlayersEfficiency2 = new ObservableCollection<EfficiencyShow>();
         }
 
         [RelayCommand]
@@ -2950,6 +2970,78 @@ namespace MyLeagueApp.ViewModels
             TeamOdds1 = Math.Round(odds1, 2) + "%";
             TeamOdds2 = Math.Round(odds2, 2) + "%";
 
+            PlayersCount1 = PlayerStatsTeam1.Count;
+            PlayersCount2 = PlayerStatsTeam2.Count;
+
+            for(int i=0; i<PlayerStatsTeam1.Count; i++)
+            {
+                String sql1 = "SELECT first_name FROM `sampled_players` WHERE `player_id`=" + PlayerStatsTeam1[i].PlayerId + "; ";
+
+                sqlCmd = new MySqlCommand(sql1, sqlConn);
+                sqlRd3 = sqlCmd.ExecuteReader();
+
+                while (sqlRd3.Read())
+                {
+
+                }
+
+                string first_name = sqlRd3[0].ToString();
+                sqlRd3.Close();
+
+                sql1 = "SELECT last_name FROM `sampled_players` WHERE `player_id`=" + PlayerStatsTeam1[i].PlayerId + "; ";
+
+                sqlCmd = new MySqlCommand(sql1, sqlConn);
+                sqlRd3 = sqlCmd.ExecuteReader();
+
+                while (sqlRd3.Read())
+                {
+
+                }
+
+                string last_name = sqlRd3[0].ToString();
+                sqlRd3.Close();
+
+                string full_name = first_name + " " + last_name;
+
+                TeamPlayersEfficiency1.Add(new EfficiencyShow(full_name, PlayerStatsTeam1[i].Efficiency));
+            }
+
+            for (int i = 0; i < PlayerStatsTeam2.Count; i++)
+            {
+                String sql1 = "SELECT first_name FROM `sampled_players` WHERE `player_id`=" + PlayerStatsTeam2[i].PlayerId + "; ";
+
+                sqlCmd = new MySqlCommand(sql1, sqlConn);
+                sqlRd3 = sqlCmd.ExecuteReader();
+
+                while (sqlRd3.Read())
+                {
+
+                }
+
+                string first_name = sqlRd3[0].ToString();
+                sqlRd3.Close();
+
+                sql1 = "SELECT last_name FROM `sampled_players` WHERE `player_id`=" + PlayerStatsTeam2[i].PlayerId + "; ";
+
+                sqlCmd = new MySqlCommand(sql1, sqlConn);
+                sqlRd3 = sqlCmd.ExecuteReader();
+
+                while (sqlRd3.Read())
+                {
+
+                }
+
+                string last_name = sqlRd3[0].ToString();
+                sqlRd3.Close();
+
+                string full_name = first_name + " " + last_name;
+
+                TeamPlayersEfficiency2.Add(new EfficiencyShow(full_name, PlayerStatsTeam2[i].Efficiency));
+            }
+
+            TeamsEFF1 = Selected_team1.Name + " Roster Efficiency";
+            TeamsEFF2 = Selected_team2.Name + " Roster Efficiency";
+
             if (TeamEfficiency1 > TeamEfficiency2)
             {
                 TeamEffColor1 = Color.FromRgb(0, 128, 0);
@@ -3781,6 +3873,41 @@ namespace MyLeagueApp.ViewModels
                     double ft_rate = ft_att / fgatt;
 
                     PlayerStatsTeam2.Add(new SeasonalStats(season_id, PlayersTeam2[j].Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, fouls, minutes, Int32.Parse(Selected_season1), team, efficiency, Math.Round(true_shooting, 2), Math.Round(ft_rate, 2)));
+                }
+            }
+        }
+
+        [RelayCommand]
+        private async void OpenHint()
+        {
+            bool answer = await Shell.Current.DisplayAlert("Hint", "Welcome To The Comparison Page Hint Section! Below you will find out how to use this page and what each statistic means." + "\n" +
+                                                          "By pressing one of the 2 grey elements on the screen, a list will appear in which you will specify if you wish to compare players or teams." + "\n" +
+                                                          "After selecting both teams or players, press the button to get started!" + "\n" +
+                                                          "Three similar components will be available if you selected valid options. Here you will need to select the players or teams you would like to compare" + "\n" +
+                                                          "After pressing the second button, you will have to select the seasons which you want to compare." + "\n" +
+                                                          "If everything was done correctly, a multitude of statistics and metrics will be available to you!" + "\n" +
+                                                          "Would you like an introduction to the showcased information?"
+                                                          , "Yes", "No");
+
+            if (answer)
+            {
+                try
+                {
+
+                    await Application.Current.MainPage.DisplayAlert("Hint", "Welcome To The Comparison Page Hint Section! Below you will find out how to use this page and what each statistic means." + "\n" +
+                                                          "By pressing one of the 2 grey elements on the screen, a list will appear in which you will specify if you wish to compare players or teams." + "\n" +
+                                                          "After selecting both teams or players, press the button to get started!" + "\n" +
+                                                          "Three similar components will be available if you selected valid options. Here you will need to select the players or teams you would like to compare" + "\n" +
+                                                          "After pressing the second button, you will have to select the seasons which you want to compare." + "\n" +
+                                                          "If everything was done correctly, a multitude of statistics and metrics will be available to you!" + "\n" +
+                                                          "Would you like an introduction to the showcased information?"
+                                                          , "OK");
+
+                }
+                catch (Exception ex)
+                {
+                    Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                    sqlConn.Close();
                 }
             }
         }

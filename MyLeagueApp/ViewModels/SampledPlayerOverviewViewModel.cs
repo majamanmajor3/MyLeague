@@ -578,7 +578,8 @@ namespace MyLeagueApp.ViewModels
                     int free_att = (int)member["fta"];
                     int fouls = (int)member["pf"];
                     int minutes;
-                    if ((string)member["min"] == "") minutes = 0;
+                    if ((string)member["min"] == "0:00") minutes = 0;
+                    else if ((string)member["min"] == "") minutes = 0;
                     else minutes = (int)member["min"];
 
                     int year = Int32.Parse(result);
