@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Syncfusion.Maui.Charts;
 using MyLeagueApp.Classes;
+using MyLeagueApp.Pages;
 
 namespace MyLeagueApp.ViewModels
 {
@@ -188,6 +189,9 @@ namespace MyLeagueApp.ViewModels
 
         [ObservableProperty]
         int playersCount2;
+
+        [ObservableProperty]
+        bool baseVisibility = true;
 
         [ObservableProperty]
         bool pickerVisibility = false;
@@ -400,6 +404,7 @@ namespace MyLeagueApp.ViewModels
                     PlayerSeasonsVisibility = false;
                     TeamSeasonsVisibility = false;
                     StatsVisibility = false;
+                    MatchupVisibility = false;
 
                     if (Selected_type1 == "Player")
                     {
@@ -725,7 +730,7 @@ namespace MyLeagueApp.ViewModels
         }
 
         [RelayCommand]
-        private void LoadPlayerSeasons()
+        private async void LoadPlayerSeasons()
         {
             try
             {
@@ -769,7 +774,18 @@ namespace MyLeagueApp.ViewModels
 
                     if (cr == 0)
                     {
-                        //label.IsVisible = true;
+                        bool answer = await Application.Current.MainPage.DisplayAlert("Attention!", "It looks like the first player does not have any imported seasons. Would you like to visit the team's overview page to import those stats?", "Yes", "No");
+
+                        if (answer)
+                        {
+
+                            int player_id = Selected_player1.Id;
+                            SampledPlayerOverviewPage page = new SampledPlayerOverviewPage(player_id);
+                            await Application.Current.MainPage.Navigation.PushAsync(page);
+                            sqlConn.Close();
+                            return;
+
+                        }
                     }
 
                     for (int i = 0; i < cr; i++)
@@ -810,7 +826,18 @@ namespace MyLeagueApp.ViewModels
 
                     if (cr == 0)
                     {
-                        //label.IsVisible = true;
+                        bool answer = await Application.Current.MainPage.DisplayAlert("Attention!", "It looks like the second player does not have any imported seasons. Would you like to visit the team's overview page to import those stats?", "Yes", "No");
+
+                        if (answer)
+                        {
+
+                            int player_id = Selected_player2.Id;
+                            SampledPlayerOverviewPage page = new SampledPlayerOverviewPage(player_id);
+                            await Application.Current.MainPage.Navigation.PushAsync(page);
+                            sqlConn.Close();
+                            return;
+
+                        }
                     }
 
                     for (int i = 0; i < cr; i++)
@@ -846,7 +873,7 @@ namespace MyLeagueApp.ViewModels
         }
 
         [RelayCommand]
-        private void LoadTeamSeasons()
+        private async void LoadTeamSeasons()
         {
             try
             {
@@ -890,7 +917,18 @@ namespace MyLeagueApp.ViewModels
 
                     if (cr == 0)
                     {
-                        //label.IsVisible = true;
+                        bool answer = await Application.Current.MainPage.DisplayAlert("Attention!", "It looks like the first team does not have any imported seasons. Would you like to visit the team's overview page to import those stats?", "Yes", "No");
+
+                        if (answer)
+                        {
+
+                            int team_id = Selected_team1.Id;
+                            SampledTeamOverviewPage page = new SampledTeamOverviewPage(team_id);
+                            await Application.Current.MainPage.Navigation.PushAsync(page);
+                            sqlConn.Close();
+                            return;
+
+                        }
                     }
 
                     for (int i = 0; i < cr; i++)
@@ -931,7 +969,18 @@ namespace MyLeagueApp.ViewModels
 
                     if (cr == 0)
                     {
-                        //label.IsVisible = true;
+                        bool answer = await Application.Current.MainPage.DisplayAlert("Attention!", "It looks like the second team does not have any imported seasons. Would you like to visit the team's overview page to import those stats?", "Yes", "No");
+
+                        if (answer)
+                        {
+
+                            int team_id = Selected_team2.Id;
+                            SampledTeamOverviewPage page = new SampledTeamOverviewPage(team_id);
+                            await Application.Current.MainPage.Navigation.PushAsync(page);
+                            sqlConn.Close();
+                            return;
+
+                        }
                     }
 
                     for (int i = 0; i < cr; i++)
@@ -1669,6 +1718,8 @@ namespace MyLeagueApp.ViewModels
                     if (Selected_season1 == Selected_season2)
                     {
 
+                        Matchups = new ObservableCollection<GameStatSample>();
+
                         String sql_matchup1 = "SELECT COUNT(*) FROM `sampled_games` WHERE `home_id`=" + Stats1.Team + " AND `away_id`=" + Stats2.Team + " AND `season`=" + Selected_season1 + "; ";
 
                         sqlCmd = new MySqlCommand(sql_matchup1, sqlConn);
@@ -1863,6 +1914,7 @@ namespace MyLeagueApp.ViewModels
                     TeamWinPyt2 = Math.Round((PlayerTeamWins2 + PlayerTeamLosses2) * (PlayerTeamPPG2 / (PlayerTeamPPG1 + PlayerTeamPPG2)), 2);
 
                     StatsVisibility = true;
+                    BaseVisibility = false;
                     sqlConn.Close();
 
                     if(Stats1.Points > Stats2.Points)
@@ -2085,6 +2137,9 @@ namespace MyLeagueApp.ViewModels
                 {
                     LabelVisibility = false;
 
+                    PlayersCount1 = 0;
+                    PlayersCount2 = 0;
+
                     string stats_count = "0";
                     int season_id;
                     double ppg;
@@ -2290,6 +2345,8 @@ namespace MyLeagueApp.ViewModels
                     if (Selected_season1 == Selected_season2)
                     {
 
+                        Matchups = new ObservableCollection<GameStatSample>();
+
                         String sql_matchup1 = "SELECT COUNT(*) FROM `sampled_games` WHERE `home_id`=" + Selected_team1.ApiId + " AND `away_id`=" + Selected_team2.ApiId + " AND `season`=" + Selected_season1 + "; ";
 
                         sqlCmd = new MySqlCommand(sql_matchup1, sqlConn);
@@ -2484,6 +2541,7 @@ namespace MyLeagueApp.ViewModels
                     LoadAdvancedAverage();
 
                     TeamStatsVisibility = true;
+                    BaseVisibility = false;
                     sqlConn.Close();
 
                     if (Stats_team1.Wins > Stats_team2.Wins)
@@ -2579,6 +2637,11 @@ namespace MyLeagueApp.ViewModels
                 double ft_made;
                 double ft_att;
                 double turnovers;
+
+                GraphDataEfficiency1 = new ObservableCollection<GraphData>();
+                GraphDataEfficiency2 = new ObservableCollection<GraphData>();
+                GraphDataTrueShooting1 = new ObservableCollection<GraphData>();
+                GraphDataTrueShooting2 = new ObservableCollection<GraphData>();
 
                 //sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
                 //                            ";password=" + password +
@@ -2935,8 +2998,16 @@ namespace MyLeagueApp.ViewModels
             }
         }
 
-        private void LoadAdvancedAverage()
+        private async void LoadAdvancedAverage()
         {
+
+            PlayersTeam1 = new ObservableCollection<PlayerSample>();
+            PlayersTeam2 = new ObservableCollection<PlayerSample>();
+            PlayerStatsTeam1 = new ObservableCollection<SeasonalStats>();
+            PlayerStatsTeam2 = new ObservableCollection<SeasonalStats>();
+            TeamPlayersEfficiency1 = new ObservableCollection<EfficiencyShow>();
+            TeamPlayersEfficiency2 = new ObservableCollection<EfficiencyShow>();
+
             loadPlayers();
             loadBasicStats1();
             loadBasicStats2();
@@ -2959,8 +3030,8 @@ namespace MyLeagueApp.ViewModels
 
             double eff_avg2 = efficiency / PlayerStatsTeam2.Count;
 
-            TeamEfficiency1 = eff_avg1;
-            TeamEfficiency2 = eff_avg2;
+            TeamEfficiency1 = Math.Round(eff_avg1, 2);
+            TeamEfficiency2 = Math.Round(eff_avg2, 2);
 
             double total_efficiency = eff_avg1 + eff_avg2;
 
@@ -2972,6 +3043,35 @@ namespace MyLeagueApp.ViewModels
 
             PlayersCount1 = PlayerStatsTeam1.Count;
             PlayersCount2 = PlayerStatsTeam2.Count;
+
+            if(PlayerStatsTeam1.Count == 0 && PlayerStatsTeam2.Count == 0)
+            {
+
+                Application.Current.MainPage.DisplayAlert("Attention!", "None of your teams has any available statistics for players. Please import the required players and statistics to continue!", "OK");
+                LabelVisibility = true;
+                return;
+
+            }
+            else if(PlayerStatsTeam1.Count == 0 || PlayerStatsTeam1.Count == 0)
+            {
+
+                bool answer = await Application.Current.MainPage.DisplayAlert("Attention!", "It looks like one of your teams does not have the required player statistics. Would you like to visit the team's overview page to import those stats?", "Yes", "No");
+                
+                if (answer)
+                {
+
+                    int team_id;
+
+                    if (PlayerStatsTeam1.Count == 0) team_id = Selected_team1.Id;
+                    else team_id = Selected_team2.Id;
+
+                    SampledTeamOverviewPage page = new SampledTeamOverviewPage(team_id);
+                    await Application.Current.MainPage.Navigation.PushAsync(page);
+                    return;
+
+                }
+
+            }
 
             for(int i=0; i<PlayerStatsTeam1.Count; i++)
             {
@@ -3003,7 +3103,7 @@ namespace MyLeagueApp.ViewModels
 
                 string full_name = first_name + " " + last_name;
 
-                TeamPlayersEfficiency1.Add(new EfficiencyShow(full_name, PlayerStatsTeam1[i].Efficiency));
+                TeamPlayersEfficiency1.Add(new EfficiencyShow(full_name, Math.Round(PlayerStatsTeam1[i].Efficiency, 2)));
             }
 
             for (int i = 0; i < PlayerStatsTeam2.Count; i++)
@@ -3036,7 +3136,7 @@ namespace MyLeagueApp.ViewModels
 
                 string full_name = first_name + " " + last_name;
 
-                TeamPlayersEfficiency2.Add(new EfficiencyShow(full_name, PlayerStatsTeam2[i].Efficiency));
+                TeamPlayersEfficiency2.Add(new EfficiencyShow(full_name, Math.Round(PlayerStatsTeam2[i].Efficiency, 2)));
             }
 
             TeamsEFF1 = Selected_team1.Name + " Roster Efficiency";
@@ -3878,15 +3978,33 @@ namespace MyLeagueApp.ViewModels
         }
 
         [RelayCommand]
-        private async void OpenHint()
+        private async void OpenHint1()
         {
-            bool answer = await Shell.Current.DisplayAlert("Hint", "Welcome To The Comparison Page Hint Section! Below you will find out how to use this page and what each statistic means." + "\n" +
+            await Application.Current.MainPage.DisplayAlert("Comparison Hint", "Welcome To The Comparison Page Hint Section! Below you will find out how to use this page and what each statistic means." + "\n" +
                                                           "By pressing one of the 2 grey elements on the screen, a list will appear in which you will specify if you wish to compare players or teams." + "\n" +
                                                           "After selecting both teams or players, press the button to get started!" + "\n" +
                                                           "Three similar components will be available if you selected valid options. Here you will need to select the players or teams you would like to compare" + "\n" +
                                                           "After pressing the second button, you will have to select the seasons which you want to compare." + "\n" +
-                                                          "If everything was done correctly, a multitude of statistics and metrics will be available to you!" + "\n" +
-                                                          "Would you like an introduction to the showcased information?"
+                                                          "If everything was done correctly, a multitude of statistics and metrics will be available to you!"
+                                                          , "OK");
+
+        }
+
+        [RelayCommand]
+        private async void OpenHint2()
+        {
+
+
+
+            bool answer = await Shell.Current.DisplayAlert("Advanced Statistics Hint", "Here is a breakdown of all the available statistics:" + "\n" +
+                                                          "Efficiency - Calculates a player's worth on the court by calculating their base statistics shown below (PPG, APG, RPG, SPG, BPG, FG & FT + Turnovers)" + "\n" +
+                                                          "Odds By Efficiency - Calculates an odd percentage based on each player's calculated efficiency" + "\n" +
+                                                          "True Shooting % - Shows a player's more accurate shooting accuracy by calculating total FG and FT" + "\n" +
+                                                          "Free Throw Rate - Calculates a player's rate of hitting free throws" + "\n" +
+                                                          "Pythagorean Wins - Displays a more complex win chance of a team based on their record and total personal and opponent PPG in a season" + "\n" +
+                                                          "Efficiency by Season Games - Displays how both player's efficiency changes throughout the season" + "\n" +
+                                                          "True Shooting % by Season Games - Displays how both player's true shooting percentage changes throughout the season" + "\n" +
+                                                          "Would you like an introduction to the basic statistics?"
                                                           , "Yes", "No");
 
             if (answer)
@@ -3894,13 +4012,18 @@ namespace MyLeagueApp.ViewModels
                 try
                 {
 
-                    await Application.Current.MainPage.DisplayAlert("Hint", "Welcome To The Comparison Page Hint Section! Below you will find out how to use this page and what each statistic means." + "\n" +
-                                                          "By pressing one of the 2 grey elements on the screen, a list will appear in which you will specify if you wish to compare players or teams." + "\n" +
-                                                          "After selecting both teams or players, press the button to get started!" + "\n" +
-                                                          "Three similar components will be available if you selected valid options. Here you will need to select the players or teams you would like to compare" + "\n" +
-                                                          "After pressing the second button, you will have to select the seasons which you want to compare." + "\n" +
-                                                          "If everything was done correctly, a multitude of statistics and metrics will be available to you!" + "\n" +
-                                                          "Would you like an introduction to the showcased information?"
+                    await Application.Current.MainPage.DisplayAlert("Basic Stats Hint", "Here is a breakdown of all the basic statistics:" + "\n" +
+                                                          "PPG - A player's acquired points per game" + "\n" +
+                                                          "RPG - A player's acquired rebounds per game" + "\n" +
+                                                          "APG - A player's performed assists per game" + "\n" +
+                                                          "SPG - A player's acquired steals per game" + "\n" +
+                                                          "BPG - A player's performed blocks per game" + "\n" +
+                                                          "FGMPG - A player's succesful field goals (total shots) per game" + "\n" +
+                                                          "FAMPG - A player's attempted field goals (total shots) per game" + "\n" +
+                                                          "3SMPG - A player's succesful three point shots per game" + "\n" +
+                                                          "3SAPG - A player's attempted three point shots per game" + "\n" +
+                                                          "Teams' PPG - A team's total acquired points per game" + "\n" +
+                                                          "Teams' APPG - The team's opponents' total acquired points per game"
                                                           , "OK");
 
                 }
@@ -3910,6 +4033,24 @@ namespace MyLeagueApp.ViewModels
                     sqlConn.Close();
                 }
             }
+        }
+
+        [RelayCommand]
+        private async void OpenHint3()
+        {
+
+
+
+            await Application.Current.MainPage.DisplayAlert("Team Statistics Hint", "Here is a breakdown of all the available statistics:" + "\n" +
+                                                          "Efficiency - Calculates both team's player's worth on the court by calculating their base statistics shown below (PPG, APG, RPG, SPG, BPG, FG & FT + Turnovers), and calculates an average" + "\n" +
+                                                          "Odds By Efficiency - Calculates an odd percentage based on each team's calculated efficiency" + "\n" +
+                                                          "PPG - A team's total acquired points per game" + "\n" +
+                                                          "APPG - The team's opponents' total acquired points per game" + "\n" +
+                                                          "Pythagorean Wins - Displays a more complex win chance of a team based on their record and total personal and opponent PPG in a season" + "\n" +
+                                                          "Player Count - Displays how many players have been imported for both teams" + "\n" +
+                                                          "Team's Roster Efficiency - Displays a team's each player's individual efficiency"
+                                                          , "OK");
+
         }
 
     }

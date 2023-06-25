@@ -157,19 +157,34 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button
-                Text="DELETE LEAGUE"
-                x:Name="buttonD"
-                TextColor="White"
-                BackgroundColor="Red"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="16"
-                HorizontalOptions="Center"
-                WidthRequest="300"
-                Margin="8"
-                Style="{StaticResource ButtonOutline}"
-                VerticalOptions="CenterAndExpand"
-                Command="{Binding DeleteLeagueCommand}"/>
+
+            <HorizontalStackLayout
+                Spacing="350"
+                Padding="390,0"
+                VerticalOptions="Start">
+
+                <Button
+                    Text="DELETE LEAGUE"
+                    x:Name="buttonD"
+                    TextColor="White"
+                    BackgroundColor="Red"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="16"
+                    HorizontalOptions="Center"
+                    WidthRequest="300"
+                    Margin="8"
+                    Style="{StaticResource ButtonOutline}"
+                    VerticalOptions="CenterAndExpand"
+                    Command="{Binding DeleteLeagueCommand}"/>
+
+                <ImageButton
+                    Source="hint2.png"
+                    HorizontalOptions="End"
+                    Command="{Binding OpenHintCommand}"
+                    HeightRequest="5"/>
+
+            </HorizontalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

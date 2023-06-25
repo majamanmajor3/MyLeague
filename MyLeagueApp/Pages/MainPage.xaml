@@ -9,7 +9,7 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Spacing="170"
+            Spacing="125"
             Padding="30,0"
             VerticalOptions="Start">
 
@@ -65,6 +65,15 @@
                 </Button>
 
             </HorizontalStackLayout>
+
+            <!--<Label Text="" HeightRequest="100"/>-->
+
+            <ImageButton
+                Source="hint2.png"
+                HorizontalOptions="End"
+                Command="{Binding OpenHintCommand}"
+                HeightRequest="5"/>
+
         </VerticalStackLayout>
     </ScrollView>
 

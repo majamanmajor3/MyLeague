@@ -11,12 +11,40 @@
 
     <ScrollView>
         <VerticalStackLayout>
-            <Label 
-            Text="Welcome to the Comparison Page!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            HeightRequest="80"
-            FontSize="40"/>
+            <HorizontalStackLayout
+                Spacing="165"
+                Padding="214,0"
+                VerticalOptions="Center">
+                
+                <Label 
+                Text="Welcome to the Comparison Page!"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                HeightRequest="55"
+                FontSize="40"/>
+
+                <ImageButton
+                IsVisible="{Binding BaseVisibility}"
+                Source="hint2.png"
+                HorizontalOptions="End"
+                Command="{Binding OpenHint1Command}"
+                HeightRequest="5"/>
+
+                <ImageButton
+                IsVisible="{Binding StatsVisibility}"
+                Source="hint2.png"
+                HorizontalOptions="End"
+                Command="{Binding OpenHint2Command}"
+                HeightRequest="5"/>
+
+                <ImageButton
+                IsVisible="{Binding TeamStatsVisibility}"
+                Source="hint2.png"
+                HorizontalOptions="End"
+                Command="{Binding OpenHint3Command}"
+                HeightRequest="5"/>
+
+            </HorizontalStackLayout>
 
             <!--<Grid Grid.Row="0" HorizontalOptions="Center" Margin="10">
             <Grid.RowDefinitions>
@@ -1010,12 +1038,6 @@
             </chart:SfCartesianChart>
 
             <!--</Grid>-->
-
-            <ImageButton
-                Source="hint2.png"
-                HorizontalOptions="End"
-                Command="{Binding OpenHintCommand}"
-                HeightRequest="15"/>
 
         </VerticalStackLayout>
     </ScrollView>

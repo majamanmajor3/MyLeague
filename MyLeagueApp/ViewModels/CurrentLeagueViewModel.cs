@@ -326,5 +326,19 @@ namespace MyLeagueApp.ViewModels
 
         }
 
+        [RelayCommand]
+        private async void OpenHint()
+        {
+
+            await Application.Current.MainPage.DisplayAlert("League Overview Page", "This is the page where you can view and manage your created league! Here is how to get started:" + "\n" +
+                                                          "By clicking on a match, you can view it's details, more specifically the date, arena, final score and the base stats of the best player on each team." + "\n" + 
+                                                          "By clicking the EDIT SCORE button, you can set the final score and each player's individual stats. The showcased stats are PPG (Points/Game), APG (Assists/Game) & RPG (Rebounds/Game)." + "\n" +
+                                                          "NEW MATCH - Here you can create a match within the league using your created teams. Choose the 2 teams and a match date and you're good to go!" + "\n" +
+                                                          "STATISTICS - Here you can view all participating teams' standings and additional stats." + "\n" +
+                                                          "LEAGUE LEADERS - Here you can view all participating teams' players' statistics. You can reaarange the order of the players based on a specified stat by clicking the name of the statistic."
+                                                          , "OK");
+
+        }
+
     }
 }
