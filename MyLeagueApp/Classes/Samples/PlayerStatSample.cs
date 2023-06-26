@@ -39,8 +39,8 @@ namespace MyLeagueApp.Classes.Samples
             this.Assists = Assists;
             this.Steals = Steals;
             this.Blocks = Blocks;
-            this.FGMade = ThreesMade;
-            this.FGAttempted = ThreesAttempted;
+            this.FGMade = FGMade;
+            this.FGAttempted = FGAttempted;
             this.ThreesMade = ThreesMade;
             this.ThreesAttempted = ThreesAttempted;
             this.FreeThrowsMade = FreeThrowsMade;

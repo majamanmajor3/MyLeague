@@ -29,46 +29,64 @@
                 FontSize="40"
                 HorizontalOptions="Center"/>
 
-            <Label
-                Text="{Binding TeamArena.Name}"
-                TextColor="Black"
-                FontFamily=""
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="40"
-                HorizontalOptions="Center"/>
-
-            <Label
-                Text="{Binding TeamArena.City}"
-                TextColor="Black"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="20"
-                HorizontalOptions="Center"/>
-
-            <Label
-                Text="{Binding TeamArenaLocation}"
-                TextColor="Black"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="20"
-                HorizontalOptions="Center"/>
-
-            <Button Text="Show on Map"
-                        Command="{Binding OpenMapCommand}"
-                        HorizontalOptions="Center"
-                        WidthRequest="200"
-                        Margin="8"
-                        Style="{StaticResource ButtonOutline}"/>
-
             <Label 
                 Text="Seasonal Stats:"
                 TextColor="Black"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="20"/>
+            
+            <Grid Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="98" />
+                    <ColumnDefinition Width="114" />
+                    <ColumnDefinition Width="99" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0"
+                       Grid.ColumnSpan="20"
+                                   Text=""
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="1"
+                       Grid.ColumnSpan="20"
+                                   Text="Year"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="2"
+                       Grid.ColumnSpan="20"
+                                   Text="Wins"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="3"
+                       Grid.ColumnSpan="20"
+                                   Text="Losses"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="4"
+                       Grid.ColumnSpan="20"
+                                   Text="PPG"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="5"
+                       Grid.ColumnSpan="20"
+                                   Text="APPG"
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+            </Grid>
 
             <ListView ItemsSource="{Binding Stats}" x:Name="cv2" SeparatorColor="Black" SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:SeasonalStatsTeam">
                         <ViewCell>
-                            <Grid Padding="10">
+                            <Grid Padding="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="20" />
                                     <RowDefinition Height="20" />

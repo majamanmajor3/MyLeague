@@ -26,17 +26,90 @@
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="20"/>
 
+            <Grid Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="98" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="112" />
+                    <ColumnDefinition Width="102" />
+                    <ColumnDefinition Width="97" />
+                    <ColumnDefinition Width="93" />
+                    <ColumnDefinition Width="87" />
+                    <ColumnDefinition Width="157" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0"
+                       Grid.ColumnSpan="20"
+                                   Text=""
+                                   FontAttributes="Italic"
+                                 TextColor="Black"/>
+                <Label Grid.Column="1"
+                       Grid.ColumnSpan="20"
+                                   Text="Year"
+                                   FontAttributes="Italic"
+                                 TextColor="Black">
+                </Label>
+                <Label Grid.Column="2"
+                       Grid.ColumnSpan="20"
+                                   Text="Points"
+                                   FontAttributes="Italic"
+                                 TextColor="Black">
+                </Label>
+                <Label Grid.Column="3"
+                       Grid.ColumnSpan="20"
+                                   Text="Rebounds"
+                                   FontAttributes="Italic"
+                                 TextColor="Black">
+                </Label>
+                <Label Grid.Column="4"
+                       Grid.ColumnSpan="20"
+                                   Text="Assists"
+                                   FontAttributes="Italic"
+                                 TextColor="Black">
+                </Label>
+                <Label Grid.Column="5"
+                       Grid.ColumnSpan="20"
+                                   Text="Steals"
+                                   FontAttributes="Italic"
+                                 TextColor="Black">
+                </Label>
+                <Label Grid.Column="6"
+                       Grid.ColumnSpan="20"
+                                   Text="Blocks"
+                                   FontAttributes="Italic"
+                                 TextColor="Black">
+                </Label>
+                <Label Grid.Column="7"
+                       Grid.ColumnSpan="20"
+                                   Text="FG Made"
+                                   FontAttributes="Italic"
+                                 TextColor="Black">
+                </Label>
+                <Label Grid.Column="8"
+                       Grid.ColumnSpan="20"
+                                   Text="Threes Made"
+                                   FontAttributes="Italic"
+                                 TextColor="Black">
+                </Label>
+            </Grid>
+
             <ListView ItemsSource="{Binding Stats}" x:Name="cv" SeparatorColor="Black" SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:SeasonalStats">
                         <ViewCell>
-                            <Grid Padding="10">
+                            <Grid Padding="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="20" />
                                     <RowDefinition Height="20" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="100" />

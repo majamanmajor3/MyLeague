@@ -1293,7 +1293,7 @@ namespace MyLeagueApp.ViewModels
 
                         double ft_rate = ft_att / fgatt;
 
-                        Stats1 = new SeasonalStats(season_id, Selected_player1.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, fouls, minutes, Int32.Parse(Selected_season1), team, efficiency, Math.Round(true_shooting, 2), Math.Round(ft_rate, 2));
+                        Stats1 = new SeasonalStats(season_id, Selected_player1.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, fouls, minutes, Int32.Parse(Selected_season1), team, Math.Round(efficiency, 2), Math.Round(true_shooting, 2), Math.Round(ft_rate, 2));
                     }
 
 
@@ -1538,7 +1538,7 @@ namespace MyLeagueApp.ViewModels
 
                         double ft_rate = ft_att / fgatt;
 
-                        Stats2 = new SeasonalStats(season_id, Selected_player2.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, fouls, minutes, Int32.Parse(Selected_season2), team, efficiency, Math.Round(true_shooting, 2), Math.Round(ft_rate, 2));
+                        Stats2 = new SeasonalStats(season_id, Selected_player2.Id, points, rebounds, assists, steals, blocks, fgmade, fgatt, threesmade, threesatt, ft_made, ft_att, turnovers, fouls, minutes, Int32.Parse(Selected_season2), team, Math.Round(efficiency, 2), Math.Round(true_shooting, 2), Math.Round(ft_rate, 2));
                     }
 
                     double total_efficiency = Stats1.Efficiency + Stats2.Efficiency;
