@@ -622,24 +622,6 @@ namespace MyLeagueApp.ViewModels
         }
 
         [RelayCommand]
-        async Task OpenMap()
-        {
-            try
-            {
-                await Map.Default.OpenAsync(TeamArena.Latitude, TeamArena.Longitude, new MapLaunchOptions
-                {
-                    Name = TeamArena.Name,
-                    NavigationMode = NavigationMode.None
-                });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Unable to launch maps: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error, no Maps app!", ex.Message, "OK");
-            }
-        }
-
-        [RelayCommand]
         async Task DeleteTeam()
         {
             try
@@ -651,6 +633,19 @@ namespace MyLeagueApp.ViewModels
                     sqlConn.Open();
 
                     String sql_delete = "DELETE FROM `sampled_teams` WHERE `team_id`=" + current_team_id + "; ";
+
+                    sqlCmd = new MySqlCommand(sql_delete, sqlConn);
+
+                    sqlRd2 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd2.Read())
+                    {
+
+                    }
+
+                    sqlRd2.Close();
+
+                    sql_delete = "DELETE FROM `seasonal_stats_teams` WHERE `team_id`=" + current_api_id + "; ";
 
                     sqlCmd = new MySqlCommand(sql_delete, sqlConn);
 
@@ -860,7 +855,7 @@ namespace MyLeagueApp.ViewModels
 
                         Application.Current.MainPage.DisplayAlert("", "Your team's season has been imported!", "OK");
 
-                        //Shell.Current.GoToAsync(nameof(MainPage));
+                        Shell.Current.GoToAsync(nameof(TeamsPage));
 
                         Task.CompletedTask.Dispose();
 

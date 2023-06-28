@@ -88,8 +88,8 @@ public partial class NewSampledPlayerPage : ContentPage
 
                 //player_id = 1;
 
-                String sql2 = "INSERT INTO `sampled_players` (`player_id`, `first_name`, `last_name`, `team`, `position`, `height_feet`, `height_inches`, `weight_pounds`, `api_player_id`) " +
-                    "VALUES (" + player_id + ", '" + item.FirstName + "', '" + item.LastName + "', '" + item.Team + "', '" + item.PositionLetter + "', '" + item.HeightFeet + "', '" + item.HeightInches + "', '" + item.Weight + "', '" + item.Id + "');";
+                String sql2 = "INSERT INTO `sampled_players` (`first_name`, `last_name`, `team`, `position`, `height_feet`, `height_inches`, `weight_pounds`, `api_player_id`) " +
+                    "VALUES ('" + item.FirstName + "', '" + item.LastName + "', '" + item.Team + "', '" + item.PositionLetter + "', '" + item.HeightFeet + "', '" + item.HeightInches + "', '" + item.Weight + "', '" + item.Id + "');";
 
                 sqlCmd = new MySqlCommand(sql2, sqlConn);
 
@@ -102,11 +102,25 @@ public partial class NewSampledPlayerPage : ContentPage
 
                 sqlRd2.Close();
 
+                String sql_id = "SELECT `team_id` FROM `sampled_teams` WHERE `api_id`=" + item.Team + "; ";
+
+                sqlCmd = new MySqlCommand(sql_id, sqlConn);
+                sqlRd = sqlCmd.ExecuteReader();
+
+                while (sqlRd.Read())
+                {
+
+                }
+
+                int team_db_id = Int32.Parse(sqlRd[0].ToString());
+                sqlRd.Close();
+
                 sqlConn.Close();
 
                 Application.Current.MainPage.DisplayAlert("", "Your new sample player has been created!", "OK");
 
-                //Shell.Current.GoToAsync(nameof(MainPage));
+                SampledTeamOverviewPage page = new SampledTeamOverviewPage(team_db_id);
+                await Application.Current.MainPage.Navigation.PushAsync(page);
 
                 Task.CompletedTask.Dispose();
 

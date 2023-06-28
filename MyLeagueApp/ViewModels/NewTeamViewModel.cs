@@ -77,26 +77,22 @@ namespace MyLeagueApp.ViewModels
             string team_conference;
             string team_division;
 
-            for (int i = 1; i <= 30; i++)
+            WebClient client = new WebClient();
+            //String stats = client.DownloadString("https://free-nba.p.rapidapi.com/stats?seasons[]=2021&player_ids[]=237&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
+            String teams = client.DownloadString("https://free-nba.p.rapidapi.com/teams?rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
+            dynamic data = JObject.Parse(teams);
+
+            foreach (var member in data["data"])
             {
-                WebClient client = new WebClient();
-                //String stats = client.DownloadString("https://free-nba.p.rapidapi.com/stats?seasons[]=2021&player_ids[]=237&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
-                String teams = client.DownloadString("https://free-nba.p.rapidapi.com/teams?rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
-                dynamic data = JObject.Parse(teams);
+                team_id = (int)member["id"];
+                team_city = (string)member["city"];
+                team_name = (string)member["name"];
+                team_fullname = (string)member["full_name"];
+                team_abbreviation = (string)member["abbreviation"];
+                team_conference = (string)member["conference"];
+                team_division = (string)member["division"];
 
-                foreach (var member in data["data"])
-                {
-                    team_id = (int)member["id"];
-                    team_city = (string)member["city"];
-                    team_name = (string)member["name"];
-                    team_fullname = (string)member["full_name"];
-                    team_abbreviation = (string)member["abbreviation"];
-                    team_conference = (string)member["conference"];
-                    team_division = (string)member["division"];
-
-                    Teams.Add(new TeamSample(0, team_id, team_name, team_city, team_abbreviation, team_division, team_conference, team_fullname));
-                }
-
+                Teams.Add(new TeamSample(0, team_id, team_name, team_city, team_abbreviation, team_division, team_conference, team_fullname));
             }
 
         }
@@ -265,8 +261,8 @@ namespace MyLeagueApp.ViewModels
                         team_name = name;
                         team_city = city;
 
-                        String sql2 = "INSERT INTO `sampled_teams` (`team_id`, `city`, `name`, `abbreviation`, `conference`, `division`, `api_id`) " +
-                            "VALUES (" + team_id + ", '" + Selected_team.City + "', '" + Selected_team.Name + "', '" + Selected_team.Abbreviation + "', '" + Selected_team.Conference + "', '" + Selected_team.Division + "', '" + Selected_team.ApiId + "');";
+                        String sql2 = "INSERT INTO `sampled_teams` (`city`, `name`, `abbreviation`, `conference`, `division`, `api_id`) " +
+                            "VALUES ('" + Selected_team.City + "', '" + Selected_team.Name + "', '" + Selected_team.Abbreviation + "', '" + Selected_team.Conference + "', '" + Selected_team.Division + "', '" + Selected_team.ApiId + "');";
 
                         sqlCmd = new MySqlCommand(sql2, sqlConn);
 
@@ -283,7 +279,7 @@ namespace MyLeagueApp.ViewModels
 
                         Application.Current.MainPage.DisplayAlert("", "Your new sample team has been created!", "OK");
 
-                        //Shell.Current.GoToAsync(nameof(MainPage));
+                        Shell.Current.GoToAsync(nameof(TeamsPage));
 
                         Selected_team = null;
 
@@ -334,8 +330,8 @@ namespace MyLeagueApp.ViewModels
                         team_name = name;
                         team_city = city;
 
-                        String sql2 = "INSERT INTO `teams` (`team_id`, `city`, `name`, `logo`) " +
-                            "VALUES (" + team_id + ", '" + team_city + "', '" + team_name + "', '" + team_logo + "');";
+                        String sql2 = "INSERT INTO `teams` (`city`, `name`, `logo`) " +
+                            "VALUES ('" + team_city + "', '" + team_name + "', '" + team_logo + "');";
 
                         sqlCmd = new MySqlCommand(sql2, sqlConn);
 
@@ -352,7 +348,7 @@ namespace MyLeagueApp.ViewModels
 
                         Application.Current.MainPage.DisplayAlert("", "Your new team has been created!", "OK");
 
-                        Shell.Current.GoToAsync(nameof(MainPage));
+                        Shell.Current.GoToAsync(nameof(TeamsPage));
 
                     }
                     catch (Exception ex)

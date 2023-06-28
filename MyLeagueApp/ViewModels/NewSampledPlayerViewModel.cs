@@ -60,7 +60,7 @@ namespace MyLeagueApp.ViewModels
             int player_id;
             string player_fname;
             string player_lname;
-            int player_team; //egyelore a kivalasztott csapathoz megy
+            int player_team;
             string player_posletter;
             string player_posname;
             string player_heightfeet;
@@ -69,7 +69,6 @@ namespace MyLeagueApp.ViewModels
             string player_fullname;
 
             WebClient client = new WebClient();
-            //String stats = client.DownloadString("https://free-nba.p.rapidapi.com/stats?seasons[]=2021&player_ids[]=237&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
             String search_string = "https://free-nba.p.rapidapi.com/players?search=" + player_name + "&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688";
             String teams = client.DownloadString(search_string);
             dynamic data = JObject.Parse(teams);
@@ -79,22 +78,6 @@ namespace MyLeagueApp.ViewModels
                 player_id = (int)member["id"];
                 player_fname = (string)member["first_name"];
                 player_lname = (string)member["last_name"];
-
-                //JsonArray team = (JsonArray)member["team"];
-                //JsonObject teamObject = (JsonObject)team[0];
-                //string player_team_string = teamObject["id"].ToString();
-                //player_team = Int32.Parse(player_team_string);
-
-                //JSONArray team = member.getJSONArray("team");
-                //JSONObject teamObject = team.GetJSONObject(0);
-                //JSONObject teamData = teamObject.GetJSONObject("team");
-                //String teamNumber = teamData.GetString("id");
-                //player_team = Int32.Parse(teamNumber);
-
-                //JArray team = (JArray)member["team"];
-                //var jArray = JArray.Parse(team);
-                //var result = jArray.FirstOrDefault()?["value"]?.Value<DateTime>();
-                //player_team = Int32.Parse(teamNumber);
 
                 player_team = (int)member["team"]["id"];
 

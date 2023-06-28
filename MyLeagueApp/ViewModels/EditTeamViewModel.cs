@@ -239,11 +239,6 @@ namespace MyLeagueApp.ViewModels
 
         }
 
-        void OnMapClicked(object sender, MapClickedEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine($"MapClick: {e.Location.Latitude}, {e.Location.Longitude}");
-        }
-
         [RelayCommand]
         private async void ChoosePhotoClicked()
         {
@@ -291,21 +286,50 @@ namespace MyLeagueApp.ViewModels
                 }
                 sqlRd2.Close();
 
-                String sql3 = "UPDATE `arenas` SET " +
+                String sql3 = "SELECT COUNT(*) FROM `arenas` WHERE `team_id`=" + current_team_id + ";";
+
+                sqlCmd = new MySqlCommand(sql3, sqlConn2);
+                sqlRd2 = sqlCmd.ExecuteReader();
+
+                while (sqlRd2.Read())
+                {
+                }
+
+                int check = Int32.Parse(sqlRd2[0].ToString());
+                sqlRd2.Close();
+
+                if (check == 0)
+                {
+                    sql3 = "INSERT INTO `arenas` (`name`, `city`, `state`, `latitude`, `longitude`, `team_id`) " +
+                        "VALUES ('" + ArenaName + "', '" + ArenaCity + "', '" + ArenaState + "', '" + ArenaLatitude + "', '" + ArenaLongitude + "', '" + current_team_id + "');";
+
+                    sqlCmd = new MySqlCommand(sql3, sqlConn2);
+
+                    sqlRd2 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd2.Read())
+                    {
+                    }
+                    sqlRd2.Close();
+                }
+                else
+                {
+                    sql3 = "UPDATE `arenas` SET " +
                     "`name` = '" + ArenaName + "', " +
                     "`city` = '" + ArenaCity + "', " +
                     "`state` = '" + ArenaState + "', " +
                     "`latitude` = '" + ArenaLatitude + "', " +
                     "`longitude` = '" + ArenaLongitude + "' WHERE `arenas`.`team_id` = " + current_team_id + ";";
 
-                sqlCmd = new MySqlCommand(sql3, sqlConn2);
+                    sqlCmd = new MySqlCommand(sql3, sqlConn2);
 
-                sqlRd2 = sqlCmd.ExecuteReader();
+                    sqlRd2 = sqlCmd.ExecuteReader();
 
-                while (sqlRd2.Read())
-                {
+                    while (sqlRd2.Read())
+                    {
+                    }
+                    sqlRd2.Close();
                 }
-                sqlRd2.Close();
 
                 sqlConn2.Close();
 

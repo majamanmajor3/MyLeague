@@ -430,6 +430,98 @@
 
             </HorizontalStackLayout>
 
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding Stats1.FreeThrowsMade}" TextColor="{Binding ThreesattColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="FTMPG" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding Stats2.FreeThrowsMade}" TextColor="{Binding ThreesattColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding Stats1.FreeThrowsAttempted}" TextColor="{Binding ThreesattColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="FTAPG" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding Stats2.FreeThrowsAttempted}" TextColor="{Binding ThreesattColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding Stats1.Turnovers}" TextColor="{Binding ThreesattColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="TPG" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding Stats2.Turnovers}" TextColor="{Binding ThreesattColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="47"
+                Padding="442,0"
+                VerticalOptions="Center"
+                IsVisible="{Binding StatsVisibility}">
+
+                <Grid Grid.Row="0" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="{Binding Stats1.MinutesPlayed}" TextColor="{Binding ThreesattColor1}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="1" Text="MPG" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Column="2" Text="{Binding Stats2.MinutesPlayed}" TextColor="{Binding ThreesattColor2}" FontSize="20" HorizontalTextAlignment="Center"/>
+
+                </Grid>
+
+            </HorizontalStackLayout>
+
             <Label Text="" HeightRequest="20"/>
 
             <HorizontalStackLayout

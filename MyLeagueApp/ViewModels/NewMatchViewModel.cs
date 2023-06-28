@@ -42,7 +42,7 @@ namespace MyLeagueApp.ViewModels
         Team selected_away;
 
         [ObservableProperty]
-        DateTime selected_date;
+        DateTime selected_date = DateTime.Now;
 
         public NewMatchViewModel(string league_name)
         {
@@ -195,18 +195,16 @@ namespace MyLeagueApp.ViewModels
                     match_id = Int32.Parse(sqlRd[0].ToString());
                     sqlRd.Close();
 
-                    int home_index = Selected_home.Id;
-                    home_team = Teams[home_index].Id-1;
+                    //int home_index = Selected_home.Id;
+                    //home_team = Teams[home_index].Id-1;
 
-                    int away_index = Selected_away.Id;
-                    away_team = Teams[away_index].Id-1;
+                    //int away_index = Selected_away.Id;
+                    //away_team = Teams[away_index].Id-1;
 
                     date = Selected_date;
 
-                    string selected_date = date.ToString("yyyy-MM-dd");
-
-                    String sql2 = "INSERT INTO `" + current_league_name + "` (`m_id`, `home_team`, `away_team`, `home_score`, `away_score`, `date`) " +
-                        "VALUES (" + match_id + ", '" + home_team + "', '" + away_team + "', '0', '0', '" + selected_date + "');";
+                    String sql2 = "INSERT INTO `" + current_league_name + "` (`home_team`, `away_team`, `home_score`, `away_score`, `date`) " +
+                        "VALUES ('" + Selected_home.Id + "', '" + Selected_away.Id + "', '0', '0', '" + date.ToString("yyyy-MM-dd") + "');";
 
                     sqlCmd = new MySqlCommand(sql2, sqlConn);
 
@@ -223,7 +221,7 @@ namespace MyLeagueApp.ViewModels
 
                     Application.Current.MainPage.DisplayAlert("", "Your new match has been created!", "OK");
 
-                    Shell.Current.GoToAsync("..");
+                    Shell.Current.GoToAsync(nameof(LeaguesPage));
 
                 }
                 catch (Exception ex)

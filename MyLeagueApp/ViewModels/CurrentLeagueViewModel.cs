@@ -298,6 +298,19 @@ namespace MyLeagueApp.ViewModels
 
                     sqlRd2.Close();
 
+                    sql_delete = "DROP TABLE `" + League_name + "_stats`; ";
+
+                    sqlCmd = new MySqlCommand(sql_delete, sqlConn);
+
+                    sqlRd2 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd2.Read())
+                    {
+
+                    }
+
+                    sqlRd2.Close();
+
                     String sql_delete2 = "DELETE FROM `leagues` WHERE name='" + League_name + "'; ";
 
                     sqlCmd = new MySqlCommand(sql_delete2, sqlConn);

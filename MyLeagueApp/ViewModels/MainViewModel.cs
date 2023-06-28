@@ -38,7 +38,8 @@ namespace MyLeagueApp.ViewModels
                                                           "By pressing one of the 3 buttons, you will be sent to a different page and be able to use all of the functionalities of this program!" + "\n" +
                                                           "LEAGUES - Here you will be able to create your own leagues using the created teams. Create and manage matches within the leagues and check players' and teams' statistics and leaderboards." + "\n" +
                                                           "COMPARE - Here you will have the option to choose 2 imported players or teams, pick a respective season for each and compare them by basic and advanced statistics, metrics and graphs." + "\n" +
-                                                          "TEAMS - Here you will be able to create or import your teams and players. You can view all of them by cycling between the CREATED TEAMS and SAMPLED TEAMS, and by clicking on them you can view their basic information, seasonal statistics and players, for which by clicking on them, you can view or import their personal seasonal stats." + "\n" +
+                                                          "TEAMS - Here you will be able to create or import your teams and players. You can view all of them by cycling between the CREATED TEAMS and SAMPLED TEAMS, and by clicking on them you can view their basic information, seasonal statistics and players, for which by clicking on them, you can view or import their personal seasonal stats. " +
+                                                          "(NOTE! While creating a new player, you will need to specify a number between 1 and 5 which will determine what position will the player play, the positions are: 1 - Point Guard, 2 - Shooting Guard, 3 - Small Forward, 4 - Power Forward, 5 - Center.)" + "\n" +
                                                           "Have fun using our basketball league creating and stats comparing application!" + "\n" +
                                                           "Would you like an introduction to the basic statistics you will find across the app?"
                                                           , "Yes", "No");
@@ -58,6 +59,10 @@ namespace MyLeagueApp.ViewModels
                                                           "FAMPG - A player's attempted field goals (total shots) per game" + "\n" +
                                                           "3SMPG - A player's succesful three point shots per game" + "\n" +
                                                           "3SAPG - A player's attempted three point shots per game" + "\n" +
+                                                          "FTMPG - A player's made free throws per game" + "\n" +
+                                                          "FTAPG - A player's attempted free throws per game" + "\n" +
+                                                          "TPG - A player's commited turnovers per game" + "\n" +
+                                                          "MPG - A player's played minutes per game" + "\n" +
                                                           "Teams' PPG - A team's total acquired points per game" + "\n" +
                                                           "Teams' APPG - The team's opponents' total acquired points per game"
                                                           , "OK");

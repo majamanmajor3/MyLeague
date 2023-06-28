@@ -63,8 +63,8 @@ namespace MyLeagueApp.ViewModels
 
                 league_name = name;
 
-                String sql2 = "INSERT INTO `leagues` (`league_id`, `name`, `created_date`) " +
-                    "VALUES (" + league_id + ", '" + league_name + "', '" + DateTime.Now.ToString("yyyy-MM-dd") + "');";
+                String sql2 = "INSERT INTO `leagues` (`name`, `created_date`) " +
+                    "VALUES ('" + league_name + "', '" + DateTime.Now.ToString("yyyy-MM-dd") + "');";
 
                 // !!! NE ENGEDD MAJD LETREJOJJON 'LEAGUES'BEN HA MAR VAN !!!
 
@@ -92,6 +92,25 @@ namespace MyLeagueApp.ViewModels
 
                 sqlRd3.Close();
 
+                sql3 = "CREATE TABLE `myleague`.`" + league_name + "_stats` (`stat_id` INT(250) NOT NULL AUTO_INCREMENT, " +
+                    "`player_id` INT(250) NOT NULL, `match_id` INT(250) NOT NULL, `first_name` VARCHAR(250) NOT NULL," +
+                    "`last_name` VARCHAR(250) NOT NULL, `points` INT(200) NOT NULL, " +
+                    "`rebounds` INT(200) NOT NULL, `steals` INT(200) NOT NULL, " +
+                    "`blocks` INT(200) NOT NULL, `threesmade` INT(200) NOT NULL, " +
+                    "`threesattempted` INT(200) NOT NULL, `assists` INT(200) NOT NULL, " +
+                    "PRIMARY KEY (`stat_id`)) ENGINE = InnoDB;";
+
+                sqlCmd = new MySqlCommand(sql3, sqlConn);
+
+                sqlRd3 = sqlCmd.ExecuteReader();
+
+                while (sqlRd3.Read())
+                {
+
+                }
+
+                sqlRd3.Close();
+
                 sqlConn.Close();
 
                 Application.Current.MainPage.DisplayAlert("", "Your new league has been created!", "OK");
@@ -105,11 +124,5 @@ namespace MyLeagueApp.ViewModels
                 sqlConn.Close();
             }
         }
-
-        //[RelayCommand]
-        //async Task GoBack()
-        //{
-        //    Shell.Current.GoToAsync("../MainPage");
-        //}
     }
 }

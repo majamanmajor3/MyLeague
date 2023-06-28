@@ -555,10 +555,6 @@ namespace MyLeagueApp.ViewModels
 
                 sqlRd2.Close();
 
-                sqlConn2.Close();
-
-                sqlConn2.Open();
-
                 for(int i = 0; i < Players.Count; i++)
                 {
 
@@ -581,7 +577,6 @@ namespace MyLeagueApp.ViewModels
                     if(statCheck == 0)
                     {
 
-
                         String sql_id = "SELECT COUNT(*)+1 FROM `" + current_league_name + "_stats`; ";
 
                         sqlCmd = new MySqlCommand(sql_id, sqlConn2);
@@ -597,8 +592,8 @@ namespace MyLeagueApp.ViewModels
 
                         //FullName = player.FullName;
 
-                        String sql_insert = "INSERT INTO `" + current_league_name + "_stats` (`stat_id`, `player_id`, `match_id`, `first_name`, `last_name`, `points`, `rebounds`, `steals`, `blocks`, `threesmade`, `threesattempted`, `assists`) " +
-                            "VALUES (" + stat_id + ", '" + player.Id + "', '" + current_match_id + "', '" + player.FirstName + "', '" + player.LastName + "', '" + stat.Points + "', '" + stat.Rebounds + "', '" + stat.Steals + "', '" + stat.Blocks + "', '" + stat.ThreesMade + "', '" + stat.ThreesAttempted + "', '" + stat.Assists + "');";
+                        String sql_insert = "INSERT INTO `" + current_league_name + "_stats` (`player_id`, `match_id`, `first_name`, `last_name`, `points`, `rebounds`, `steals`, `blocks`, `threesmade`, `threesattempted`, `assists`) " +
+                            "VALUES ('" + player.Id + "', '" + current_match_id + "', '" + player.FirstName + "', '" + player.LastName + "', '" + stat.Points + "', '" + stat.Rebounds + "', '" + stat.Steals + "', '" + stat.Blocks + "', '" + stat.ThreesMade + "', '" + stat.ThreesAttempted + "', '" + stat.Assists + "');";
 
                         sqlCmd = new MySqlCommand(sql_insert, sqlConn2);
                         sqlRd = sqlCmd.ExecuteReader();
@@ -608,8 +603,8 @@ namespace MyLeagueApp.ViewModels
 
                         }
 
-                        statCheck = Int32.Parse(sqlRd[0].ToString());
                         sqlRd.Close();
+
                     }
                     else
                     {

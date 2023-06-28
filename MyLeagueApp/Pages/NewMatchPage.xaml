@@ -32,7 +32,7 @@
 
             <Label Grid.Row="2" Grid.Column="0" Text="Match Date"/>
             <DatePicker Grid.Row="2" Grid.Column="1" x:Name="game_date" MinimumDate="01/01/2022"
-                        MaximumDate="01/01/2032" Date="{Binding Selected_away, Mode=TwoWay}"/>
+                        MaximumDate="01/01/2032" Date="{Binding Selected_date, Mode=TwoWay}"/>
             
         </Grid>
         <Button Text="Add Match" Height="23" Width="141" Margin="3" Command="{Binding AddMatchClickedCommand}"/>

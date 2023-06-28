@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MyLeagueApp.Classes;
 using MyLeagueApp.Classes.Stats;
 using MySql.Data.MySqlClient;
@@ -470,9 +471,9 @@ namespace MyLeagueApp.ViewModels
 
                 sqlConn.Open();
 
-                String sql_m_id = "SELECT player_id FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
+                String sql_check = "SELECT COUNT(*) FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
 
-                sqlCmd = new MySqlCommand(sql_m_id, sqlConn);
+                sqlCmd = new MySqlCommand(sql_check, sqlConn);
                 sqlRdHS1 = sqlCmd.ExecuteReader();
 
                 while (sqlRdHS1.Read())
@@ -480,155 +481,191 @@ namespace MyLeagueApp.ViewModels
 
                 }
 
-                player_id = Int32.Parse(sqlRdHS1[0].ToString());
+                int check = Int32.Parse(sqlRdHS1[0].ToString());
                 sqlRdHS1.Close();
 
-                String sql_h_id = "SELECT first_name FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
+                if(check != 0)
+                {
+                    String sql_m_id = "SELECT player_id FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
 
-                sqlCmd = new MySqlCommand(sql_h_id, sqlConn);
-                sqlRd2 = sqlCmd.ExecuteReader();
+                    sqlCmd = new MySqlCommand(sql_m_id, sqlConn);
+                    sqlRdHS1 = sqlCmd.ExecuteReader();
 
-                while (sqlRd2.Read())
+                    while (sqlRdHS1.Read())
+                    {
+
+                    }
+
+                    player_id = Int32.Parse(sqlRdHS1[0].ToString());
+                    sqlRdHS1.Close();
+
+                    String sql_h_id = "SELECT first_name FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
+
+                    sqlCmd = new MySqlCommand(sql_h_id, sqlConn);
+                    sqlRd2 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd2.Read())
+                    {
+
+                    }
+
+                    first_name = sqlRd2[0].ToString();
+                    sqlRd2.Close();
+
+                    String sql_a_id = "SELECT last_name FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
+
+                    sqlCmd = new MySqlCommand(sql_a_id, sqlConn);
+                    sqlRd4 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd4.Read())
+                    {
+
+                    }
+
+                    last_name = sqlRd4[0].ToString();
+                    sqlRd4.Close();
+
+                    String sql_h_score = "SELECT photo FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
+
+                    sqlCmd = new MySqlCommand(sql_h_score, sqlConn);
+                    sqlRd5 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd5.Read())
+                    {
+
+                    }
+
+                    photo = sqlRd5[0].ToString();
+                    sqlRd5.Close();
+
+                    String sql_pos = "SELECT position FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
+
+                    sqlCmd = new MySqlCommand(sql_pos, sqlConn);
+                    sqlRd6 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd6.Read())
+                    {
+
+                    }
+
+                    position = Int32.Parse(sqlRd6[0].ToString());
+                    sqlRd6.Close();
+
+                    string full_name = first_name + " " + last_name;
+
+                    string pos_name = "NA";
+
+                    if (position == 1) pos_name = "Point Guard";
+                    if (position == 2) pos_name = "Shooting Guard";
+                    if (position == 3) pos_name = "Small Forward";
+                    if (position == 4) pos_name = "Power Forward";
+                    if (position == 5) pos_name = "Center";
+
+                    StarPlayerHome = new Player(player_id, first_name, last_name, home_id, photo, position, pos_name, full_name);
+                }
+                else
+                {
+                    StarPlayerHome = new Player(0, "", "", 0, "", 0, "", "");
+                }
+
+                sql_check = "SELECT COUNT(*) FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
+
+                sqlCmd = new MySqlCommand(sql_check, sqlConn);
+                sqlRdHS1 = sqlCmd.ExecuteReader();
+
+                while (sqlRdHS1.Read())
                 {
 
                 }
 
-                first_name = sqlRd2[0].ToString();
-                sqlRd2.Close();
+                check = Int32.Parse(sqlRdHS1[0].ToString());
+                sqlRdHS1.Close();
 
-                String sql_a_id = "SELECT last_name FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
-
-                sqlCmd = new MySqlCommand(sql_a_id, sqlConn);
-                sqlRd4 = sqlCmd.ExecuteReader();
-
-                while (sqlRd4.Read())
+                if(check != 0)
                 {
+                    String sql_m_id = "SELECT player_id FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
 
+                    sqlCmd = new MySqlCommand(sql_m_id, sqlConn);
+                    sqlRd = sqlCmd.ExecuteReader();
+
+                    while (sqlRd.Read())
+                    {
+
+                    }
+
+                    player_id = Int32.Parse(sqlRd[0].ToString());
+                    sqlRd.Close();
+
+                    String sql_h_id = "SELECT first_name FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
+
+                    sqlCmd = new MySqlCommand(sql_h_id, sqlConn);
+                    sqlRd2 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd2.Read())
+                    {
+
+                    }
+
+                    first_name = sqlRd2[0].ToString();
+                    sqlRd2.Close();
+
+                    String sql_a_id = "SELECT last_name FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
+
+                    sqlCmd = new MySqlCommand(sql_a_id, sqlConn);
+                    sqlRd4 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd4.Read())
+                    {
+
+                    }
+
+                    last_name = sqlRd4[0].ToString();
+                    sqlRd4.Close();
+
+                    String sql_h_score = "SELECT photo FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
+
+                    sqlCmd = new MySqlCommand(sql_h_score, sqlConn);
+                    sqlRd5 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd5.Read())
+                    {
+
+                    }
+
+                    photo = sqlRd5[0].ToString();
+                    sqlRd5.Close();
+
+                    String sql_pos = "SELECT position FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
+
+                    sqlCmd = new MySqlCommand(sql_pos, sqlConn);
+                    sqlRd6 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd6.Read())
+                    {
+
+                    }
+
+                    position = Int32.Parse(sqlRd6[0].ToString());
+                    sqlRd6.Close();
+
+                    string full_name = first_name + " " + last_name;
+
+                    string pos_name = "NA";
+
+                    if (position == 1) pos_name = "Point Guard";
+                    if (position == 2) pos_name = "Shooting Guard";
+                    if (position == 3) pos_name = "Small Forward";
+                    if (position == 4) pos_name = "Power Forward";
+                    if (position == 5) pos_name = "Center";
+
+                    StarPlayerAway = new Player(player_id, first_name, last_name, away_id, photo, position, pos_name, full_name);
                 }
-
-                last_name = sqlRd4[0].ToString();
-                sqlRd4.Close();
-
-                String sql_h_score = "SELECT photo FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
-
-                sqlCmd = new MySqlCommand(sql_h_score, sqlConn);
-                sqlRd5 = sqlCmd.ExecuteReader();
-
-                while (sqlRd5.Read())
+                else
                 {
-
+                    StarPlayerAway = new Player(0, "", "", 0, "", 0, "", "");
                 }
-
-                photo = sqlRd5[0].ToString();
-                sqlRd5.Close();
-
-                String sql_pos = "SELECT position FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
-
-                sqlCmd = new MySqlCommand(sql_pos, sqlConn);
-                sqlRd6 = sqlCmd.ExecuteReader();
-
-                while (sqlRd6.Read())
-                {
-
-                }
-
-                position = Int32.Parse(sqlRd6[0].ToString());
-                sqlRd6.Close();
 
                 sqlConn.Close();
-
-                string full_name = first_name + " " + last_name;
-
-                string pos_name = "NA";
-
-                if (position == 1) pos_name = "Point Guard";
-                if (position == 2) pos_name = "Shooting Guard";
-                if (position == 3) pos_name = "Small Forward";
-                if (position == 4) pos_name = "Power Forward";
-                if (position == 5) pos_name = "Center";
-
-                StarPlayerHome = new Player(player_id, first_name, last_name, home_id, photo, position, pos_name, full_name);
-
-                sqlConn.Open();
-
-                sql_m_id = "SELECT player_id FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
-
-                sqlCmd = new MySqlCommand(sql_m_id, sqlConn);
-                sqlRd = sqlCmd.ExecuteReader();
-
-                while (sqlRd.Read())
-                {
-
-                }
-
-                player_id = Int32.Parse(sqlRd[0].ToString());
-                sqlRd.Close();
-
-                sql_h_id = "SELECT first_name FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
-
-                sqlCmd = new MySqlCommand(sql_h_id, sqlConn);
-                sqlRd2 = sqlCmd.ExecuteReader();
-
-                while (sqlRd2.Read())
-                {
-
-                }
-
-                first_name = sqlRd2[0].ToString();
-                sqlRd2.Close();
-
-                sql_a_id = "SELECT last_name FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
-
-                sqlCmd = new MySqlCommand(sql_a_id, sqlConn);
-                sqlRd4 = sqlCmd.ExecuteReader();
-
-                while (sqlRd4.Read())
-                {
-
-                }
-
-                last_name = sqlRd4[0].ToString();
-                sqlRd4.Close();
-
-                sql_h_score = "SELECT photo FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
-
-                sqlCmd = new MySqlCommand(sql_h_score, sqlConn);
-                sqlRd5 = sqlCmd.ExecuteReader();
-
-                while (sqlRd5.Read())
-                {
-
-                }
-
-                photo = sqlRd5[0].ToString();
-                sqlRd5.Close();
-
-                sql_pos = "SELECT position FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
-
-                sqlCmd = new MySqlCommand(sql_pos, sqlConn);
-                sqlRd6 = sqlCmd.ExecuteReader();
-
-                while (sqlRd6.Read())
-                {
-
-                }
-
-                position = Int32.Parse(sqlRd6[0].ToString());
-                sqlRd6.Close();
-
-                sqlConn.Close();
-
-                full_name = first_name + " " + last_name;
-
-                pos_name = "NA";
-
-                if (position == 1) pos_name = "Point Guard";
-                if (position == 2) pos_name = "Shooting Guard";
-                if (position == 3) pos_name = "Small Forward";
-                if (position == 4) pos_name = "Power Forward";
-                if (position == 5) pos_name = "Center";
-
-                StarPlayerAway = new Player(player_id, first_name, last_name, away_id, photo, position, pos_name, full_name);
 
             }
             catch (Exception ex)
@@ -664,6 +701,9 @@ namespace MyLeagueApp.ViewModels
                 double average_threesmade;
                 int total_threesatt = 0;
                 double average_threesatt;
+
+                StarPlayerStatsHome = new PlayerStat(0, 0, "", "", 0, 0, 0, 0, 0, 0, 0);
+                StarPlayerStatsAway = new PlayerStat(0, 0, "", "", 0, 0, 0, 0, 0, 0, 0);
 
                 sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
                                             ";password=" + password +
@@ -929,13 +969,13 @@ namespace MyLeagueApp.ViewModels
                 }
                 else
                 {
-                    average_points = total_points / home_gamecount;
-                    average_rebounds = total_rebounds / home_gamecount;
-                    average_assists = total_assists / home_gamecount;
-                    average_steals = total_steals / home_gamecount;
-                    average_blocks = total_blocks / home_gamecount;
-                    average_threesmade = total_threesmade / home_gamecount;
-                    average_threesatt = total_threesatt / home_gamecount;
+                    average_points = total_points / away_gamecount;
+                    average_rebounds = total_rebounds / away_gamecount;
+                    average_assists = total_assists / away_gamecount;
+                    average_steals = total_steals / away_gamecount;
+                    average_blocks = total_blocks / away_gamecount;
+                    average_threesmade = total_threesmade / away_gamecount;
+                    average_threesatt = total_threesatt / away_gamecount;
 
                     StarPlayerStatsAway = new PlayerStat(away_id, current_match_id, StarPlayerAway.FirstName, StarPlayerAway.LastName, average_points, average_rebounds, average_assists, average_steals, average_blocks, average_threesmade, average_threesatt);
                 }
@@ -947,6 +987,58 @@ namespace MyLeagueApp.ViewModels
             {
                 Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
             }
+        }
+
+        [RelayCommand]
+        async Task DeleteMatch()
+        {
+            try
+            {
+                bool answer = await Shell.Current.DisplayAlert("Attention", "Are you sure you want to delete this match?", "Yes", "No");
+
+                if (answer)
+                {
+                    sqlConn.Open();
+
+                    String sql_delete = "DELETE FROM `" + current_league_name + "` WHERE `m_id`=" + current_match_id + "; ";
+
+                    sqlCmd = new MySqlCommand(sql_delete, sqlConn);
+
+                    sqlRd2 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd2.Read())
+                    {
+
+                    }
+
+                    sqlRd2.Close();
+
+                    sql_delete = "DELETE FROM `" + current_league_name + "_stats` WHERE `match_id`=" + current_match_id + "; ";
+
+                    sqlCmd = new MySqlCommand(sql_delete, sqlConn);
+
+                    sqlRd2 = sqlCmd.ExecuteReader();
+
+                    while (sqlRd2.Read())
+                    {
+
+                    }
+
+                    sqlRd2.Close();
+
+                    sqlConn.Close();
+
+                    Application.Current.MainPage.DisplayAlert("", "The match has been succesfully deleted!", "OK");
+
+                    await Shell.Current.GoToAsync(nameof(LeaguesPage));
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                sqlConn.Close();
+            }
+
         }
 
     }

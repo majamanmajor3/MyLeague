@@ -202,12 +202,36 @@
 
             </Grid>
 
-            <Button Text="EDIT SCORE"
+            <HorizontalStackLayout
+                Spacing="50"
+                Padding="215,0"
+                VerticalOptions="Start">
+
+                <Button Text="EDIT SCORE"
                     Clicked="EditScoreButton"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="16"
                     HorizontalOptions="Center"
-                    WidthRequest="200"
+                    WidthRequest="300"
                     Margin="8"
-                    Style="{StaticResource ButtonOutline}"/>
+                    Style="{StaticResource ButtonOutline}"
+                    VerticalOptions="CenterAndExpand"/>
+
+                <Button
+                    Text="DELETE MATCH"
+                    x:Name="button2"
+                    TextColor="White"
+                    BackgroundColor="Red"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="16"
+                    HorizontalOptions="Center"
+                    WidthRequest="300"
+                    Margin="8"
+                    Style="{StaticResource ButtonOutline}"
+                    VerticalOptions="CenterAndExpand"
+                    Command="{Binding DeleteMatchCommand}"/>
+
+            </HorizontalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>

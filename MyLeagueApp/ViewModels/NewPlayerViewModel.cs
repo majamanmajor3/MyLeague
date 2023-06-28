@@ -115,8 +115,8 @@ namespace MyLeagueApp.ViewModels
                     player_lname = lastName;
                     player_position = position;
 
-                    String sql2 = "INSERT INTO `players` (`player_id`, `first_name`, `last_name`, `team`, `photo`, `position`) " +
-                        "VALUES (" + player_id + ", '" + player_fname + "', '" + player_lname + "', '" + current_team_id + "', '" + player_photo + "', '" + player_position + "');";
+                    String sql2 = "INSERT INTO `players` (`first_name`, `last_name`, `team`, `photo`, `position`) " +
+                        "VALUES ('" + player_fname + "', '" + player_lname + "', '" + current_team_id + "', '" + player_photo + "', '" + player_position + "');";
 
                     sqlCmd = new MySqlCommand(sql2, sqlConn);
 
