@@ -581,7 +581,11 @@ namespace MyLeagueApp.ViewModels
                     int minutes;
                     if ((string)member["min"] == "0:00") minutes = 0;
                     else if ((string)member["min"] == "") minutes = 0;
-                    else minutes = (int)member["min"];
+                    else
+                    {
+                        string mins = (string)member["min"];
+                        minutes = Int32.Parse(mins.Substring(0, 2));
+                    }
 
                     int year = Int32.Parse(result);
 
@@ -591,7 +595,7 @@ namespace MyLeagueApp.ViewModels
                     cr++;
                 }
 
-                if(list == null)
+                if(list.Count == 0)
                 {
                     Application.Current.MainPage.DisplayAlert("", "Your player has not played a single game this season!", "OK");
                     return;
@@ -697,56 +701,76 @@ namespace MyLeagueApp.ViewModels
                         int team_db_id = Int32.Parse(sqlRd[0].ToString());
                         sqlRd.Close();
 
-                        foreach (PlayerStatSample match in list)
+                        String sql_check = "SELECT COUNT(*) FROM `seasonal_stats` WHERE `player_id`=" + Player.Id + " AND `season`=" + Int32.Parse(result) + "; ";
+
+                        sqlCmd = new MySqlCommand(sql_check, sqlConn);
+                        sqlRd = sqlCmd.ExecuteReader();
+
+                        while (sqlRd.Read())
                         {
-
-                            sql_id = "SELECT COUNT(*)+1 FROM `sampled_player_stats` ORDER BY stat_id DESC LIMIT 0,1; ";
-
-                            sqlCmd = new MySqlCommand(sql_id, sqlConn);
-                            sqlRd = sqlCmd.ExecuteReader();
-
-                            while (sqlRd.Read())
-                            {
-
-                            }
-
-                            int stat_id = Int32.Parse(sqlRd[0].ToString());
-                            sqlRd.Close();
-
-                            String sql_ins = "INSERT INTO `sampled_player_stats` (`player_id`, `game_id`, `points`, `rebounds`, `assists`, `steals`, `blocks`, `fg_made`, `fg_attempted`, `threes_made`, `threes_attempted`, `ft_made`, `ft_attempted`, `turnovers`, `personal_fouls`, `minutes_played`, `season`) " +
-                            "VALUES ('" + Player.Id + "', '" + match.MatchId + "', '" + match.Points + "', '" + match.Rebounds + "', '" + match.Assists + "', '" + match.Steals + "', '" + match.Blocks + "', '" + match.FGMade + "', '" + match.FGAttempted + "', '" + match.ThreesMade + "', '" + match.ThreesAttempted + "', '" + match.FreeThrowsMade +  "', '" + match.FreeThrowsAttempted + "', '" + match.Turnovers  + "', '" + match.PersonalFouls + "', '" + match.MinutesPlayed + "', '" + Int32.Parse(result) + "');";
-
-                            sqlCmd = new MySqlCommand(sql_ins, sqlConn);
-                            sqlRd = sqlCmd.ExecuteReader();
-
-                            while (sqlRd.Read())
-                            {
-
-                            }
-
-                            sqlRd.Close();
 
                         }
 
-                        String sql2 = "INSERT INTO `seasonal_stats` (`player_id`, `points`, `rebounds`, `assists`, `steals`, `blocks`, `fg_made`, `fg_attempted`, `threes_made`, `threes_attempted`, `ft_made`, `ft_attempted`, `turnovers`, `personal_fouls`, `minutes_played`, `season`, `team`) " +
-                            "VALUES ('" + Player.Id + "', '" + points_avg + "', '" + rebounds_avg + "', '" + assists_avg + "', '" + steals_avg + "', '" + blocks_avg + "', '" + fg_made_avg + "', '" + fg_att_avg + "', '" + threes_made_avg + "', '" + threes_att_avg + "', '" + free_made_avg + "', '" + free_att_avg + "', '" + turnovers_avg + "', '" + fouls_avg + "', '" + minutes_avg + "', '" + Int32.Parse(result) + "', '" + team_id + "');";
+                        int check = Int32.Parse(sqlRd[0].ToString());
+                        sqlRd.Close();
 
-                        sqlCmd = new MySqlCommand(sql2, sqlConn);
-
-                        sqlRd2 = sqlCmd.ExecuteReader();
-
-                        while (sqlRd2.Read())
+                        if (check == 0)
                         {
 
+                            foreach (PlayerStatSample match in list)
+                            {
+
+                                sql_id = "SELECT COUNT(*)+1 FROM `sampled_player_stats` ORDER BY stat_id DESC LIMIT 0,1; ";
+
+                                sqlCmd = new MySqlCommand(sql_id, sqlConn);
+                                sqlRd = sqlCmd.ExecuteReader();
+
+                                while (sqlRd.Read())
+                                {
+
+                                }
+
+                                int stat_id = Int32.Parse(sqlRd[0].ToString());
+                                sqlRd.Close();
+
+                                String sql_ins = "INSERT INTO `sampled_player_stats` (`player_id`, `game_id`, `points`, `rebounds`, `assists`, `steals`, `blocks`, `fg_made`, `fg_attempted`, `threes_made`, `threes_attempted`, `ft_made`, `ft_attempted`, `turnovers`, `personal_fouls`, `minutes_played`, `season`) " +
+                                "VALUES ('" + Player.Id + "', '" + match.MatchId + "', '" + match.Points + "', '" + match.Rebounds + "', '" + match.Assists + "', '" + match.Steals + "', '" + match.Blocks + "', '" + match.FGMade + "', '" + match.FGAttempted + "', '" + match.ThreesMade + "', '" + match.ThreesAttempted + "', '" + match.FreeThrowsMade + "', '" + match.FreeThrowsAttempted + "', '" + match.Turnovers + "', '" + match.PersonalFouls + "', '" + match.MinutesPlayed + "', '" + Int32.Parse(result) + "');";
+
+                                sqlCmd = new MySqlCommand(sql_ins, sqlConn);
+                                sqlRd = sqlCmd.ExecuteReader();
+
+                                while (sqlRd.Read())
+                                {
+
+                                }
+
+                                sqlRd.Close();
+
+                            }
+
+                            String sql2 = "INSERT INTO `seasonal_stats` (`player_id`, `points`, `rebounds`, `assists`, `steals`, `blocks`, `fg_made`, `fg_attempted`, `threes_made`, `threes_attempted`, `ft_made`, `ft_attempted`, `turnovers`, `personal_fouls`, `minutes_played`, `season`, `team`) " +
+                                "VALUES ('" + Player.Id + "', '" + points_avg + "', '" + rebounds_avg + "', '" + assists_avg + "', '" + steals_avg + "', '" + blocks_avg + "', '" + fg_made_avg + "', '" + fg_att_avg + "', '" + threes_made_avg + "', '" + threes_att_avg + "', '" + free_made_avg + "', '" + free_att_avg + "', '" + turnovers_avg + "', '" + fouls_avg + "', '" + minutes_avg + "', '" + Int32.Parse(result) + "', '" + team_id + "');";
+
+                            sqlCmd = new MySqlCommand(sql2, sqlConn);
+
+                            sqlRd2 = sqlCmd.ExecuteReader();
+
+                            while (sqlRd2.Read())
+                            {
+
+                            }
+
+                            Application.Current.MainPage.DisplayAlert("", "Your player's season has been imported!", "OK");
+
+                        }
+                        else
+                        {
+                            Application.Current.MainPage.DisplayAlert("", "This season has already been imported!", "OK");
                         }
 
                         sqlRd2.Close();
 
                         sqlConn.Close();
-
-                        Application.Current.MainPage.DisplayAlert("", "Your player's season has been imported!", "OK");
-
-                        //Shell.Current.GoToAsync(nameof(TeamsPage));
 
                         SampledTeamOverviewPage page = new SampledTeamOverviewPage(team_db_id);
                         await Application.Current.MainPage.Navigation.PushAsync(page);

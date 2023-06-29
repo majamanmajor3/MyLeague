@@ -12,7 +12,7 @@
     <ScrollView>
         <VerticalStackLayout>
             <HorizontalStackLayout
-                Spacing="165"
+                Spacing="{Binding UpdateSpacing}"
                 Padding="214,0"
                 VerticalOptions="Center">
                 
@@ -30,12 +30,28 @@
                 Command="{Binding OpenHint1Command}"
                 HeightRequest="5"/>
 
+                <Label 
+                Text="New Info Available! -> "
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                HeightRequest="25"
+                FontSize="12"
+                IsVisible="{Binding UpdateVisibility}"/>
+
                 <ImageButton
                 IsVisible="{Binding StatsVisibility}"
                 Source="hint2.png"
                 HorizontalOptions="End"
                 Command="{Binding OpenHint2Command}"
                 HeightRequest="5"/>
+
+                <Label 
+                Text="New Info Available! -> "
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                HeightRequest="25"
+                FontSize="12"
+                IsVisible="{Binding UpdateVisibility2}"/>
 
                 <ImageButton
                 IsVisible="{Binding TeamStatsVisibility}"

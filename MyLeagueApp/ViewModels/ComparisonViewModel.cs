@@ -221,6 +221,15 @@ namespace MyLeagueApp.ViewModels
         bool matchupVisibility = false;
 
         [ObservableProperty]
+        bool updateVisibility = false;
+
+        [ObservableProperty]
+        bool updateVisibility2 = false;
+
+        [ObservableProperty]
+        int updateSpacing = 165;
+
+        [ObservableProperty]
         private Color pointsColor1 = Color.FromRgb(0, 0, 0);
 
         [ObservableProperty]
@@ -399,11 +408,16 @@ namespace MyLeagueApp.ViewModels
                     Players = new ObservableCollection<PlayerSample>();
                     Teams = new ObservableCollection<TeamSample>();
 
+                    BaseVisibility = true;
+                    UpdateVisibility = false;
+                    UpdateVisibility2 = false;
+                    UpdateSpacing = 165;
                     PlayersVisibility = false;
                     TeamsVisibility = false;
                     PlayerSeasonsVisibility = false;
                     TeamSeasonsVisibility = false;
                     StatsVisibility = false;
+                    TeamStatsVisibility = false;
                     MatchupVisibility = false;
 
                     if (Selected_type1 == "Player")
@@ -1915,6 +1929,8 @@ namespace MyLeagueApp.ViewModels
 
                     StatsVisibility = true;
                     BaseVisibility = false;
+                    UpdateVisibility = true;
+                    UpdateSpacing = 17;
                     sqlConn.Close();
 
                     if(Stats1.Points > Stats2.Points)
@@ -2542,6 +2558,8 @@ namespace MyLeagueApp.ViewModels
 
                     TeamStatsVisibility = true;
                     BaseVisibility = false;
+                    UpdateVisibility2 = true;
+                    UpdateSpacing = 17;
                     sqlConn.Close();
 
                     if (Stats_team1.Wins > Stats_team2.Wins)
@@ -3994,7 +4012,8 @@ namespace MyLeagueApp.ViewModels
         private async void OpenHint2()
         {
 
-
+            UpdateVisibility = false;
+            UpdateSpacing = 165;
 
             bool answer = await Shell.Current.DisplayAlert("Advanced Statistics Hint", "Here is a breakdown of all the available statistics:" + "\n" +
                                                           "Efficiency - Calculates a player's worth on the court by calculating their base statistics shown below (PPG, APG, RPG, SPG, BPG, FG & FT + Turnovers)" + "\n" +
@@ -4039,7 +4058,8 @@ namespace MyLeagueApp.ViewModels
         private async void OpenHint3()
         {
 
-
+            UpdateVisibility2 = false;
+            UpdateSpacing = 165;
 
             await Application.Current.MainPage.DisplayAlert("Team Statistics Hint", "Here is a breakdown of all the available statistics:" + "\n" +
                                                           "Efficiency - Calculates both team's player's worth on the court by calculating their base statistics shown below (PPG, APG, RPG, SPG, BPG, FG & FT + Turnovers), and calculates an average" + "\n" +

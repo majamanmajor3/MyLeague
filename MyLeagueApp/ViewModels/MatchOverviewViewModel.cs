@@ -108,6 +108,12 @@ namespace MyLeagueApp.ViewModels
         [ObservableProperty]
         private string matchup;
 
+        [ObservableProperty]
+        private bool noPlayerVisibility1 = false;
+
+        [ObservableProperty]
+        private bool noPlayerVisibility2 = false;
+
         public MatchOverviewViewModel(string league_name, int match_id)
         {
             Teams = new ObservableCollection<Team>();
@@ -121,12 +127,12 @@ namespace MyLeagueApp.ViewModels
             Matchup = HomeTeam.Name + " vs. " + AwayTeam.Name;
             if (StarPlayerStatsHome.Points != 0 || StarPlayerStatsAway.Points != 0)
             {
-                HomePoints = StarPlayerStatsHome.Points + " PPG";
-                AwayPoints = StarPlayerStatsAway.Points + " PPG";
-                HomeRebounds = StarPlayerStatsHome.Rebounds + " RPG";
-                AwayRebounds = StarPlayerStatsAway.Rebounds + " RPG";
-                HomeAssists = StarPlayerStatsHome.Assists + " APG";
-                AwayAssists = StarPlayerStatsAway.Assists + " APG";
+                if (StarPlayerStatsHome.Points != 0) HomePoints = StarPlayerStatsHome.Points + " PPG";
+                if (StarPlayerStatsAway.Points != 0) AwayPoints = StarPlayerStatsAway.Points + " PPG";
+                if (StarPlayerStatsHome.Rebounds != 0) HomeRebounds = StarPlayerStatsHome.Rebounds + " RPG";
+                if (StarPlayerStatsAway.Rebounds != 0) AwayRebounds = StarPlayerStatsAway.Rebounds + " RPG";
+                if (StarPlayerStatsHome.Assists != 0) HomeAssists = StarPlayerStatsHome.Assists + " APG";
+                if (StarPlayerStatsAway.Assists != 0) AwayAssists = StarPlayerStatsAway.Assists + " APG";
             }
         }
 
@@ -281,8 +287,11 @@ namespace MyLeagueApp.ViewModels
 
                 List<Team> list = Teams.ToList();
 
-                HomeTeam = list[home_team-1];
-                AwayTeam = list[away_team-1];
+                for(int i=0; i<list.Count; i++)
+                {
+                    if (list[i].Id == home_team) HomeTeam = list[i];
+                    if (list[i].Id == away_team) AwayTeam = list[i];
+                }
 
                 String sql3 = "SELECT home_score FROM `" + current_league_name + "` WHERE `m_id` = " + current_match_id + "; ";
 
@@ -320,7 +329,7 @@ namespace MyLeagueApp.ViewModels
 
                 }
 
-                matchDate = sqlRdDate[0].ToString();
+                MatchDate = sqlRdDate[0].ToString();
                 sqlRdDate.Close();
 
                 sqlConn2.Close();
@@ -354,6 +363,27 @@ namespace MyLeagueApp.ViewModels
                 string arena_state;
                 double arena_latitude;
                 double arena_longitude;
+
+                String sqlArena = "SELECT COUNT(*) FROM `arenas` WHERE `team_id`=" + team_id + ";";
+
+                sqlCmd = new MySqlCommand(sqlArena, sqlConn);
+                sqlRdA1 = sqlCmd.ExecuteReader();
+
+                while (sqlRdA1.Read())
+                {
+
+                }
+
+                int check = Int32.Parse(sqlRdA1[0].ToString());
+
+                sqlRdA1.Close();
+
+                if(check == 0)
+                {
+                    Arena = new Arena(0, "No Specified Arena", "", "", 0, 0, team_id);
+                    sqlConn.Close();
+                    return;
+                }
 
                 String sqlArena1 = "SELECT arena_id FROM `arenas` WHERE `team_id`=" + team_id + ";";
 
@@ -471,7 +501,7 @@ namespace MyLeagueApp.ViewModels
 
                 sqlConn.Open();
 
-                String sql_check = "SELECT COUNT(*) FROM players WHERE `team`=" + home_id + " LIMIT 1; ";
+                String sql_check = "SELECT COUNT(*) FROM players WHERE `team`=" + home_id + "; ";
 
                 sqlCmd = new MySqlCommand(sql_check, sqlConn);
                 sqlRdHS1 = sqlCmd.ExecuteReader();
@@ -568,7 +598,7 @@ namespace MyLeagueApp.ViewModels
                     StarPlayerHome = new Player(0, "", "", 0, "", 0, "", "");
                 }
 
-                sql_check = "SELECT COUNT(*) FROM players WHERE `team`=" + away_id + " LIMIT 1; ";
+                sql_check = "SELECT COUNT(*) FROM players WHERE `team`=" + away_id + "; ";
 
                 sqlCmd = new MySqlCommand(sql_check, sqlConn);
                 sqlRdHS1 = sqlCmd.ExecuteReader();

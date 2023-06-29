@@ -433,9 +433,9 @@ namespace MyLeagueApp.ViewModels
                 {
                     sqlConn.Open();
 
-                    String sql_delete = "DELETE FROM `teams` WHERE `team_id`=" + current_team_id + "; ";
+                    String sql = "SELECT COUNT(*) FROM `leagues`; ";
 
-                    sqlCmd = new MySqlCommand(sql_delete, sqlConn);
+                    sqlCmd = new MySqlCommand(sql, sqlConn);
 
                     sqlRd2 = sqlCmd.ExecuteReader();
 
@@ -444,7 +444,155 @@ namespace MyLeagueApp.ViewModels
 
                     }
 
+                    int league_count = Int32.Parse(sqlRd2[0].ToString());
                     sqlRd2.Close();
+
+                    if(league_count == 0)
+                    {
+
+                        sql = "DELETE FROM `teams` WHERE `team_id`=" + current_team_id + "; ";
+
+                        sqlCmd = new MySqlCommand(sql, sqlConn);
+
+                        sqlRd2 = sqlCmd.ExecuteReader();
+
+                        while (sqlRd2.Read())
+                        {
+
+                        }
+
+                        sqlRd2.Close();
+
+                    }
+                    else
+                    {
+
+                        List<string> leagues = new List<string>();
+
+                        for (int i=0; i<league_count; i++)
+                        {
+
+                            sql = "SELECT `name` FROM `leagues` LIMIT " + i + ",1; ";
+
+                            sqlCmd = new MySqlCommand(sql, sqlConn);
+
+                            sqlRd2 = sqlCmd.ExecuteReader();
+
+                            while (sqlRd2.Read())
+                            {
+
+                            }
+
+                            string league_name = sqlRd2[0].ToString();
+                            leagues.Add(league_name);
+                            sqlRd2.Close();
+
+                            sql = "DELETE FROM `" + league_name + "` WHERE `home_team`=" + current_team_id + "; ";
+
+                            sqlCmd = new MySqlCommand(sql, sqlConn);
+
+                            sqlRd2 = sqlCmd.ExecuteReader();
+
+                            while (sqlRd2.Read())
+                            {
+
+                            }
+
+                            sqlRd2.Close();
+
+                            sql = "DELETE FROM `" + league_name + "` WHERE `away_team`=" + current_team_id + "; ";
+
+                            sqlCmd = new MySqlCommand(sql, sqlConn);
+
+                            sqlRd2 = sqlCmd.ExecuteReader();
+
+                            while (sqlRd2.Read())
+                            {
+
+                            }
+
+                            sqlRd2.Close();
+
+                        }
+
+                        sql = "SELECT COUNT(*) FROM `players` WHERE `team`=" + current_team_id + "; ";
+
+                        sqlCmd = new MySqlCommand(sql, sqlConn);
+
+                        sqlRd2 = sqlCmd.ExecuteReader();
+
+                        while (sqlRd2.Read())
+                        {
+
+                        }
+
+                        int players_count = Int32.Parse(sqlRd2[0].ToString());
+                        sqlRd2.Close();
+
+                        for(int i=0; i<players_count; i++)
+                        {
+
+                            sql = "SELECT `player_id` FROM `players` WHERE `team`=" + current_team_id + " LIMIT " + i + ",1; ";
+
+                            sqlCmd = new MySqlCommand(sql, sqlConn);
+
+                            sqlRd2 = sqlCmd.ExecuteReader();
+
+                            while (sqlRd2.Read())
+                            {
+
+                            }
+
+                            int player_id = Int32.Parse(sqlRd2[0].ToString());
+                            sqlRd2.Close();
+
+                            for(int j=0; j<leagues.Count; j++)
+                            {
+
+                                sql = "DELETE FROM `" + leagues[j] + "_stats` WHERE `player_id`=" + player_id + "; ";
+
+                                sqlCmd = new MySqlCommand(sql, sqlConn);
+
+                                sqlRd2 = sqlCmd.ExecuteReader();
+
+                                while (sqlRd2.Read())
+                                {
+
+                                }
+
+                                sqlRd2.Close();
+
+                            }
+
+                            sql = "DELETE FROM `players` WHERE `player_id`=" + player_id + "; ";
+
+                            sqlCmd = new MySqlCommand(sql, sqlConn);
+
+                            sqlRd2 = sqlCmd.ExecuteReader();
+
+                            while (sqlRd2.Read())
+                            {
+
+                            }
+
+                            sqlRd2.Close();
+
+                        }
+
+                        sql = "DELETE FROM `teams` WHERE `team_id`=" + current_team_id + "; ";
+
+                        sqlCmd = new MySqlCommand(sql, sqlConn);
+
+                        sqlRd2 = sqlCmd.ExecuteReader();
+
+                        while (sqlRd2.Read())
+                        {
+
+                        }
+
+                        sqlRd2.Close();
+
+                    }
 
                     sqlConn.Close();
 
