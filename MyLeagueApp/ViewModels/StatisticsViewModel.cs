@@ -265,11 +265,6 @@ namespace MyLeagueApp.ViewModels
                 int cr = 0;
                 int match_count;
 
-                //sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
-                //                            ";password=" + password +
-                //                            ";database=" + database +
-                //                            ";convert zero datetime=True";
-
                 sqlConn.Close();
                 sqlConn.Open();
 
@@ -298,10 +293,6 @@ namespace MyLeagueApp.ViewModels
 
                     match_count = Int32.Parse(sqlRdC1[0].ToString());
                     sqlRdC1.Close();
-
-                    //sqlConn.Close();
-
-                    //sqlConn.Open();
 
                     for (int j = 0; j < match_count; j++)
                     {
@@ -435,8 +426,6 @@ namespace MyLeagueApp.ViewModels
                         }
 
                     }
-
-                    //sqlConn.Close();
 
                     double gamediff = 0.5 * wins + (-0.5) * losses;
 

@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui.Maps;
-//using Map = Microsoft.Maui.Controls.Maps.Map;
 using CommunityToolkit.Mvvm.Input;
 using MyLeagueApp.Pages;
 using System.Diagnostics;
@@ -94,7 +93,6 @@ namespace MyLeagueApp.ViewModels
             Players = new ObservableCollection<Player>(list);
 
             Microsoft.Maui.ApplicationModel.IMap map;
-            //this.map = map;
         }
 
         private static int CompareTeams(Player b, Player a)
@@ -107,11 +105,6 @@ namespace MyLeagueApp.ViewModels
         {
             try
             {
-
-                //int team_count;
-                //string team_name;
-                //string team_city;
-                //string team_logo;
 
                 sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
                                             ";password=" + password +
@@ -304,7 +297,6 @@ namespace MyLeagueApp.ViewModels
 
                 if (cr == 0)
                 {
-                    //label.IsVisible = true;
                 }
 
                 for (int i = 0; i < cr; i++)

@@ -33,8 +33,6 @@ namespace MyLeagueApp.ViewModels
 
         [ObservableProperty]
         ObservableCollection<TeamSample> teams;
-
-        //List<Team> teams;
         public SampledTeamsViewModel()
         {
             Teams = new ObservableCollection<TeamSample>();
@@ -190,19 +188,6 @@ namespace MyLeagueApp.ViewModels
             }
 
         }
-
-        //[RelayCommand]
-        //async Task GoToDetails(TeamSample team)
-        //{
-        //    if (team == null)
-        //        return;
-
-        //    await Shell.Current.GoToAsync(nameof(TeamOverviewPage), true, new Dictionary<string, object>
-        //{
-        //   {"Team", team }
-        //});
-
-        //}
 
         [RelayCommand]
         void AddTeam()

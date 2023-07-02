@@ -66,8 +66,6 @@ namespace MyLeagueApp.ViewModels
                 String sql2 = "INSERT INTO `leagues` (`name`, `created_date`) " +
                     "VALUES ('" + league_name + "', '" + DateTime.Now.ToString("yyyy-MM-dd") + "');";
 
-                // !!! NE ENGEDD MAJD LETREJOJJON 'LEAGUES'BEN HA MAR VAN !!!
-
                 sqlCmd = new MySqlCommand(sql2, sqlConn);
 
                 sqlRd2 = sqlCmd.ExecuteReader();

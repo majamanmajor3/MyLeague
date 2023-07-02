@@ -38,18 +38,11 @@ public partial class NewSampledPlayerPage : ContentPage
     {
         PlayerSample item = args.SelectedItem as PlayerSample;
         int id = item.Id;
-        //DisplayAlert("", name, "OK");
 
         WebClient client = new WebClient();
-        //String stats = client.DownloadString("https://free-nba.p.rapidapi.com/stats?seasons[]=2021&player_ids[]=237&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
         String teams = client.DownloadString("https://free-nba.p.rapidapi.com/teams/" + item.Team + "?rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
         dynamic data = JObject.Parse(teams);
         string team_name = (string)data["full_name"];
-
-        //foreach (var member in data["data"])
-        //{
-        //    team_name = (string)member["full_name"];
-        //}
 
         bool answer = await Shell.Current.DisplayAlert("Are you sure you want to sample this player?",
                                                           "Full Name: " + item.FullName + "\n" +
@@ -85,8 +78,6 @@ public partial class NewSampledPlayerPage : ContentPage
 
                 player_id = Int32.Parse(sqlRd[0].ToString());
                 sqlRd.Close();
-
-                //player_id = 1;
 
                 String sql2 = "INSERT INTO `sampled_players` (`first_name`, `last_name`, `team`, `position`, `height_feet`, `height_inches`, `weight_pounds`, `api_player_id`) " +
                     "VALUES ('" + item.FirstName + "', '" + item.LastName + "', '" + item.Team + "', '" + item.PositionLetter + "', '" + item.HeightFeet + "', '" + item.HeightInches + "', '" + item.Weight + "', '" + item.Id + "');";

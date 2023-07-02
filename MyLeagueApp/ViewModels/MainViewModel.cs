@@ -9,7 +9,6 @@ namespace MyLeagueApp.ViewModels
 
         public MainViewModel()
         {
-            //Teams = new ObservableCollection<Team>();
         }
 
         [RelayCommand]

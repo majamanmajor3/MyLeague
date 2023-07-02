@@ -36,7 +36,6 @@ public partial class SampledTeamOverviewPage : ContentPage
     {
         PlayerSample item = args.SelectedItem as PlayerSample;
         int player_id = item.Id;
-        //DisplayAlert("", name, "OK");
         SampledPlayerOverviewPage page = new SampledPlayerOverviewPage(player_id);
         Navigation.PushAsync(page);
     }

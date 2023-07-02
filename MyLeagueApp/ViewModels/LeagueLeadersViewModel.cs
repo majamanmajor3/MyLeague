@@ -205,7 +205,7 @@ namespace MyLeagueApp.ViewModels
             }
             catch (Exception ex)
             {
-                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                //Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
             }
 
         }
@@ -350,7 +350,7 @@ namespace MyLeagueApp.ViewModels
             }
             catch (Exception ex)
             {
-                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                //Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
             }
 
         }
@@ -602,7 +602,7 @@ namespace MyLeagueApp.ViewModels
             }
             catch (Exception ex)
             {
-                Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
+                //Application.Current.MainPage.DisplayAlert("", ex.Message, "OK");
             }
 
         }
@@ -610,7 +610,6 @@ namespace MyLeagueApp.ViewModels
         [RelayCommand]
         Task OrderByName()
         {
-            //Shell.Current.GoToAsync(nameof(LeaguesPage));
             List<PlayerStatLeader> list = Playerstats.ToList();
             list.Sort(CompareTeamsName);
             Playerstats = new ObservableCollection<PlayerStatLeader>(list);
@@ -620,7 +619,6 @@ namespace MyLeagueApp.ViewModels
         [RelayCommand]
         Task OrderByPoints()
         {
-            //Shell.Current.GoToAsync(nameof(LeaguesPage));
             List<PlayerStatLeader> list = Playerstats.ToList();
             list.Sort(CompareTeamsPoints);
             Playerstats = new ObservableCollection<PlayerStatLeader>(list);
@@ -630,7 +628,6 @@ namespace MyLeagueApp.ViewModels
         [RelayCommand]
         Task OrderByAssists()
         {
-            //Shell.Current.GoToAsync(nameof(LeaguesPage));
             List<PlayerStatLeader> list = Playerstats.ToList();
             list.Sort(CompareTeamsAssists);
             Playerstats = new ObservableCollection<PlayerStatLeader>(list);
@@ -640,7 +637,6 @@ namespace MyLeagueApp.ViewModels
         [RelayCommand]
         Task OrderByRebounds()
         {
-            //Shell.Current.GoToAsync(nameof(LeaguesPage));
             List<PlayerStatLeader> list = Playerstats.ToList();
             list.Sort(CompareTeamsRebounds);
             Playerstats = new ObservableCollection<PlayerStatLeader>(list);
@@ -649,7 +645,6 @@ namespace MyLeagueApp.ViewModels
         [RelayCommand]
         Task OrderBySteals()
         {
-            //Shell.Current.GoToAsync(nameof(LeaguesPage));
             List<PlayerStatLeader> list = Playerstats.ToList();
             list.Sort(CompareTeamsSteals);
             Playerstats = new ObservableCollection<PlayerStatLeader>(list);
@@ -659,7 +654,6 @@ namespace MyLeagueApp.ViewModels
         [RelayCommand]
         Task OrderByBlocks()
         {
-            //Shell.Current.GoToAsync(nameof(LeaguesPage));
             List<PlayerStatLeader> list = Playerstats.ToList();
             list.Sort(CompareTeamsBlocks);
             Playerstats = new ObservableCollection<PlayerStatLeader>(list);
@@ -669,7 +663,6 @@ namespace MyLeagueApp.ViewModels
         [RelayCommand]
         Task OrderByThrees()
         {
-            //Shell.Current.GoToAsync(nameof(LeaguesPage));
             List<PlayerStatLeader> list = Playerstats.ToList();
             list.Sort(CompareTeamsThrees);
             Playerstats = new ObservableCollection<PlayerStatLeader>(list);

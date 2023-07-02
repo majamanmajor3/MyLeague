@@ -105,7 +105,6 @@ namespace MyLeagueApp.ViewModels
             Players = new ObservableCollection<PlayerSample>(list);
 
             Microsoft.Maui.ApplicationModel.IMap map;
-            //this.map = map;
         }
 
         private static int CompareTeams(PlayerSample b, PlayerSample a)
@@ -118,11 +117,6 @@ namespace MyLeagueApp.ViewModels
         {
             try
             {
-
-                //int team_count;
-                //string team_name;
-                //string team_city;
-                //string team_logo;
 
                 sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
                                             ";password=" + password +
@@ -213,102 +207,7 @@ namespace MyLeagueApp.ViewModels
 
                 sqlRd3.Close();
 
-                //int arena_id;
-                //string arena_name;
-                //string arena_city;
-                //string arena_state;
-                //double arena_latitude;
-                //double arena_longitude;
-
-                //String sqlArena1 = "SELECT arena_id FROM `arenas` WHERE `team_id`=" + team_id + ";";
-
-                //sqlCmd = new MySqlCommand(sqlArena1, sqlConn);
-                //sqlRdA1 = sqlCmd.ExecuteReader();
-
-                //while (sqlRdA1.Read())
-                //{
-
-                //}
-
-                //arena_id = Int32.Parse(sqlRdA1[0].ToString());
-
-                //sqlRdA1.Close();
-
-                //String sqlArena2 = "SELECT name FROM `arenas` WHERE `team_id`=" + team_id + ";";
-
-                //sqlCmd = new MySqlCommand(sqlArena2, sqlConn);
-                //sqlRdA2 = sqlCmd.ExecuteReader();
-
-                //while (sqlRdA2.Read())
-                //{
-
-                //}
-
-                //arena_name = sqlRdA2[0].ToString();
-
-                //sqlRdA2.Close();
-
-                //String sqlArena3 = "SELECT city FROM `arenas` WHERE `team_id`=" + team_id + ";";
-
-                //sqlCmd = new MySqlCommand(sqlArena3, sqlConn);
-                //sqlRdA3 = sqlCmd.ExecuteReader();
-
-                //while (sqlRdA3.Read())
-                //{
-
-                //}
-
-                //arena_city = sqlRdA3[0].ToString();
-
-                //sqlRdA3.Close();
-
-                //String sqlArena4 = "SELECT state FROM `arenas` WHERE `team_id`=" + team_id + ";";
-
-                //sqlCmd = new MySqlCommand(sqlArena4, sqlConn);
-                //sqlRdA4 = sqlCmd.ExecuteReader();
-
-                //while (sqlRdA4.Read())
-                //{
-
-                //}
-
-                //arena_state = sqlRdA4[0].ToString();
-
-                //sqlRdA4.Close();
-
-                //String sqlArena5 = "SELECT latitude FROM `arenas` WHERE `team_id`=" + team_id + ";";
-
-                //sqlCmd = new MySqlCommand(sqlArena5, sqlConn);
-                //sqlRdA5 = sqlCmd.ExecuteReader();
-
-                //while (sqlRdA5.Read())
-                //{
-
-                //}
-
-                //arena_latitude = Double.Parse(sqlRdA5[0].ToString());
-
-                //sqlRdA5.Close();
-
-                //String sqlArena6 = "SELECT longitude FROM `arenas` WHERE `team_id`=" + team_id + ";";
-
-                //sqlCmd = new MySqlCommand(sqlArena6, sqlConn);
-                //sqlRdA6 = sqlCmd.ExecuteReader();
-
-                //while (sqlRdA6.Read())
-                //{
-
-                //}
-
-                //arena_longitude = Double.Parse(sqlRdA6[0].ToString());
-
-                //sqlRdA6.Close();
-
                 sqlConn.Close();
-
-                //TeamArenaLocation = arena_city + ", " + arena_state;
-
-                //TeamArena = new Arena(arena_id, arena_name, arena_city, arena_state, arena_latitude, arena_longitude, team_id);
 
             }
             catch (Exception ex)
@@ -358,7 +257,6 @@ namespace MyLeagueApp.ViewModels
 
                 if (cr == 0)
                 {
-                    //label.IsVisible = true;
                 }
 
                 for (int i = 0; i < cr; i++)
@@ -518,7 +416,6 @@ namespace MyLeagueApp.ViewModels
 
                 if (cr == 0)
                 {
-                    //label.IsVisible = true;
                 }
 
                 for (int i = 0; i < cr; i++)
@@ -682,7 +579,6 @@ namespace MyLeagueApp.ViewModels
             {
 
                 WebClient client = new WebClient();
-                //String stats = client.DownloadString("https://free-nba.p.rapidapi.com/stats?seasons[]=2021&player_ids[]=237&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
                 String search_string = "https://free-nba.p.rapidapi.com/games?seasons[]=" + Int32.Parse(result) + "&team_ids[]=" + current_api_id + "&per_page=100&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688";
                 String stats = client.DownloadString(search_string);
                 dynamic data = JObject.Parse(stats);
@@ -723,8 +619,6 @@ namespace MyLeagueApp.ViewModels
                 double losses = 0;
                 double ppg = 0;
                 double appg = 0;
-
-                //List<PlayerStatSample> list = Matches.ToList();
 
                 foreach (GameStatSample match in list)
                 {
@@ -773,21 +667,6 @@ namespace MyLeagueApp.ViewModels
                         foreach (GameStatSample match in list)
                         {
 
-                            //String sql_id = "SELECT COUNT(*)+1 FROM `sampled_player_stats` ORDER BY stat_id DESC LIMIT 0,1; ";
-
-                            //sqlCmd = new MySqlCommand(sql_id, sqlConn);
-                            //sqlRd = sqlCmd.ExecuteReader();
-
-                            //while (sqlRd.Read())
-                            //{
-
-                            //}
-
-                            //int stat_id = Int32.Parse(sqlRd[0].ToString());
-                            //sqlRd.Close();
-
-                            // ELLENORZES!!!! //
-
                             String sql_check = "SELECT COUNT(*) FROM `sampled_games` WHERE `game_id` = " + match.Id + "; ";
 
                             sqlCmd = new MySqlCommand(sql_check, sqlConn);
@@ -823,19 +702,6 @@ namespace MyLeagueApp.ViewModels
                             }
 
                         }
-
-                        //String sql = "SELECT COUNT(*)+1 FROM `seasonal_stats` ORDER BY season_id DESC LIMIT 0,1; ";
-
-                        //sqlCmd = new MySqlCommand(sql, sqlConn);
-                        //sqlRd = sqlCmd.ExecuteReader();
-
-                        //while (sqlRd.Read())
-                        //{
-
-                        //}
-
-                        //int season_id = Int32.Parse(sqlRd[0].ToString());
-                        //sqlRd.Close();
 
                         String sql2 = "INSERT INTO `seasonal_stats_teams` (`team_id`, `wins`, `losses`, `ppg`, `appg`, `season`) " +
                             "VALUES (" + current_api_id + ", '" + wins + "', '" + losses + "', '" + ppg + "', '" + appg + "', '" + Int32.Parse(result) + "');";

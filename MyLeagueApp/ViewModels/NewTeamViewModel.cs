@@ -78,7 +78,6 @@ namespace MyLeagueApp.ViewModels
             string team_division;
 
             WebClient client = new WebClient();
-            //String stats = client.DownloadString("https://free-nba.p.rapidapi.com/stats?seasons[]=2021&player_ids[]=237&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
             String teams = client.DownloadString("https://free-nba.p.rapidapi.com/teams?rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
             dynamic data = JObject.Parse(teams);
 
@@ -190,8 +189,6 @@ namespace MyLeagueApp.ViewModels
                     sqlRd3.Close();
 
                     sqlConn.Close();
-
-                    //Teams.Add(new Team(Int32.Parse(team_id), team_name, team_city, team_logo));
 
                 }
 

@@ -226,10 +226,6 @@ namespace MyLeagueApp.ViewModels
 
                 sqlConn.Close();
 
-                //CurrentTeam = new Team(team_id, team_name, team_city, team_logo);
-
-                //CurrentArena = new Arena(arena_id, arena_name, arena_city, arena_state, arena_latitude, arena_longitude, team_id);
-
             }
             catch (Exception ex)
             {

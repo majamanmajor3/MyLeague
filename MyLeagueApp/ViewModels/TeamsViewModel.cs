@@ -37,8 +37,6 @@ namespace MyLeagueApp.ViewModels
 
         [ObservableProperty]
         ObservableCollection<Team> teams;
-
-        //List<Team> teams;
         public TeamsViewModel()
         {
             Teams = new ObservableCollection<Team>();

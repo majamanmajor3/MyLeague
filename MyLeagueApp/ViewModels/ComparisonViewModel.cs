@@ -459,7 +459,6 @@ namespace MyLeagueApp.ViewModels
 
                         if (cr == 0)
                         {
-                            //label.IsVisible = true;
                         }
 
                         for (int i = 0; i < cr; i++)
@@ -627,7 +626,6 @@ namespace MyLeagueApp.ViewModels
 
                         if (cr == 0)
                         {
-                            //label.IsVisible = true;
                         }
 
                         for (int i = 0; i < cr; i++)
@@ -782,7 +780,6 @@ namespace MyLeagueApp.ViewModels
 
                     seasons_count = sqlRd3[0].ToString();
                     sqlRd3.Close();
-                    //sqlConn.Close();
 
                     int cr = Int32.Parse(seasons_count);
 
@@ -804,7 +801,6 @@ namespace MyLeagueApp.ViewModels
 
                     for (int i = 0; i < cr; i++)
                     {
-                        //sqlConn.Open();
 
                         String sql_m_id = "SELECT season FROM `seasonal_stats` WHERE `player_id`=" + Selected_player1.Id + " LIMIT " + i + ",1; ";
 
@@ -834,7 +830,6 @@ namespace MyLeagueApp.ViewModels
 
                     seasons_count = sqlRd3[0].ToString();
                     sqlRd3.Close();
-                    //sqlConn.Close();
 
                     cr = Int32.Parse(seasons_count);
 
@@ -856,7 +851,6 @@ namespace MyLeagueApp.ViewModels
 
                     for (int i = 0; i < cr; i++)
                     {
-                        //sqlConn.Open();
 
                         String sql_m_id = "SELECT season FROM `seasonal_stats` WHERE `player_id`=" + Selected_player2.Id + " LIMIT " + i + ",1; ";
 
@@ -925,7 +919,6 @@ namespace MyLeagueApp.ViewModels
 
                     seasons_count = sqlRd3[0].ToString();
                     sqlRd3.Close();
-                    //sqlConn.Close();
 
                     int cr = Int32.Parse(seasons_count);
 
@@ -947,7 +940,6 @@ namespace MyLeagueApp.ViewModels
 
                     for (int i = 0; i < cr; i++)
                     {
-                        //sqlConn.Open();
 
                         String sql_m_id = "SELECT season FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team1.ApiId + " LIMIT " + i + ",1; ";
 
@@ -977,7 +969,6 @@ namespace MyLeagueApp.ViewModels
 
                     seasons_count = sqlRd3[0].ToString();
                     sqlRd3.Close();
-                    //sqlConn.Close();
 
                     cr = Int32.Parse(seasons_count);
 
@@ -999,7 +990,6 @@ namespace MyLeagueApp.ViewModels
 
                     for (int i = 0; i < cr; i++)
                     {
-                        //sqlConn.Open();
 
                         String sql_m_id = "SELECT season FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team2.ApiId + " LIMIT " + i + ",1; ";
 
@@ -1079,18 +1069,15 @@ namespace MyLeagueApp.ViewModels
 
                     stats_count = sqlRd3[0].ToString();
                     sqlRd3.Close();
-                    //sqlConn.Close();
 
                     int cr = Int32.Parse(stats_count);
 
                     if (cr == 0)
                     {
-                        //label.IsVisible = true;
                     }
 
                     for (int i = 0; i < cr; i++)
                     {
-                        //sqlConn.Open();
 
                         String sql_id = "SELECT season_id FROM `seasonal_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + "; ";
 
@@ -1324,18 +1311,15 @@ namespace MyLeagueApp.ViewModels
 
                     stats_count = sqlRd3[0].ToString();
                     sqlRd3.Close();
-                    //sqlConn.Close();
 
                     cr = Int32.Parse(stats_count);
 
                     if (cr == 0)
                     {
-                        //label.IsVisible = true;
                     }
 
                     for (int i = 0; i < cr; i++)
                     {
-                        //sqlConn.Open();
 
                         String sql_id = "SELECT season_id FROM `seasonal_stats` WHERE `player_id`=" + Selected_player2.Id + " AND `season`=" + Selected_season2 + "; ";
 
@@ -2182,18 +2166,15 @@ namespace MyLeagueApp.ViewModels
 
                     stats_count = sqlRd3[0].ToString();
                     sqlRd3.Close();
-                    //sqlConn.Close();
 
                     int cr = Int32.Parse(stats_count);
 
                     if (cr == 0)
                     {
-                        //label.IsVisible = true;
                     }
 
                     for (int i = 0; i < cr; i++)
                     {
-                        //sqlConn.Open();
 
                         String sql_id = "SELECT stat_id FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team1.ApiId + " AND `season`=" + Selected_season1 + "; ";
 
@@ -2277,18 +2258,15 @@ namespace MyLeagueApp.ViewModels
 
                     stats_count = sqlRd3[0].ToString();
                     sqlRd3.Close();
-                    //sqlConn.Close();
 
                     cr = Int32.Parse(stats_count);
 
                     if (cr == 0)
                     {
-                        //label.IsVisible = true;
                     }
 
                     for (int i = 0; i < cr; i++)
                     {
-                        //sqlConn.Open();
 
                         String sql_id = "SELECT stat_id FROM `seasonal_stats_teams` WHERE `team_id`=" + Selected_team2.ApiId + " AND `season`=" + Selected_season2 + "; ";
 
@@ -2661,13 +2639,6 @@ namespace MyLeagueApp.ViewModels
                 GraphDataTrueShooting1 = new ObservableCollection<GraphData>();
                 GraphDataTrueShooting2 = new ObservableCollection<GraphData>();
 
-                //sqlConn.ConnectionString = "server=" + server + ";user id=" + username +
-                //                            ";password=" + password +
-                //                            ";database=" + database +
-                //                            ";convert zero datetime=True";
-
-                //sqlConn.Open();
-
                 String sql = "SELECT COUNT(*) FROM `sampled_player_stats` WHERE `player_id`=" + Selected_player1.Id + " AND `season`=" + Selected_season1 + " ORDER BY `game_id`; ";
 
                 sqlCmd = new MySqlCommand(sql, sqlConn);
@@ -3006,8 +2977,6 @@ namespace MyLeagueApp.ViewModels
 
                 }
 
-                //sqlConn.Close();
-
             }
             catch (Exception ex)
             {
@@ -3214,7 +3183,6 @@ namespace MyLeagueApp.ViewModels
 
                 if (cr == 0)
                 {
-                    //label.IsVisible = true;
                 }
 
                 for (int i = 0; i < cr; i++)
@@ -3344,7 +3312,6 @@ namespace MyLeagueApp.ViewModels
 
                 if (cr == 0)
                 {
-                    //label.IsVisible = true;
                 }
 
                 for (int i = 0; i < cr; i++)
@@ -3496,18 +3463,15 @@ namespace MyLeagueApp.ViewModels
 
                 stats_count = sqlRd3[0].ToString();
                 sqlRd3.Close();
-                //sqlConn.Close();
 
                 int cr = Int32.Parse(stats_count);
 
                 if (cr == 0)
                 {
-                    //label.IsVisible = true;
                 }
 
                 for (int i = 0; i < cr; i++)
                 {
-                    //sqlConn.Open();
 
                     String sql_id = "SELECT season_id FROM `seasonal_stats` WHERE `player_id`=" + PlayersTeam1[j].Id + " AND `season`=" + Selected_season1 + "; ";
 
@@ -3762,18 +3726,15 @@ namespace MyLeagueApp.ViewModels
 
                 stats_count = sqlRd3[0].ToString();
                 sqlRd3.Close();
-                //sqlConn.Close();
 
                 int cr = Int32.Parse(stats_count);
 
                 if (cr == 0)
                 {
-                    //label.IsVisible = true;
                 }
 
                 for (int i = 0; i < cr; i++)
                 {
-                    //sqlConn.Open();
 
                     String sql_id = "SELECT season_id FROM `seasonal_stats` WHERE `player_id`=" + PlayersTeam2[j].Id + " AND `season`=" + Selected_season2 + "; ";
 

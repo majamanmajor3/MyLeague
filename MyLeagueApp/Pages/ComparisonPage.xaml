@@ -15,7 +15,7 @@
                 Spacing="{Binding UpdateSpacing}"
                 Padding="214,0"
                 VerticalOptions="Center">
-                
+
                 <Label 
                 Text="Welcome to the Comparison Page!"
                 VerticalOptions="Center" 
@@ -61,20 +61,6 @@
                 HeightRequest="5"/>
 
             </HorizontalStackLayout>
-
-            <!--<Grid Grid.Row="0" HorizontalOptions="Center" Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>-->
 
             <HorizontalStackLayout
                 Spacing="444"

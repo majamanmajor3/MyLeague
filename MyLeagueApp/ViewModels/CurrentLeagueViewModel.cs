@@ -100,7 +100,6 @@ namespace MyLeagueApp.ViewModels
 
                 if (cr == 0)
                 {
-                    //label.IsVisible = true;
                 }
 
                 for (int i = 0; i < cr; i++)

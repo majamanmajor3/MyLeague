@@ -29,7 +29,6 @@ public partial class TeamOverviewPage : ContentPage
     {
         Player item = args.SelectedItem as Player;
         int player_id = item.Id;
-        //DisplayAlert("", name, "OK");
         EditPlayerPage page = new EditPlayerPage(player_id);
         Navigation.PushAsync(page);
     }

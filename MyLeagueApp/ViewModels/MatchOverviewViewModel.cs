@@ -47,7 +47,6 @@ namespace MyLeagueApp.ViewModels
 
         String current_league_name;
         int current_match_id;
-        //string date;
         int hometeam;
         int awayteam;
 

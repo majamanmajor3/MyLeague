@@ -29,12 +29,6 @@ namespace MyLeagueApp.ViewModels
         [ObservableProperty]
         ObservableCollection<Team> teams;
 
-        //[ObservableProperty]
-        //Picker home_picker;
-
-        //[ObservableProperty]
-        //Picker away_picker;
-
         [ObservableProperty]
         Team selected_home;
 
@@ -194,12 +188,6 @@ namespace MyLeagueApp.ViewModels
 
                     match_id = Int32.Parse(sqlRd[0].ToString());
                     sqlRd.Close();
-
-                    //int home_index = Selected_home.Id;
-                    //home_team = Teams[home_index].Id-1;
-
-                    //int away_index = Selected_away.Id;
-                    //away_team = Teams[away_index].Id-1;
 
                     date = Selected_date;
 

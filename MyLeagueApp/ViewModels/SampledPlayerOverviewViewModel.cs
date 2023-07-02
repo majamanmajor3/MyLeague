@@ -80,7 +80,7 @@ namespace MyLeagueApp.ViewModels
         private string playerWeightPounds;
 
         [ObservableProperty]
-        private int playerAPIId; //ADD HOZZA ITT IS!!
+        private int playerAPIId;
 
         int current_player_id;
 
@@ -106,11 +106,6 @@ namespace MyLeagueApp.ViewModels
         {
             try
             {
-
-                //int team_count;
-                //string team_name;
-                //string team_city;
-                //string team_logo;
 
                 string first_name;
                 string last_name;
@@ -302,7 +297,6 @@ namespace MyLeagueApp.ViewModels
 
                 if (cr == 0)
                 {
-                    //label.IsVisible = true;
                 }
 
                 for (int i = 0; i < cr; i++)
@@ -551,7 +545,6 @@ namespace MyLeagueApp.ViewModels
             {
 
                 WebClient client = new WebClient();
-                //String stats = client.DownloadString("https://free-nba.p.rapidapi.com/stats?seasons[]=2021&player_ids[]=237&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688");
                 String search_string = "https://free-nba.p.rapidapi.com/stats?seasons[]=" + Int32.Parse(result) + "&player_ids[]=" + PlayerAPIId + "&per_page=100&rapidapi-key=ffe8de403amshdbfef1479d9fdafp10e8a0jsna7708bdc0688";
                 String stats = client.DownloadString(search_string);
                 dynamic data = JObject.Parse(stats);
@@ -616,8 +609,6 @@ namespace MyLeagueApp.ViewModels
                 double fouls_avg = 0;
                 double minutes_avg = 0;
 
-                //List<PlayerStatSample> list = Matches.ToList();
-
                 foreach (PlayerStatSample match in list)
                 {
                     points_avg += match.Points;
@@ -634,7 +625,6 @@ namespace MyLeagueApp.ViewModels
                     turnovers_avg += match.Turnovers;
                     fouls_avg += match.PersonalFouls;
                     minutes_avg += match.MinutesPlayed;
-                    //seconds += Int32.Parse(match.MinutesPlayed.Remove(2))*60 + Int32.Parse(match.MinutesPlayed.Substring(match.MinutesPlayed.Length - 2));
                 }
 
                 points_avg /= list.Count;
@@ -651,9 +641,6 @@ namespace MyLeagueApp.ViewModels
                 turnovers_avg /= list.Count;
                 fouls_avg /= list.Count;
                 minutes_avg /= list.Count;
-                //int sec_avg = seconds % 60;
-                //int min_avg = seconds / 60;
-                //minutes_avg = min_avg + ":" + sec_avg;
 
                 bool answer = await Shell.Current.DisplayAlert("Are you sure you want to import this season?",
                                                           "Season: " + Int32.Parse(result) + "\n" +

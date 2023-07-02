@@ -49,30 +49,6 @@ namespace MyLeagueApp.ViewModels
         [ObservableProperty]
         ObservableCollection<Player> players;
 
-        //[ObservableProperty]
-        //private string fullName;
-
-        //[ObservableProperty]
-        //private int points;
-
-        //[ObservableProperty]
-        //private int rebounds;
-
-        //[ObservableProperty]
-        //private int assists;
-
-        //[ObservableProperty]
-        //private int steals;
-
-        //[ObservableProperty]
-        //private int blocks;
-
-        //[ObservableProperty]
-        //private int threesmade;
-
-        //[ObservableProperty]
-        //private int threesattempted;
-
         private int homeScore;
         private int awayScore;
         private string homename;
@@ -228,8 +204,6 @@ namespace MyLeagueApp.ViewModels
 
                 sqlConn2.Close();
 
-                //home_picker.SelectedItem = teams[home_team];
-                //away_picker.SelectedItem = teams[away_team];
                 hometeam = home_team;
                 awayteam = away_team;
                 homeScore = home_score;
@@ -282,7 +256,6 @@ namespace MyLeagueApp.ViewModels
 
                 if (cr == 0)
                 {
-                    //label.IsVisible = true;
                 }
 
                 for (int i = 0; i < cr; i++)
@@ -496,14 +469,6 @@ namespace MyLeagueApp.ViewModels
         [RelayCommand]
         private void ConfirmMatchClicked()
         {
-            //if (
-            //    //home_picker == null || away_picker == null || 
-            //    homeScore == null || awayScore == null)
-            //{
-            //    DisplayAlert("ATTENTION", "You haven't picked all data for the match yet!", "OK");
-            //}
-            //else
-            //{
             try
             {
 
@@ -532,12 +497,6 @@ namespace MyLeagueApp.ViewModels
 
                 match_id = Int32.Parse(sqlRd[0].ToString());
                 sqlRd.Close();
-
-                //int home_index = home_picker.SelectedIndex;
-                //home_team = teams[home_index].Id;
-
-                //int away_index = away_picker.SelectedIndex;
-                //away_team = teams[away_index].Id;
 
                 home_team = hometeam;
                 away_team = awayteam;
@@ -590,8 +549,6 @@ namespace MyLeagueApp.ViewModels
                         int stat_id = Int32.Parse(sqlRd[0].ToString());
                         sqlRd.Close();
 
-                        //FullName = player.FullName;
-
                         String sql_insert = "INSERT INTO `" + current_league_name + "_stats` (`player_id`, `match_id`, `first_name`, `last_name`, `points`, `rebounds`, `steals`, `blocks`, `threesmade`, `threesattempted`, `assists`) " +
                             "VALUES ('" + player.Id + "', '" + current_match_id + "', '" + player.FirstName + "', '" + player.LastName + "', '" + stat.Points + "', '" + stat.Rebounds + "', '" + stat.Steals + "', '" + stat.Blocks + "', '" + stat.ThreesMade + "', '" + stat.ThreesAttempted + "', '" + stat.Assists + "');";
 
@@ -639,7 +596,6 @@ namespace MyLeagueApp.ViewModels
                 Application.Current.MainPage.DisplayAlert("", "Your match has been edited succesfully!", "OK");
 
                 Shell.Current.GoToAsync(nameof(LeaguesPage));
-                // oldd meg szebben !!!
 
             }
             catch (Exception ex)
